@@ -4,7 +4,7 @@
   "description": "Dust concentration monitoring tool.",
   "main": "hazy.js",
   "scripts": {
-  	"postinstall": "cd public && npm install",
+    "postinstall": "cd public && npm install",
     "configure": "sudo npm install pm2 -g && sudo ./deploy.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
     "start": "pm2 start server.js",
