@@ -41,9 +41,9 @@ if (argv.port === undefined) {
 	Spawn Hazy service.
 */
 
-const Hazy = require('./hazy'); 
+const Hazyair = require('./hazyair'); 
 
-let hazy = new Hazy(argv.model, argv.dev, argv.port);
+let hazyair = new Hazyair(argv.model, argv.dev, argv.port);
 
 /*
 	Handle system signals.
@@ -51,7 +51,7 @@ let hazy = new Hazy(argv.model, argv.dev, argv.port);
 
 function handle() {
 
-	hazy.stop();
+	hazyair.stop();
 	process.exit(0);
 
 }
@@ -59,4 +59,4 @@ function handle() {
 process.on('SIGINT', () => handle());
 process.on('SIGTERM', () => handle());
 
-hazy.start();
+hazyair.start();

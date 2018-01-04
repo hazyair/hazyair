@@ -1,5 +1,5 @@
 
-function hazy(param) {
+function hazyair(param) {
 	
 	document.getElementById('day').style['font-weight'] = 'normal';
 	document.getElementById('week').style['font-weight'] = 'normal';
@@ -12,7 +12,7 @@ function hazy(param) {
 	document.getElementById('year').style.color = '#aaa';
 	document.getElementById(param).style.color = '#000';
 	
-	fetch('hazy/api/last?'+param)
+	fetch('hazyair/api/last?'+param)
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
     	let x = ['x'];
@@ -82,4 +82,4 @@ function hazy(param) {
     });
 }
 
-hazy('day');
+hazyair('day');

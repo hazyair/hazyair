@@ -8,14 +8,14 @@ const express = require('express');
 
 const Api = require('./api');
 
-let Hazy = function(model, dev, port) {
+let Hazyair = function(model, dev, port) {
 
 	this.api = new Api(model, dev);
 	this.port = port;
 
 };
 
-Hazy.prototype.start = function() { 	
+Hazyair.prototype.start = function() { 	
 
 	/*
 		Setup the cron job.
@@ -58,18 +58,18 @@ Hazy.prototype.start = function() {
 
     	var host = this.server.address().address;
     	var port = this.server.address().port;
-    	console.log("Hazy service is listening at http://%s:%s", host, port);
+    	console.log("hazyair service is listening at http://%s:%s.", host, port);
 	
 	});
 
 };
 
-Hazy.prototype.stop = function () {
+Hazyair.prototype.stop = function () {
 
 	this.server.close();
-	console.log('Hazy service has been stopped.');
+	console.log('hazyair service has been stopped.');
 	this.api.close();
 
 };
 
-module.exports = Hazy;
+module.exports = Hazyair;

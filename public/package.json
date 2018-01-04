@@ -1,10 +1,10 @@
 {
-  "name": "hazy",
+  "name": "hazyair",
   "description": "Dust concentration monitoring tool.",
   "author": "Marcin Sielski",
   "repository": {
     "type": "git",
-    "url": "https://github.com/marcin-sielski/hazy.git"
+    "url": "https://github.com/marcin-sielski/hazyair.git"
   },
   "license": "MIT",
   "dependencies": {
