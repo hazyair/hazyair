@@ -1,0 +1,22 @@
+<html>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href="hazy.css" rel="stylesheet">
+	<link href="node_modules/c3/c3.css" rel="stylesheet">
+	<script src="node_modules/d3/d3.min.js" charset="utf-8"></script>
+	<script src="node_modules/c3/c3.min.js"></script>
+	<body class="hazy">
+		<center>
+			<table class="c3-title">
+				<tr>
+					<th>Dust concentration chart during last</th>
+					<td id='day' class="hazy-link" onclick="hazy(this.id)">day</td>
+					<td id='week' class="hazy-link" onclick="hazy(this.id)">week</td>
+					<td id='month' class="hazy-link" onclick="hazy(this.id)">month</td>
+					<td id='year' class="hazy-link" onclick="hazy(this.id)">year</td>
+				</tr>
+			</table>
+		</center>
+		<div id="chart" class="c3-title">Loading...</div>
+		<script src="hazy.js"></script>
+	</body>
+</html>
