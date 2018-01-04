@@ -1,10 +1,10 @@
 # hazyair - Dust concentration monitoring tool. 
 
-```hazyair``` is a handy tool that enables to store measurments of the dust conectration (PM1.0, PM2.5, PM10) in the air to the simple database. It also visualizes the results on the charts accessible from the browsers.
+```hazyair``` is a handy tool that enables to store measurments of the dust conectration in the air (PM1.0, PM2.5, PM10) to the simple database. It also visualizes the results on the charts tha are accessible from the web browsers.
 
 ## Configuration
 
-```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi. Following [dust sensors](https://github.com/perfectworks/node-plantower) are currently supported.
+```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi. Supported dust sensors are avaialble under following [link](https://github.com/perfectworks/node-plantower).
 
 ## Installation
 
