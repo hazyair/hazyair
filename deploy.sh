@@ -66,6 +66,8 @@ if [ $ASK_TO_REBOOT -eq 1 ]; then
   fi
 fi
 
-mkdir db
+if [ ! -d "db" ]; then
+  mkdir db
+fi
 
 exit 0
