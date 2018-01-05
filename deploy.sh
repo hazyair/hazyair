@@ -48,12 +48,12 @@ if [ $(get_serial_hw) -eq 1 ]; then
 fi
 
 if ! grep -q -E "^dtoverlay=pi3-miniuart-bt" $CONFIG; then
-    printf "dtoverlay=pi3-miniuart-bt\n" >> $CONFIG
-    ASK_TO_REBOOT = 1
+  printf "dtoverlay=pi3-miniuart-bt\n" >> $CONFIG
+  ASK_TO_REBOOT = 1
 fi
 
 if ! grep -q -E "/node_modules/berkeleydb/lib" $LD_LIBC_CONFIG; then
-    printf "%s\n" "$BERKELEYDB" >> $CONFIG
+  printf "%s\n" "$BERKELEYDB" >> $CONFIG
 fi
 
 sudo ldconfig

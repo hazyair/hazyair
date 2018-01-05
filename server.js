@@ -2,7 +2,7 @@
 'use strict';
 
 /*
-	Process input parameters.
+    Process input parameters.
 */
 
 const path = require('path');
@@ -21,24 +21,24 @@ const argv = require('yargs').
 
 if (argv.model === undefined) {
 
-	argv.model = 'PMS7003';
+    argv.model = 'PMS7003';
 
 }
 
 if (argv.dev === undefined) {
 
-	argv.dev = '/dev/serial0';
+    argv.dev = '/dev/serial0';
 
 }
 
 if (argv.port === undefined) {
 
-	argv.port = '8081';
+    argv.port = '8081';
 
 }
 
 /*
-	Spawn Hazy service.
+    Spawn Hazy service.
 */
 
 const Hazyair = require('./hazyair'); 
@@ -46,13 +46,13 @@ const Hazyair = require('./hazyair');
 let hazyair = new Hazyair(argv.model, argv.dev, argv.port);
 
 /*
-	Handle system signals.
+    Handle system signals.
 */
 
 function handle() {
 
-	hazyair.stop();
-	process.exit(0);
+    hazyair.stop();
+    process.exit(0);
 
 }
 
