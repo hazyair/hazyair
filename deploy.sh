@@ -65,4 +65,7 @@ if [ $ASK_TO_REBOOT -eq 1 ]; then
     reboot
   fi
 fi
+
+mkdir db
+
 exit 0

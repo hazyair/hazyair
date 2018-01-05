@@ -10,9 +10,17 @@
 
 Make sure recent version of ```node``` is installed. Raspberry Pi Zero W requires ARMv6 version of the binaries which must be downloaded from [nodejs.org](https://nodejs.org/en/download/) and installed manually in ```/usr/local/bin``` folder.
 
+Create ```node_modules``` folder.
+
+```mkdir node_modules```
+
 Install ```hazyair``` module.
 
 ```npm install hazyair```
+
+Browse to ```hazyair``` folder.
+
+```cd node_modules/hazyair```
 
 Run board configuration script.
 
