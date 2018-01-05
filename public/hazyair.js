@@ -12,6 +12,14 @@ function hazyair(param) {
     document.getElementById('year').style.color = '#aaa';
     document.getElementById(param).style.color = '#000';
     
+    let pm100limit = 50;
+    let pm25limit = 25;
+    if (param === 'year') {
+        pm100limit = 20;
+        pm25limit = 10;
+    }
+
+    
     fetch('hazyair/api/last?'+param)
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
@@ -68,8 +76,8 @@ function hazyair(param) {
             grid: {
                 y: {
                     lines: [
-                        {value: 25, text: 'PM 2.5 Limit (25)', position: 'start'},
-                        {value: 50, text: 'PM 10 Limit (50)', position: 'start'},
+                        {value: pm25limit, text: 'PM 2.5 Limit ('+pm25limit+')', position: 'start'},
+                        {value: pm100limit, text: 'PM 10 Limit ('+pm100limit+')', position: 'start'},
                         {value: pm25average, text: 'PM 2.5 Average ('+pm25average+')', position: 'middle'},
                         {value: pm100average, text: 'PM 10 Average ('+pm100average+')', position: 'middle'},
                         {value: pm10average, text: 'PM 1.0 Average ('+pm10average+')', position: 'middle'}
