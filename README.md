@@ -8,7 +8,13 @@
 
 ## Installation
 
-Make sure recent version of ```node``` is installed. Raspberry Pi Zero W requires ARMv6 version of the binaries which must be downloaded from [nodejs.org](https://nodejs.org/en/download/) and installed manually in ```/usr/local/bin``` folder.
+Install ```node```.
+
+```
+git clone --depth=1 https://github.com/tj/n.git
+cd n && sudo make install && cd ..
+n lts
+```
 
 Create ```node_modules``` folder.
 
