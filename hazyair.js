@@ -6,22 +6,29 @@ const CronJob = require('cron').CronJob;
 const moment = require('moment');
 const express = require('express');
 
-const Api = require('./api');
+const Dust = require('./dust');
+const Temperature = require('./temperature');
 
-let Hazyair = function(model, dev, port) {
+let Hazyair = function(config, port) {
 
-    this.api = new Api(model, dev);
+    if (config.dust !== undefined && config.dust.model !== undefined && config.dust.device !== undefined) {
+        this.dust = new Dust(config.dust.model, config.dust.device);
+    }
+    if (config.temperature !== undefined && config.temperature.model !== undefined) {
+        this.temperature = new Temperature(config.temperature.model);
+    }
+    this.capabilities = [ 'dust', 'temperature'];//, 'pressure', 'humidity' ];
     this.port = port;
 
 };
 
+Hazyair.prototype.info = function(req, res) {
+
+    res.json(this.capabilities);
+
+};
+
 Hazyair.prototype.start = function() {     
-
-    /*
-        Setup the cron job.
-    */
-
-    new CronJob('0 0 * * * *', () => this.api.store(), null, true, moment.tz.guess());
 
     /*
         Handle incoming requests.
@@ -29,26 +36,22 @@ Hazyair.prototype.start = function() {
 
     const app = express();
 
-    const service = '/' + path.basename(__filename, '.js') + '/api';
+    const service = '/' + path.basename(__filename, '.js');
 
     app.use(express.static('public'));
 
+    app.get(service + '/info', (req, res) => this.info(req, res));
 
-    app.get(service + '/info', (req, res) => this.api.info(req, res));
-    app.get(service + '/v1.0/info', (req, res) => this.api.info(req, res));
-    app.get(service + '/v1/info', (req, res) => this.api.info(req, res));
+    this.capabilities.forEach((item) => {
 
-    app.get(service + '/current', (req, res) => this.api.current(req, res));
-    app.get(service + '/v1.0/current', (req, res) => this.api.current(req, res));
-    app.get(service + '/v1/current', (req, res) => this.api.current(req, res));
+        new CronJob('0 0 * * * *', () => this[item].store(), null, true, moment.tz.guess());
 
-    app.get(service + '/last', (req, res) => this.api.last(req, res));
-    app.get(service + '/v1.0/last', (req, res) => this.api.last(req, res));
-    app.get(service + '/v1/last', (req, res) => this.api.last(req, res));
+        app.get(service + '/' + item + '/info', (req, res) => this[item].info(req, res));
+        app.get(service + '/' + item + '/current', (req, res) => this[item].current(req, res));
+        app.get(service + '/' + item + '/last', (req, res) => this[item].last(req, res));
+        app.get(service + '/' + item + '/mean', (req, res) => this[item].mean(req, res));
 
-    app.get(service + '/average', (req, res) => this.api.average(req, res));
-    app.get(service + '/v1.0/average', (req, res) => this.api.average(req, res));
-    app.get(service + '/v1/average', (req, res) => this.api.average(req, res));
+    });
 
     /*
         Spawn the service.
@@ -68,7 +71,7 @@ Hazyair.prototype.stop = function () {
 
     this.server.close();
     console.log('hazyair service has been stopped.');
-    this.api.close();
+    this.dust.close();
 
 };
 

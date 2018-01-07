@@ -6,15 +6,15 @@ const bdb = require('berkeleydb');
 
 const opts = { json: true };
 
-let Database = function(limit) {
+let Database = function(name, limit) {
 
     this.dbenv = new bdb.DbEnv();
-    if (this.dbenv.open(path.dirname(__filename) + '/db')) {
+    if (this.dbenv.open(path.dirname(__filename) + '/db/' + name)) {
         console.error('Failed to open database.');
         throw new Error('Failed to open database.');
     }
     this.db = new bdb.Db(this.dbenv);
-    this.db.open('hazy.db');
+    this.db.open('hazyair.db');
     this.meta = new bdb.Db(this.dbenv);
     this.meta.open('meta.db');
     console.log('Database connection openend.');

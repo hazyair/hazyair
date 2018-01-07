@@ -1,0 +1,27 @@
+'use strict';
+
+let Pressure = function() {
+    
+};
+
+Pressure.prototype.store = function() {
+    
+};
+
+Pressure.prototype.info = function(req, res) {
+    
+};
+
+Pressure.prototype.current = function(req, res) {
+    
+};
+
+Pressure.prototype.last = function(req, res) {
+    
+};
+
+Pressure.prototype.mean = function(req, res) {
+    
+};
+
+module.exports = Pressure;

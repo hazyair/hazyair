@@ -1,11 +1,11 @@
 {
   "name": "hazyair",
-  "version": "1.0.3",
-  "description": "Dust concentration monitoring tool.",
+  "version": "1.1.0",
+  "description": "Dust concentration and temperature monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
-    "postinstall": "cd public && npm install",
-    "configure": "sudo npm install pm2 -g && sudo ./deploy.sh",
+    "postinstall": "cd public && npm install && sudo npm install pm2 -g",
+    "configure": "sudo ./configure.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
     "start": "pm2 start server.js",
     "stop": "pm2 stop server",
@@ -20,13 +20,20 @@
     "pm2.5",
     "pm10",
     "dust monitoring",
-    "air quality"
+    "temperature monitoring",
+    "air quality",
+    "weather",
+    "monitore",
+    "dust",
+    "tempreature"
   ],
   "author": "Marcin Sielski",
   "license": "MIT",
   "dependencies": {
     "berkeleydb": "^0.2.1",
+    "bme280-sensor": "^0.1.6",
     "cron": "^1.3.0",
+    "ds18b20": "^0.1.0",
     "express": "^4.16.2",
     "moment": "^2.20.1",
     "plantower": "^1.1.6",

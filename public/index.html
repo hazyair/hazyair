@@ -8,17 +8,34 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
     </head>
     <body class="hazyair">
-        <center>
-            <table class="c3-title">
-                <tr>
-                    <th>Dust concentration chart during last</th>
-                    <td id='day' class="hazyair-link" onclick="hazyair(this.id)">day</td>
-                    <td id='week' class="hazyair-link" onclick="hazyair(this.id)">week</td>
-                    <td id='month' class="hazyair-link" onclick="hazyair(this.id)">month</td>
-                    <td id='year' class="hazyair-link" onclick="hazyair(this.id)">year</td>
-                </tr>
-            </table>
-        </center>
+        <table class="c3-title" width="100%">
+            <tr>
+                <td align="left" width="33%">
+                    <table>
+                        <tr id="type">
+                            <th>Chart type:</th>
+                            <td id="dust" class="hazyair-link" onclick="hazyair(this.id, null)">dust</td>
+                            <td id="temperature" class="hazyair-link" onclick="hazyair(this.id, null)">temperature</td>
+                            <td id="pressure" class="hazyair-link" onclick="hazyair(this.id, null)">pressure</td>
+                            <td id="humidity" class="hazyair-link" onclick="hazyair(this.id, null)">humidity</td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="center" width="33%">
+                    <table >
+                        <tr>
+                            <th>Dust concentration chart during last</th>
+                            <td id='day' class="hazyair-link" onclick="hazyair(null, this.id)">day</td>
+                            <td id='week' class="hazyair-link" onclick="hazyair(null, this.id)">week</td>
+                            <td id='month' class="hazyair-link" onclick="hazyair(null, this.id)">month</td>
+                            <td id='year' class="hazyair-link" onclick="hazyair(null, this.id)">year</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
         <div id="chart" class="c3-title">Loading...</div>
         <script src="node_modules/d3/d3.min.js"></script>
         <script src="node_modules/c3/c3.min.js"></script>

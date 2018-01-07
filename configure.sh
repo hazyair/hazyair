@@ -42,14 +42,18 @@ EOF
 mv "$3.bak" "$3"
 }
 
-if [ $(get_serial_hw) -eq 1 ]; then
-  set_config_var enable_uart 1 $CONFIG
-  ASK_TO_REBOOT=1
-fi
+if [ "x$1" == "xdust" ]; then
 
-if ! grep -q -E "^dtoverlay=pi3-miniuart-bt" $CONFIG; then
-  printf "dtoverlay=pi3-miniuart-bt\n" >> $CONFIG
-  ASK_TO_REBOOT = 1
+  if [ $(get_serial_hw) -eq 1 ]; then
+    set_config_var enable_uart 1 $CONFIG
+    ASK_TO_REBOOT=1
+  fi
+
+  if ! grep -q -E "^dtoverlay=pi3-miniuart-bt" $CONFIG; then
+    printf "dtoverlay=pi3-miniuart-bt\n" >> $CONFIG
+    ASK_TO_REBOOT = 1
+  fi
+
 fi
 
 if ! grep -q -E "/node_modules/berkeleydb/lib" $LD_LIBC_CONFIG; then
@@ -58,16 +62,16 @@ fi
 
 sudo ldconfig
 
+if [ ! -d "db" ]; then
+  mkdir -p db/pm
+fi
+
 if [ $ASK_TO_REBOOT -eq 1 ]; then
   whiptail --yesno "Would you like to reboot now?" 20 60 2
   if [ $? -eq 0 ]; then # yes
     sync
     reboot
   fi
-fi
-
-if [ ! -d "db" ]; then
-  mkdir db
 fi
 
 exit 0

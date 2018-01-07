@@ -5,15 +5,15 @@ const Plantower = require('plantower');
 const Database = require('./database');
 const Cache = require('./cache');
 
-let Api = function(model, dev) {
+let Dust = function(model, dev) {
 
     this.plantower = new Plantower(model, dev);
-    this.database = new Database(24 * 366);
-    this.cache = new Cache(['last', 'average']);
+    this.database = new Database('dust', 24 * 366);
+    this.cache = new Cache(['last', 'mean']);
 
 };
 
-Api.prototype.store = function() {
+Dust.prototype.store = function() {
 
     this.plantower.read().then((data) => {
         this.cache.clean();
@@ -24,13 +24,13 @@ Api.prototype.store = function() {
 
 };
 
-Api.prototype.info = function (req, res) {
+Dust.prototype.info = function (req, res) {
 
     res.json(this.database.records());
 
 };
 
-Api.prototype.current = function (req, res) {
+Dust.prototype.current = function (req, res) {
 
     this.plantower.read().then((data) => {
         res.json(data);
@@ -41,7 +41,7 @@ Api.prototype.current = function (req, res) {
 
 };
 
-Api.prototype.last  = function(req, res) {
+Dust.prototype.last  = function(req, res) {
 
     let response = this.cache.read('last', req.query);
     if (response === null) {
@@ -57,9 +57,9 @@ Api.prototype.last  = function(req, res) {
 
 };
 
-Api.prototype.average = function(req, res) {
+Dust.prototype.mean = function(req, res) {
 
-    let response = this.cache.read('average', req.query);
+    let response = this.cache.read('mean', req.query);
     if (response === null) {
         let divider = 0;
         this.database.find(this.cache.timestamp(req.query), (record) => {
@@ -81,7 +81,7 @@ Api.prototype.average = function(req, res) {
             }
             divider++;
         });
-        if (response !== undefined && divider) {
+        if (response !== undefined && response !== null && divider) {
             response['concentration_pm1.0_normal'].value = Math.round(response['concentration_pm1.0_normal'].value/divider);
             response['concentration_pm2.5_normal'].value = Math.round(response['concentration_pm2.5_normal'].value/divider);
             response.concentration_pm10_normal.value = Math.round(response.concentration_pm10_normal.value/divider);
@@ -94,17 +94,17 @@ Api.prototype.average = function(req, res) {
             response['count_pm_2.5'].value = Math.round(response['count_pm_2.5'].value/divider);
             response.count_pm_5.value = Math.round(response.count_pm_5.value/divider);
             response.count_pm_10.value = Math.round(response.count_pm_10.value/divider);
-            this.cache.write('average', req.query, response);
+            this.cache.write('mean', req.query, response);
         }
     }
     res.json(response);
 
 };
 
-Api.prototype.close  = function() {
+Dust.prototype.close  = function() {
 
     this.database.close();
 
 };
 
-module.exports = Api;
+module.exports = Dust;
