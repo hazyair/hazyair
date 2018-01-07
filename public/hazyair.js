@@ -120,10 +120,8 @@ function hazyair(type, period) {
 fetch('hazyair/info')
     .then((resp) => resp.json()) // Transform the data into json
     .then(function(data) {
-        document.getElementById('type').innerHTML = '<th>Chart type:</th>';
         data.forEach((type) => {
-            document.getElementById('type').innerHTML +=
-                '<td id="'+type+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type+'</td>';    
+            document.getElementById(type).style.visibility = 'visible';
         });
         gTypes = data;
         gType = gTypes[0];
