@@ -1,8 +1,0 @@
-[
-  {
-    "parameter": "temperature",
-    "options": {
-      "model": "DS18B20"
-    }
-  }
-]
