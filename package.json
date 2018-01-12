@@ -13,7 +13,8 @@
     "start": "pm2 start server.js",
     "stop": "pm2 stop server",
     "restart": "pm2 restart server",
-    "delete": "pm2 delete server"
+    "delete": "pm2 delete server",
+    "show": "pm2 show server"
   },
   "repository": {
     "type": "git",
