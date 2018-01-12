@@ -18,7 +18,7 @@ let Hazyair = function(config) {
             if (item.parameter === 'dust') {
                 if (item.hasOwnProperty('options') && item.options.hasOwnProperty('model') &&
                 item.options.hasOwnProperty('device')) {
-                    this.dust = new Dust(item.dust.model, item.dust.device);
+                    this.dust = new Dust(item.options.model, item.options.device);
                 }
             } else if (item.parameter === 'temperature') {
                 if (item.hasOwnProperty('options') && item.options.hasOwnProperty('model')) {

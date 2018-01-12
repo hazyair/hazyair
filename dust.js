@@ -6,9 +6,9 @@ const Database = require('./database');
 const Cache = require('./cache');
 const round = require('./round');
 
-let Dust = function(sensor, device) {
+let Dust = function(model, device) {
 
-    this.plantower = new Plantower(sensor, device);
+    this.plantower = new Plantower(model, device);
     this.database = new Database('dust', 24 * 366);
     this.cache = new Cache(['last', 'mean']);
 
