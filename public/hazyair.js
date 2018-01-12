@@ -122,6 +122,7 @@ function hazyair(type, period) {
                 });
             })
             .catch(function(error) {
+        		document.getElementById("chart").innerHTML = error;
             });
             
     } else {
