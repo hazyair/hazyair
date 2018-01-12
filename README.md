@@ -1,12 +1,23 @@
 # hazyair - Dust concentration monitoring tool. 
 
-```hazyair``` is a handy tool that enables to store measurments of the dust conectration in the air (PM1.0, PM2.5, PM10) to the simple database. It also visualizes the measurement results on the charts that are accessible from the web browsers.
+```hazyair``` is a handy tool that enables to store measurments of the:
+* dust conectration in the air (PM1.0, PM2.5, PM10),
+* temperature,
+* humidity (__under development__),
+* pressure (__under development__)
+to the simple database. It also visualizes the measurement results on the charts that are accessible from the web browsers.
 
 ## Configuration
 
-```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi. Supported dust sensors are available under following [link](https://github.com/perfectworks/node-plantower).
+```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
+It support following sensors:
+* dust sensors - list are available under following [link](https://github.com/perfectworks/node-plantower),
+* temperature sensors - DS18B20,
+* temperature, pressure and optionally humidity combo sensors - BME280, BMP280 (__under development__)
 
 ## Installation
+
+### Common Steps
 
 Install ```node```.
 
@@ -24,16 +35,31 @@ Install ```hazyair``` module.
 
 ```npm install hazyair```
 
+### Use as a service
+
 Browse to ```hazyair``` folder.
 
 ```cd node_modules/hazyair```
 
-Run board configuration script.
+Run desired sensor configuration script (examples below).
 
-```npm run configure```
+```npm run plantower PMS7003 /dev/serial0```
+```npm run maxim```
 
 Deploy ```hazyair``` service.
 
 ```npm run deploy```
 
 Run web browser and open charts under following link ```http://<ip_address>:8081```.
+
+### Use as a module
+
+```javascript
+const Hazyair = require('hazyair');
+
+hazyair = new Hazyair([ { parameter: 'dust', options: { model: 'PMS7003', device:'/dev/serial0' } ]);
+
+hazyair.listen({
+    port: '8081'
+});
+```

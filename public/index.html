@@ -12,23 +12,17 @@
             <tr>
                 <td align="left" width="30%">
                     <table>
-                        <tr>
-                            <th>Chart type:</th>
-                            <td id="dust" class="hazyair-link hazyair-hidden" onclick="hazyair(this.id, null)">dust</td>
-                            <td id="temperature" class="hazyair-link hazyair-hidden" onclick="hazyair(this.id, null)">temperature</td>
-                            <td id="pressure" class="hazyair-link hazyair-hidden" onclick="hazyair(this.id, null)">pressure</td>
-                            <td id="humidity" class="hazyair-link hazyair-hidden" onclick="hazyair(this.id, null)">humidity</td>
-                        </tr>
+                        <tr id="type"></tr>
                     </table>
                 </td>
                 <td align="center" width="40%">
                     <table >
                         <tr>
-                            <th>Dust concentration chart during last</th>
-                            <td id='day' class="hazyair-link" onclick="hazyair(null, this.id)">day</td>
-                            <td id='week' class="hazyair-link" onclick="hazyair(null, this.id)">week</td>
-                            <td id='month' class="hazyair-link" onclick="hazyair(null, this.id)">month</td>
-                            <td id='year' class="hazyair-link" onclick="hazyair(null, this.id)">year</td>
+                            <th id="title"></th>
+                            <td id="day" class="hazyair-link" onclick="hazyair(null, this.id)">day</td>
+                            <td id="week" class="hazyair-link" onclick="hazyair(null, this.id)">week</td>
+                            <td id="month" class="hazyair-link" onclick="hazyair(null, this.id)">month</td>
+                            <td id="year" class="hazyair-link" onclick="hazyair(null, this.id)">year</td>
                         </tr>
                     </table>
                 </td>

@@ -4,10 +4,11 @@ const Plantower = require('plantower');
 
 const Database = require('./database');
 const Cache = require('./cache');
+const round = require('./round');
 
-let Dust = function(model, dev) {
+let Dust = function(sensor, device) {
 
-    this.plantower = new Plantower(model, dev);
+    this.plantower = new Plantower(sensor, device);
     this.database = new Database('dust', 24 * 366);
     this.cache = new Cache(['last', 'mean']);
 
@@ -82,18 +83,18 @@ Dust.prototype.mean = function(req, res) {
             divider++;
         });
         if (response !== undefined && response !== null && divider) {
-            response['concentration_pm1.0_normal'].value = Math.round(response['concentration_pm1.0_normal'].value/divider);
-            response['concentration_pm2.5_normal'].value = Math.round(response['concentration_pm2.5_normal'].value/divider);
-            response.concentration_pm10_normal.value = Math.round(response.concentration_pm10_normal.value/divider);
-            response['concentration_pm1.0_atmos'].value = Math.round(response['concentration_pm1.0_atmos'].value/divider);
-            response['concentration_pm2.5_atmos'].value = Math.round(response['concentration_pm2.5_atmos'].value/divider);
-            response.concentration_pm10_atmos.value = Math.round(response.concentration_pm10_atmos.value/divider);
-            response['count_pm_0.3'].value = Math.round(response['count_pm_0.3'].value/divider);
-            response['count_pm_0.5'].value = Math.round(response['count_pm_0.5'].value/divider);
-            response['count_pm_1.0'].value = Math.round(response['count_pm_1.0'].value/divider);
-            response['count_pm_2.5'].value = Math.round(response['count_pm_2.5'].value/divider);
-            response.count_pm_5.value = Math.round(response.count_pm_5.value/divider);
-            response.count_pm_10.value = Math.round(response.count_pm_10.value/divider);
+            response['concentration_pm1.0_normal'].value = round(response['concentration_pm1.0_normal'].value/divider);
+            response['concentration_pm2.5_normal'].value = round(response['concentration_pm2.5_normal'].value/divider);
+            response.concentration_pm10_normal.value = round(response.concentration_pm10_normal.value/divider);
+            response['concentration_pm1.0_atmos'].value = round(response['concentration_pm1.0_atmos'].value/divider);
+            response['concentration_pm2.5_atmos'].value = round(response['concentration_pm2.5_atmos'].value/divider);
+            response.concentration_pm10_atmos.value = round(response.concentration_pm10_atmos.value/divider);
+            response['count_pm_0.3'].value = round(response['count_pm_0.3'].value/divider);
+            response['count_pm_0.5'].value = round(response['count_pm_0.5'].value/divider);
+            response['count_pm_1.0'].value = round(response['count_pm_1.0'].value/divider);
+            response['count_pm_2.5'].value = round(response['count_pm_2.5'].value/divider);
+            response.count_pm_5.value = round(response.count_pm_5.value/divider);
+            response.count_pm_10.value = round(response.count_pm_10.value/divider);
             this.cache.write('mean', req.query, response);
         }
     }

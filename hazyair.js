@@ -9,26 +9,39 @@ const express = require('express');
 const Dust = require('./dust');
 const Temperature = require('./temperature');
 
-let Hazyair = function(config, port) {
+let Hazyair = function(config) {
 
-    if (config.dust !== undefined && config.dust.model !== undefined && config.dust.device !== undefined) {
-        this.dust = new Dust(config.dust.model, config.dust.device);
-    }
-    if (config.temperature !== undefined && config.temperature.model !== undefined) {
-        this.temperature = new Temperature(config.temperature.model);
-    }
-    this.capabilities = [ 'dust', 'temperature'];//, 'pressure', 'humidity' ];
-    this.port = port;
+    this.config = config;
+    this.config.forEach((item) => {
 
+        if (item.hasOwnProperty('parameter')) {
+            if (item.parameter === 'dust') {
+                if (item.hasOwnProperty('options') && item.options.hasOwnProperty('model') &&
+                item.options.hasOwnProperty('device')) {
+                    this.dust = new Dust(item.dust.model, item.dust.device);
+                }
+            } else if (item.parameter === 'temperature') {
+                if (item.hasOwnProperty('options') && item.options.hasOwnProperty('model')) {
+                    this.temperature = new Temperature(item.options.model); 
+                }
+            } else if (item.parameter === 'humidity') {
+            
+            } else if (item.parameter === 'pressure') {
+            
+            }
+        }
+
+    });
+    
 };
 
 Hazyair.prototype.info = function(req, res) {
 
-    res.json(this.capabilities);
+    res.json(this.config);
 
 };
 
-Hazyair.prototype.start = function() {     
+Hazyair.prototype.listen = function(options, callback = null) {     
 
     /*
         Handle incoming requests.
@@ -42,14 +55,19 @@ Hazyair.prototype.start = function() {
 
     app.get(service + '/info', (req, res) => this.info(req, res));
 
-    this.capabilities.forEach((item) => {
+    this.config.forEach((item) => {
 
-        new CronJob('0 0 * * * *', () => this[item].store(), null, true, moment.tz.guess());
+        if (item.hasOwnProperty('parameter')) {
+            if (!item.hasOwnProperty('options') || !item.options.hasOwnProperty('persistent') ||
+            item.options.persistent === true) {
+                new CronJob('0 0 * * * *', () => this[item.parameter].store(), null, true, moment.tz.guess());
+            }
 
-        app.get(service + '/' + item + '/info', (req, res) => this[item].info(req, res));
-        app.get(service + '/' + item + '/current', (req, res) => this[item].current(req, res));
-        app.get(service + '/' + item + '/last', (req, res) => this[item].last(req, res));
-        app.get(service + '/' + item + '/mean', (req, res) => this[item].mean(req, res));
+            app.get(service + '/' + item.parameter + '/info', (req, res) => this[item.parameter].info(req, res));
+            app.get(service + '/' + item.parameter + '/current', (req, res) => this[item.parameter].current(req, res));
+            app.get(service + '/' + item.parameter + '/last', (req, res) => this[item.parameter].last(req, res));
+            app.get(service + '/' + item.parameter + '/mean', (req, res) => this[item.parameter].mean(req, res));
+        }
 
     });
 
@@ -57,22 +75,28 @@ Hazyair.prototype.start = function() {
         Spawn the service.
     */
 
-    this.server = app.listen(this.port, () => {
+    this.server = app.listen(options, () => {
 
         var host = this.server.address().address;
         var port = this.server.address().port;
         console.log("hazyair service is listening at http://%s:%s.", host, port);
-    
+        if (callback !== null) callback();
+
     });
 
 };
 
-Hazyair.prototype.stop = function () {
+Hazyair.prototype.close = function (callback = null) {
 
-    this.server.close();
-    console.log('hazyair service has been stopped.');
-    this.dust.close();
-
+    this.server.close(() => {
+        this.config.forEach((item) => {
+            if (item.hasOwnProperty('parameter')) {
+                this[item.parameter].close();
+            }
+        });
+        console.log('hazyair service has been stopped.');
+        if (callback !== null) callback();
+    });
 };
 
 module.exports = Hazyair;

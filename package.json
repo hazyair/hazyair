@@ -5,11 +5,15 @@
   "main": "hazyair.js",
   "scripts": {
     "postinstall": "cd public && npm install && sudo npm install pm2 -g",
-    "configure": "sudo ./configure.sh",
+    "plantower": "sudo ./scripts/plantower.sh",
+    "maxim": "sudo ./scripts/maxim.sh",
+    "bosh": "sudo ./scripts/bosh.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
+    "undeploy": "pm2 stop server && pm2 delete server && pm2 save && pm2 unstartup | grep -v PM2 | sh",
     "start": "pm2 start server.js",
     "stop": "pm2 stop server",
-    "restart": "pm2 restart server"
+    "restart": "pm2 restart server",
+    "delete": "pm2 delete server"
   },
   "repository": {
     "type": "git",
@@ -21,11 +25,16 @@
     "pm10",
     "dust monitoring",
     "temperature monitoring",
+    "humidity monitoring",
+    "pressure monitoring",
     "air quality",
     "weather",
-    "monitore",
+    "monitor",
     "dust",
-    "tempreature"
+    "tempreature",
+    "humidity",
+    "pressure",
+    "weather station"
   ],
   "author": "Marcin Sielski",
   "license": "MIT",
