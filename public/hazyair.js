@@ -1,14 +1,15 @@
-let gTypes;
-let gType;
-let gPeriod = 'day';
+var gTypes;
+var gType;
+var gPeriod = 'day';
 
 function uppercase(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function round(value, decimals = 0) {
+function round(value, decimals) {
   return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
+
 
 function hazyair(type, period) {
     
@@ -47,8 +48,8 @@ function hazyair(type, period) {
     if (type.parameter === 'dust') {
     
         document.getElementById('title').innerHTML = 'Dust concentration chart during last';
-        let pm100limit = 50;
-        let pm25limit = 25;
+        var pm100limit = 50;
+        var pm25limit = 25;
         if (period === 'year') {
             pm100limit = 20;
             pm25limit = 10;
@@ -58,13 +59,13 @@ function hazyair(type, period) {
         fetch('hazyair/dust/last?'+period)
             .then((resp) => resp.json()) // Transform the data into json
             .then(function(data) {
-                let x = ['x'];
-                let pm10 = ['PM 1.0'];
-                let pm25 = ['PM 2.5'];
-                let pm100 = ['PM 10'];
-                let pm10mean = 0;
-                let pm25mean = 0;
-                let pm100mean = 0;
+                var x = ['x'];
+                var pm10 = ['PM 1.0'];
+                var pm25 = ['PM 2.5'];
+                var pm100 = ['PM 10'];
+                var pm10mean = 0;
+                var pm25mean = 0;
+                var pm100mean = 0;
                 data.forEach((record) => {
                     x.push(record.timestamp);
                     pm10.push(record['concentration_pm1.0_normal'].value);
@@ -74,9 +75,9 @@ function hazyair(type, period) {
                     pm25mean += record['concentration_pm2.5_normal'].value;
                     pm100mean += record.concentration_pm10_normal.value;
                 });
-                pm10mean = round(pm10mean/data.length);
-                pm25mean = round(pm25mean/data.length);
-                pm100mean = round(pm100mean/data.length);
+                pm10mean = round(pm10mean/data.length, 0);
+                pm25mean = round(pm25mean/data.length, 0);
+                pm100mean = round(pm100mean/data.length, 0);
                 var chart = c3.generate({
                     bindto: '#chart',
                     data: {
@@ -130,10 +131,10 @@ function hazyair(type, period) {
         fetch('hazyair/'+type.parameter+'/last?'+period)
             .then((resp) => resp.json()) // Transform the data into json
             .then(function(data) {
-                let x = ['x'];
-                let serie = [uppercase(type.parameter)];
-                let mean = 0;
-                let precision = 0;
+                var x = ['x'];
+                var serie = [uppercase(type.parameter)];
+                var mean = 0;
+                var precision = 0;
                 data.forEach((record) => {
                     x.push(record.timestamp);
                     serie.push(record[type.parameter].value);
@@ -183,11 +184,11 @@ function hazyair(type, period) {
                     }
                 });
             })
-            .catch(function(error) {
+            .catch((error) => {
+        		document.getElementById("chart").innerHTML = error;
             });
     }
 }
-
 
 fetch('hazyair/info')
     .then((resp) => resp.json()) // Transform the data into json
@@ -201,6 +202,7 @@ fetch('hazyair/info')
         gType = gTypes[0];
         hazyair(gType, gPeriod);
     })
-    .catch(function(error) {
+    .catch((error) => {
+        document.getElementById("chart").innerHTML = error;
     });
 
