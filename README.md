@@ -1,16 +1,17 @@
-# hazyair - Dust concentration monitoring tool. 
+# hazyair - Weather parameters monitoring tool. 
 
 ```hazyair``` is a handy tool that enables to store measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
 * temperature,
 * humidity (__under development__),
 * pressure (__under development__)
+
 to the simple database. It also visualizes the measurement results on the charts that are accessible from the web browsers.
 
 ## Configuration
 
 ```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
-It support following sensors:
+Following sensors are supported:
 * dust sensors - list are available under following [link](https://github.com/perfectworks/node-plantower),
 * temperature sensors - DS18B20,
 * temperature, pressure and optionally humidity combo sensors - BME280, BMP280 (__under development__)
@@ -44,6 +45,7 @@ Browse to ```hazyair``` folder.
 Run desired sensor configuration script (examples below).
 
 ```npm run plantower PMS7003 /dev/serial0```
+
 ```npm run maxim```
 
 Deploy ```hazyair``` service.
