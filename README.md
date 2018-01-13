@@ -59,9 +59,18 @@ Run web browser and open charts under following link ```http://<ip_address>:8081
 ```javascript
 const Hazyair = require('hazyair');
 
-hazyair = new Hazyair([ { parameter: 'dust', options: { model: 'PMS7003', device:'/dev/serial0' } ]);
+hazyair = new Hazyair([{    
+    parameter: 'dust',
+    options: {
+        model: 'PMS7003',
+        device:'/dev/serial0'
+}]);
 
 hazyair.listen({
     port: '8081'
+}, () => {
+    
+    // Additional code goes here.
+
 });
 ```
