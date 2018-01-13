@@ -68,6 +68,9 @@ function hazyair(type, period) {
                 pm10mean = round(pm10mean/data.length, 0);
                 pm25mean = round(pm25mean/data.length, 0);
                 pm100mean = round(pm100mean/data.length, 0);
+                
+                document.getElementById('chart').className = 'c3-title';
+                
                 var chart = c3.generate({
                     bindto: '#chart',
                     data: {
@@ -137,6 +140,9 @@ function hazyair(type, period) {
                     precision = 1;
                 }
                 mean = round(mean/data.length, precision);
+                
+                document.getElementById('chart').className = 'c3-title';
+
                 var chart = c3.generate({
                     bindto: '#chart',
                     data: {
