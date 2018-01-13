@@ -64,6 +64,7 @@ hazyair = new Hazyair([{
     options: {
         model: 'PMS7003',
         device:'/dev/serial0'
+    }
 }]);
 
 hazyair.listen({
@@ -74,3 +75,9 @@ hazyair.listen({
 
 });
 ```
+
+## License
+
+MIT License
+
+Copyright (c) 2018 Marcin Sielski
