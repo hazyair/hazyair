@@ -127,7 +127,7 @@ function hazyair(type, period) {
         
         document.getElementById('title').innerHTML = uppercase(type.parameter) +' chart during last';
         
-        asios('hazyair/'+type.parameter+'/last?'+period)
+        axios('hazyair/'+type.parameter+'/last?'+period)
             .then(function(data) {
                 data = data.data;
                 var x = ['x'];
