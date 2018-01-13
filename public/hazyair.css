@@ -24,5 +24,8 @@
 
 .domain {
     stroke: #f8f8f8 !important; 
+}
 
+.c3 line {
+    stroke: #f8f8f8 !important; 
 }
