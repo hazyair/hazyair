@@ -1,7 +1,25 @@
 .hazyair {
-    background-color: lemonchiffon;
+    background-color: #1a1a1a;
+    color: #f8f8f8;
 }
 
 .hazyair-link {
     cursor: pointer;
+    color: #aaa;
+    font-weight: normal;
+}
+
+.hazyair-link-active {
+    cursor: pointer;
+    color: #f8f8f8;
+    font-weight: bold;
+}
+
+.c3 { 
+  fill: #f8f8f8; 
+} 
+
+.domain {
+    stroke: #f8f8f8 !important; 
+
 }

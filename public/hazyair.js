@@ -24,26 +24,17 @@ function hazyair(type, period) {
     }
     
     gTypes.forEach(function(type) {
-        document.getElementById(type.parameter).style['font-weight'] = 'normal';
+        document.getElementById(type.parameter).className = 'hazyair-link';
     });
-    document.getElementById(type.parameter).style['font-weight'] = 'bold';
-    gTypes.forEach(function(type) {
-        document.getElementById(type.parameter).style.color = '#aaa';
-    });
-    document.getElementById(type.parameter).style.color = '#000';
+    document.getElementById(type).className = 'hazyair-link-active';
 
-    document.getElementById('day').style['font-weight'] = 'normal';
-    document.getElementById('week').style['font-weight'] = 'normal';
-    document.getElementById('month').style['font-weight'] = 'normal';
-    document.getElementById('year').style['font-weight'] = 'normal';
-    document.getElementById(period).style['font-weight'] = 'bold';
-    document.getElementById('day').style.color = '#aaa';
-    document.getElementById('week').style.color = '#aaa';
-    document.getElementById('month').style.color = '#aaa';
-    document.getElementById('year').style.color = '#aaa';
-    document.getElementById(period).style.color = '#000';
+    document.getElementById('day').className = 'hazyair-link';
+    document.getElementById('week').className = 'hazyair-link';
+    document.getElementById('month').className = 'hazyair-link';
+    document.getElementById('year').className = 'hazyair-link';
+    document.getElementById(period).className = 'hazyair-link-active';
     
-    if (type.parameter === 'dust') {
+    if (type === 'dust') {
     
         document.getElementById('title').innerHTML = 'Dust concentration chart during last';
         var pm100limit = 50;
@@ -125,21 +116,21 @@ function hazyair(type, period) {
             
     } else {
         
-        document.getElementById('title').innerHTML = uppercase(type.parameter) +' chart during last';
+        document.getElementById('title').innerHTML = uppercase(type) +' chart during last';
         
-        axios('hazyair/'+type.parameter+'/last?'+period)
+        axios('hazyair/'+type+'/last?'+period)
             .then(function(data) {
                 data = data.data;
                 var x = ['x'];
-                var serie = [uppercase(type.parameter)];
+                var serie = [uppercase(type)];
                 var mean = 0;
                 var precision = 0;
                 data.forEach(function(record) {
                     x.push(record.timestamp);
-                    serie.push(record[type.parameter].value);
-                    mean += record[type.parameter].value;
+                    serie.push(record[type].value);
+                    mean += record[type].value;
                 });
-                if (type.parameter == 'temperature') {
+                if (type == 'temperature') {
                     precision = 1;
                 }
                 mean = round(mean/data.length, precision);
@@ -165,7 +156,7 @@ function hazyair(type, period) {
                             tick: {
                                 format: d3.format(".1f"),  
                             },
-                            label: data[0][type.parameter].unit
+                            label: data[0][type].unit
                         }
                     },
                     subchart: {
@@ -177,7 +168,7 @@ function hazyair(type, period) {
                     grid: {
                         y: {
                             lines: [
-                                { value: mean, text: uppercase(type.parameter) + ' Mean ('+mean+')', position: 'middle' }
+                                { value: mean, text: uppercase(type) + ' Mean ('+mean+')', position: 'middle' }
                             ]
                         }
                     }
@@ -194,12 +185,12 @@ try {
         .then(function(data) {
             data = data.data;
             document.getElementById("type").innerHTML = '<th>Chart type:</th>';
-            data.forEach(function(type) {
+            gTypes = data;
+            gTypes.forEach(function(type) {
                 document.getElementById("type").innerHTML +=
                 '<td id="'+type.parameter+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type.parameter+'</td>';
             });
-            gTypes = data;
-            gType = gTypes[0];
+            gType = gTypes[0].parameter;
             hazyair(gType, gPeriod);
         })
         .catch(function (err) {
