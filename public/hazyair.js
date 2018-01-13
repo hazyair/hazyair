@@ -44,10 +44,11 @@ function hazyair(type, period) {
             pm25limit = 10;
         }
 
-    
-        axios('hazyair/dust/last?'+period)
+        fetch('hazyair/dust/last?'+period)
+            .then(function(res) {
+                return res.json();
+            })
             .then(function(data) {
-                data = data.data;
                 var x = ['x'];
                 var pm10 = ['PM 1.0'];
                 var pm25 = ['PM 2.5'];
@@ -118,9 +119,11 @@ function hazyair(type, period) {
         
         document.getElementById('title').innerHTML = uppercase(type) +' chart during last';
         
-        axios('hazyair/'+type+'/last?'+period)
+        fetch('hazyair/'+type+'/last?'+period)
+            .then(function(res) {
+                return res.json();
+            })
             .then(function(data) {
-                data = data.data;
                 var x = ['x'];
                 var serie = [uppercase(type)];
                 var mean = 0;
@@ -181,9 +184,12 @@ function hazyair(type, period) {
 }
 
 try {
-    axios('hazyair/info')
+
+    fetch('hazyair/info')
+        .then(function(res) {
+            return res.json();
+        })
         .then(function(data) {
-            data = data.data;
             document.getElementById("type").innerHTML = '<th>Chart type:</th>';
             gTypes = data;
             gTypes.forEach(function(type) {
@@ -196,6 +202,9 @@ try {
         .catch(function (err) {
             document.getElementById("chart").innerHTML = err;
         });
+
 } catch (err) {
+
     document.getElementById("chart").innerHTML = err;
+
 }
