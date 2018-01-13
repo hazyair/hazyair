@@ -10,7 +10,6 @@ function round(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
-
 function hazyair(type, period) {
     
     if (type === null) {
@@ -24,12 +23,11 @@ function hazyair(type, period) {
         gPeriod = period;
     }
     
-    
-    gTypes.forEach((type) => {
+    gTypes.forEach(function(type) {
         document.getElementById(type.parameter).style['font-weight'] = 'normal';
     });
     document.getElementById(type.parameter).style['font-weight'] = 'bold';
-    gTypes.forEach((type) => {
+    gTypes.forEach(function(type) {
         document.getElementById(type.parameter).style.color = '#aaa';
     });
     document.getElementById(type.parameter).style.color = '#000';
@@ -56,9 +54,9 @@ function hazyair(type, period) {
         }
 
     
-        fetch('hazyair/dust/last?'+period)
-            .then((resp) => resp.json()) // Transform the data into json
+        axios('hazyair/dust/last?'+period)
             .then(function(data) {
+                data = data.data;
                 var x = ['x'];
                 var pm10 = ['PM 1.0'];
                 var pm25 = ['PM 2.5'];
@@ -66,7 +64,7 @@ function hazyair(type, period) {
                 var pm10mean = 0;
                 var pm25mean = 0;
                 var pm100mean = 0;
-                data.forEach((record) => {
+                data.forEach(function(record) {
                     x.push(record.timestamp);
                     pm10.push(record['concentration_pm1.0_normal'].value);
                     pm25.push(record['concentration_pm2.5_normal'].value);
@@ -121,22 +119,22 @@ function hazyair(type, period) {
                     }
                 });
             })
-            .catch(function(error) {
-                document.getElementById("chart").innerHTML = error;
+            .catch(function(err) {
+                document.getElementById("chart").innerHTML = err;
             });
             
     } else {
         
         document.getElementById('title').innerHTML = uppercase(type.parameter) +' chart during last';
         
-        fetch('hazyair/'+type.parameter+'/last?'+period)
-            .then((resp) => resp.json()) // Transform the data into json
+        asios('hazyair/'+type.parameter+'/last?'+period)
             .then(function(data) {
+                data = data.data;
                 var x = ['x'];
                 var serie = [uppercase(type.parameter)];
                 var mean = 0;
                 var precision = 0;
-                data.forEach((record) => {
+                data.forEach(function(record) {
                     x.push(record.timestamp);
                     serie.push(record[type.parameter].value);
                     mean += record[type.parameter].value;
@@ -185,25 +183,28 @@ function hazyair(type, period) {
                     }
                 });
             })
-            .catch((error) => {
-                document.getElementById("chart").innerHTML = error;
+            .catch(function(err) {
+                document.getElementById("chart").innerHTML = err;
             });
     }
 }
 
-fetch('hazyair/info')
-    .then((resp) => resp.json()) // Transform the data into json
-    .then(function(data) {
-        document.getElementById("type").innerHTML = '<th>Chart type:</th>';
-        data.forEach((type) => {
-            document.getElementById("type").innerHTML +=
-            '<td id="'+type.parameter+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type.parameter+'</td>';
+try {
+    axios('hazyair/info')
+        .then(function(data) {
+            data = data.data;
+            document.getElementById("type").innerHTML = '<th>Chart type:</th>';
+            data.forEach(function(type) {
+                document.getElementById("type").innerHTML +=
+                '<td id="'+type.parameter+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type.parameter+'</td>';
+            });
+            gTypes = data;
+            gType = gTypes[0];
+            hazyair(gType, gPeriod);
+        })
+        .catch(function (err) {
+            document.getElementById("chart").innerHTML = err;
         });
-        gTypes = data;
-        gType = gTypes[0];
-        hazyair(gType, gPeriod);
-    })
-    .catch((error) => {
-        document.getElementById("chart").innerHTML = error;
-    });
-
+} catch (err) {
+    document.getElementById("chart").innerHTML = err;
+}
