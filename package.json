@@ -1,7 +1,7 @@
 {
   "name": "hazyair",
   "version": "1.1.0",
-  "description": "Dust concentration and temperature monitoring tool.",
+  "description": "Weather parameters monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
     "postinstall": "cd public && npm install && sudo npm install pm2 -g",
