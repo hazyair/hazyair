@@ -17,7 +17,7 @@ if ! grep -q -E "^dtoverlay=w1-gpio" $CONFIG; then
   ASK_TO_REBOOT=1
 fi
 
-./common.sh
+./scripts/common.sh
 
 if [ ! -d "db/temperature" ]; then
   mkdir -p db/temperature
