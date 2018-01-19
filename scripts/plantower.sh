@@ -2,10 +2,6 @@
 
 CONFIG=/boot/config.txt
 
-LD_LIBC_CONFIG=/etc/ld.so.conf.d/libc.conf
-
-BERKELEYDB=`pwd`/node_modules/berkeleydb/lib
-
 ASK_TO_REBOOT=0
 
 get_serial_hw() {
@@ -51,12 +47,8 @@ if ! grep -q -E "^dtoverlay=pi3-disable-bt" $CONFIG; then
   printf "dtoverlay=pi3-disable-bt\n" >> $CONFIG
   ASK_TO_REBOOT = 1
 fi
-    
-if ! grep -q -E "/node_modules/berkeleydb/lib" $LD_LIBC_CONFIG; then
-  printf "%s\n" "$BERKELEYDB" >> $CONFIG
-fi
 
-sudo ldconfig
+./common.sh    
 
 if [ ! -d "db/dust" ]; then
   mkdir -p db/dust
