@@ -43,8 +43,8 @@ if [ $(get_serial_hw) -eq 1 ]; then
   ASK_TO_REBOOT=1
 fi
 
-if ! grep -q -E "^dtoverlay=pi3-disable-bt" $CONFIG; then
-  printf "dtoverlay=pi3-disable-bt\n" >> $CONFIG
+if ! grep -q -E "^dtoverlay=pi3-miniuart-bt" $CONFIG; then
+  printf "dtoverlay=pi3-miniuart-bt\n" >> $CONFIG
   ASK_TO_REBOOT = 1
 fi
 
