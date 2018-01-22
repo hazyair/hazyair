@@ -31,9 +31,9 @@ Humidity.prototype.store = function() {
 
 Humidity.prototype.info = function(request, response) {
     
-	this.database.records().then((records) => {
-		response.json({ 'records': records });
-	});
+    this.database.records().then((records) => {
+        response.json({ 'records': records });
+    });
 
 };
 
@@ -54,19 +54,19 @@ Humidity.prototype.last = function(request, response) {
  
     let result = this.cache.read('last', request.query);
     if (result !== null) {
-    	response.json(result);   
+        response.json(result);   
     } else {
         result = [];
         this.database.find(this.cache.timestamp(request.query), (record) => {
             result.unshift(record);
         }).then(() => {
-        	if (result.length) {
-            	this.cache.write('last', request.query, result);
-        	}
-    		response.json(result);   
+            if (result.length) {
+                this.cache.write('last', request.query, result);
+            }
+            response.json(result);   
         }).catch((error) => {
-        	console.error(error);
-    		response.json('');   
+            console.error(error);
+            response.json('');   
         }) ;
     }
 
@@ -76,7 +76,7 @@ Humidity.prototype.mean = function(request, response) {
 
     let result = this.cache.read('mean', request.query);
     if (result !== null) {
-    	response.json(result);    
+        response.json(result);    
     } else {
         let divider = 0;
         this.database.find(this.cache.timestamp(request.query), (record) => {
@@ -87,14 +87,14 @@ Humidity.prototype.mean = function(request, response) {
             }
             divider++;
         }).then(() => {
-        	if (result !== undefined && result !== null && divider) {
-            	result.humidity.value = round(result.humidity.value/divider);
-            	this.cache.write('mean', request.query, result);
-        	}
-    		response.json(result);    
+            if (result !== undefined && result !== null && divider) {
+                result.humidity.value = round(result.humidity.value/divider);
+                this.cache.write('mean', request.query, result);
+            }
+            response.json(result);    
         }).catch((error) => {
-        	console.error(error);
-    		response.json('');    
+            console.error(error);
+            response.json('');    
         });
     }
 

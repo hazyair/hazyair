@@ -27,9 +27,9 @@ Dust.prototype.store = function() {
 
 Dust.prototype.info = function (request, response) {
 
-	this.database.records().then((records) => {
-		response.json({ 'records': records });
-	});
+    this.database.records().then((records) => {
+        response.json({ 'records': records });
+    });
 
 };
 
@@ -48,19 +48,19 @@ Dust.prototype.last  = function(request, response) {
 
     let result = this.cache.read('last', request.query);
     if (result !== null) {
-		response.json(result);
+        response.json(result);
     } else {
         result = [];
         this.database.find(this.cache.timestamp(request.query), (record) => {
             result.unshift(record);
         }).then(() => {
-        	if (result.length) {
-            	this.cache.write('last', request.query, result);
-        	}
-			response.json(result);
+            if (result.length) {
+                this.cache.write('last', request.query, result);
+            }
+            response.json(result);
         }).catch((error) => {
-        	console.error(error);
-			response.json('');
+            console.error(error);
+            response.json('');
         });
     }
 
@@ -70,7 +70,7 @@ Dust.prototype.mean = function(request, response) {
 
     let result = this.cache.read('mean', request.query);
     if (result !== null) {
-    	response.json(result);
+        response.json(result);
     } else {
         let divider = 0;
         this.database.find(this.cache.timestamp(request.query), (record) => {
@@ -92,25 +92,25 @@ Dust.prototype.mean = function(request, response) {
             }
             divider++;
         }).then(() => {
-        	if (result !== undefined && result !== null && divider) {
-            	result['concentration_pm1.0_normal'].value = round(result['concentration_pm1.0_normal'].value/divider);
-        		result['concentration_pm2.5_normal'].value = round(result['concentration_pm2.5_normal'].value/divider);
-            	result.concentration_pm10_normal.value = round(result.concentration_pm10_normal.value/divider);
-            	result['concentration_pm1.0_atmos'].value = round(result['concentration_pm1.0_atmos'].value/divider);
-            	result['concentration_pm2.5_atmos'].value = round(result['concentration_pm2.5_atmos'].value/divider);
-            	result.concentration_pm10_atmos.value = round(result.concentration_pm10_atmos.value/divider);
-            	result['count_pm_0.3'].value = round(result['count_pm_0.3'].value/divider);
-            	result['count_pm_0.5'].value = round(result['count_pm_0.5'].value/divider);
-            	result['count_pm_1.0'].value = round(result['count_pm_1.0'].value/divider);
-            	result['count_pm_2.5'].value = round(result['count_pm_2.5'].value/divider);
-            	result.count_pm_5.value = round(result.count_pm_5.value/divider);
-            	result.count_pm_10.value = round(result.count_pm_10.value/divider);
-            	this.cache.write('mean', request.query, result);
-        	}
-			response.json(result);
+            if (result !== undefined && result !== null && divider) {
+                result['concentration_pm1.0_normal'].value = round(result['concentration_pm1.0_normal'].value/divider);
+                result['concentration_pm2.5_normal'].value = round(result['concentration_pm2.5_normal'].value/divider);
+                result.concentration_pm10_normal.value = round(result.concentration_pm10_normal.value/divider);
+                result['concentration_pm1.0_atmos'].value = round(result['concentration_pm1.0_atmos'].value/divider);
+                result['concentration_pm2.5_atmos'].value = round(result['concentration_pm2.5_atmos'].value/divider);
+                result.concentration_pm10_atmos.value = round(result.concentration_pm10_atmos.value/divider);
+                result['count_pm_0.3'].value = round(result['count_pm_0.3'].value/divider);
+                result['count_pm_0.5'].value = round(result['count_pm_0.5'].value/divider);
+                result['count_pm_1.0'].value = round(result['count_pm_1.0'].value/divider);
+                result['count_pm_2.5'].value = round(result['count_pm_2.5'].value/divider);
+                result.count_pm_5.value = round(result.count_pm_5.value/divider);
+                result.count_pm_10.value = round(result.count_pm_10.value/divider);
+                this.cache.write('mean', request.query, result);
+            }
+            response.json(result);
         }).catch((error) => {
-        	console.error(error);
-			response.json('');
+            console.error(error);
+            response.json('');
         });
     }
 

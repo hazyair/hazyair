@@ -47,9 +47,9 @@ Temperature.prototype.store = function() {
 
 Temperature.prototype.info = function(requet, response) {
 
-	this.database.records().then((records) => {
-		response.json({ 'records': records });
-	});
+    this.database.records().then((records) => {
+        response.json({ 'records': records });
+    });
     
 };
 
@@ -80,19 +80,19 @@ Temperature.prototype.last = function(request, response) {
 
     let result = this.cache.read('last', request.query);
     if (result !== null) {
-    	response.json(result);
+        response.json(result);
     } else {
         result = [];
         this.database.find(this.cache.timestamp(request.query), (record) => {
             result.unshift(record);
         }).then(() => {
-        	if (result.length) {
-            	this.cache.write('last', request.query, result);
-        	}
-    		response.json(result);
+            if (result.length) {
+                this.cache.write('last', request.query, result);
+            }
+            response.json(result);
         }).catch((error) => {
-        	console.error(error);
-        	response.json('');
+            console.error(error);
+            response.json('');
         });
     }
 
@@ -102,7 +102,7 @@ Temperature.prototype.mean = function(request, response) {
 
     let result = this.cache.read('mean', request.query);
     if (result !== null) {
-    	response.json(result);
+        response.json(result);
     } else {
         let divider = 0;
         this.database.find(this.cache.timestamp(request.query), (record) => {
@@ -113,14 +113,14 @@ Temperature.prototype.mean = function(request, response) {
             }
             divider++;
         }).then(() => {
-        	if (result !== undefined && result !== null && divider) {
-            	result.temperature.value = round(result.temperature.value/divider, 1);
-            	this.cache.write('mean', request.query, result);
-        	}
-    		response.json(result);
+            if (result !== undefined && result !== null && divider) {
+                result.temperature.value = round(result.temperature.value/divider, 1);
+                this.cache.write('mean', request.query, result);
+            }
+            response.json(result);
         }).catch((error) => {
-        	console.error(error);
-    		response.json('');
+            console.error(error);
+            response.json('');
         });
     }
 

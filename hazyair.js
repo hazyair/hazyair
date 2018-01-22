@@ -43,7 +43,7 @@ Hazyair.prototype.info = function(req, res) {
 };
 /*
 function cron(parameter) {
-	parameter.store();
+    parameter.store();
 }
 */
 Hazyair.prototype.listen = function(options, callback = null) {     

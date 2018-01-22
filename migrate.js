@@ -28,30 +28,30 @@ let cursor = new bdb.DbCursor(dborig);
 let db = new PouchDB(path.dirname(__filename) + '/db/' + argv.d + '.db');
 
 function put(record) {
-	if (record.key !== null) {
-		db.put({
-			_id: record.key,
-			data: record.value
-		}).then((result) => {
-			if (result.ok) {
-				put(cursor.next(options));
-			}
-		}).catch((error) => {
-			console.log(error);
-		});
-	} else {
-		dborig.close();
-		dbenvorig.close();
-		db.close();
-	}
+    if (record.key !== null) {
+        db.put({
+            _id: record.key,
+            data: record.value
+        }).then((result) => {
+            if (result.ok) {
+                put(cursor.next(options));
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    } else {
+        dborig.close();
+        dbenvorig.close();
+        db.close();
+    }
 }
 
 db.allDocs({include_docs: true}).then((result) => {
-	
-	put(cursor.first(options));
-	
+    
+    put(cursor.first(options));
+    
 }).catch((err) => {
-	console.log(err);
+    console.log(err);
 });
 
 
