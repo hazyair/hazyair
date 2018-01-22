@@ -48,8 +48,6 @@ if ! grep -q -E "^dtoverlay=pi3-disable-bt" $CONFIG; then
   ASK_TO_REBOOT = 1
 fi
 
-./scripts/common.sh    
-
 if [ ! -d "db/dust" ]; then
   mkdir -p db/dust
 fi

@@ -5,6 +5,7 @@ const path = require('path');
 const CronJob = require('cron').CronJob;
 const moment = require('moment');
 const express = require('express');
+//const sse = require('sse-broadcast')();
 
 const Dust = require('./dust');
 const Temperature = require('./temperature');
@@ -40,7 +41,11 @@ Hazyair.prototype.info = function(req, res) {
     res.json(this.config);
 
 };
-
+/*
+function cron(parameter) {
+	parameter.store();
+}
+*/
 Hazyair.prototype.listen = function(options, callback = null) {     
 
     /*
@@ -52,7 +57,11 @@ Hazyair.prototype.listen = function(options, callback = null) {
     const service = '/' + path.basename(__filename, '.js');
 
     app.use(express.static('public'));
-
+/*
+app.get('/events', function (req, res) {
+    sse.subscribe('channel', res);
+});
+*/
     app.get(service + '/info', (req, res) => this.info(req, res));
 
     this.config.forEach((item) => {

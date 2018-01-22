@@ -11,7 +11,7 @@ let Temperature = function(model, options = null) {
 
     this.model = model;
     if (this.model === 'DS18B20') {
-        ds18b20.sensors( (err, ids) => {
+        ds18b20.sensors( (error, ids) => {
            this.device = ids[0];
         });
     } else if(this.model === 'BME280') {
@@ -25,9 +25,9 @@ let Temperature = function(model, options = null) {
 Temperature.prototype.store = function() {
 
     if (this.model === 'DS18B20') {
-        ds18b20.temperature(this.device, (err, value) => {
-            if (err) {
-                console.error(err);
+        ds18b20.temperature(this.device, (error, value) => {
+            if (error) {
+                console.error(error);
             } else {
                 this.cache.clean();
                 this.database.store({ 'temperature': { 'value': value, 'unit': '°C' },
@@ -38,16 +38,18 @@ Temperature.prototype.store = function() {
         this.bme280.temperature().then((data) => {
             this.cache.clean();
             this.database.store(data);
-        }).catch((err) => {
-            console.error(err);
+        }).catch((error) => {
+            console.error(error);
         });
     }
 
 };
 
-Temperature.prototype.info = function(req, res) {
+Temperature.prototype.info = function(requet, response) {
 
-    res.json(this.database.records());
+	this.database.records().then((records) => {
+		response.json({ 'records': records });
+	});
     
 };
 
@@ -74,47 +76,59 @@ Temperature.prototype.current = function(req, res) {
 
 };
 
-Temperature.prototype.last = function(req, res) {
+Temperature.prototype.last = function(request, response) {
 
-    let response = this.cache.read('last', req.query);
-    if (response === null) {
-        response = [];
-        this.database.find(this.cache.timestamp(req.query), (record) => {
-            response.unshift(record);
+    let result = this.cache.read('last', request.query);
+    if (result !== null) {
+    	response.json(result);
+    } else {
+        result = [];
+        this.database.find(this.cache.timestamp(request.query), (record) => {
+            result.unshift(record);
+        }).then(() => {
+        	if (result.length) {
+            	this.cache.write('last', request.query, result);
+        	}
+    		response.json(result);
+        }).catch((error) => {
+        	console.error(error);
+        	response.json('');
         });
-        if (response.length) {
-            this.cache.write('last', req.query, response);
-        }
     }
-    res.json(response);
 
 };
 
-Temperature.prototype.mean = function(req, res) {
+Temperature.prototype.mean = function(request, response) {
 
-    let response = this.cache.read('mean', req.query);
-    if (response === null) {
+    let result = this.cache.read('mean', request.query);
+    if (result !== null) {
+    	response.json(result);
+    } else {
         let divider = 0;
-        this.database.find(this.cache.timestamp(req.query), (record) => {
-            if (response === null) {
-                response = record;
+        this.database.find(this.cache.timestamp(request.query), (record) => {
+            if (result === null) {
+                result = record;
             } else {
-                response.temperature.value += record.temperature.value;
+                result.temperature.value += record.temperature.value;
             }
             divider++;
+        }).then(() => {
+        	if (result !== undefined && result !== null && divider) {
+            	result.temperature.value = round(result.temperature.value/divider, 1);
+            	this.cache.write('mean', request.query, result);
+        	}
+    		response.json(result);
+        }).catch((error) => {
+        	console.error(error);
+    		response.json('');
         });
-        if (response !== undefined && response !== null && divider) {
-            response.temperature.value = round(response.temperature.value/divider, 1);
-            this.cache.write('mean', req.query, response);
-        }
     }
-    res.json(response);
 
 };
 
 Temperature.prototype.close = function() {
     
-    this.database.close();
+    return this.database.close();
     
 };
 

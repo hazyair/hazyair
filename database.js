@@ -2,84 +2,101 @@
 
 const path = require('path');
 
-const bdb = require('berkeleydb');
+const PouchDB = require('pouchdb-node');
 
-const opts = { json: true };
 
 let Database = function(name, limit) {
 
-    this.dbenv = new bdb.DbEnv();
-    if (this.dbenv.open(path.dirname(__filename) + '/db/' + name)) {
-        console.error('Failed to open database.');
-        throw new Error('Failed to open database.');
-    }
-    this.db = new bdb.Db(this.dbenv);
-    this.db.open('hazyair.db');
-    this.meta = new bdb.Db(this.dbenv);
-    this.meta.open('meta.db');
-    console.log('Database connection openend.');
-    this.limit = limit;
+    this.db = new PouchDB(path.dirname(__filename) + '/db/' + name + '.db');
+    this.limit  = limit;
+    console.log('Database connection opened.');
 
 };
 
 Database.prototype.records = function() {
 
-    let records = this.meta.get('records', opts);
-    if (records === null) {
-        records = { records : 0 };
-    }
-    return records;
+	return new Promise((resolve, reject) => {
+    	this.db.allDocs().then((data) => {
+    		return resolve(data.rows.length);
+    	}).catch((error) => {
+    		return reject(error);	
+    	});
+	});
 
+};
+
+Database.prototype.remove = function() {
+	
+	return new Promise((resolve, reject) => {
+		this.records().then((limit) => {
+			if (limit >= this.limit) {
+				this.db.allDocs({limit: 1}).then((result) => {
+					this.db.remove(result.rows[0].id).then((result) => {
+						if (result.ok) {
+							return resolve();
+						} else {
+							return reject(result);
+						}
+					}).catch((error) => {
+						return reject(error);
+					});
+				}).catch((error) => {
+					return reject(error);
+				});
+			} else {
+				return resolve();		
+			}
+		}).catch((error) => {
+			return reject(error);
+		});
+	});
+	
 };
 
 Database.prototype.store = function(data) {
 
-    let txn = new bdb.DbTxn(this.dbenv);
-    let records = this.records();
-    if (records == this.limit) {
-        let cursor = new bdb.DbCursor(this.db);
-        cursor.first();
-        cursor.del();
-        cursor.close();
-        records.records--;
-        this.meta.put('records', records, opts);
-    }
-    this.db.put(data.timestamp.toString().padStart(16, '0'), data, opts);
-    records.records ++;
-    this.meta.put('records', records, opts);
-    txn.commit();
-
+	return new Promise((resolve, reject) => {
+		this.remove().then(() => {
+			this.db.put({
+				_id: data.timestamp.toString().padStart(16, '0'),
+				data: data
+			}).then((result) => {
+				if (result.ok) {
+					return resolve();
+				} else {
+					return reject(result);
+				}
+			}).catch((error) => {
+				return reject(error);
+			});
+		});
+	});
+	
 };
 
 Database.prototype.find = function(timestamp, callback) {
 
-    let response = [];
-    let cursor = new bdb.DbCursor(this.db);
-    let records = this.records();
-    let record = cursor.last(opts);
-    if (record.key !== null && record.value.timestamp >= timestamp) {
-        callback(record.value);
-        let i = records.records;
-        while(--i) {
-            record = cursor.prev(opts);
-            if (record.key !== null && record.value.timestamp >= timestamp) {
-                callback(record.value);
-            } else {
-                break;
-            }
-        }
-    }
-    cursor.close();
-    return response;
+	return new Promise((resolve, reject) => {
+    	this.db.allDocs({include_docs: true, startkey: timestamp.toString().padStart(16, '0')}).then((result) => {
+    		result.rows.forEach((item) => {
+    			callback(item.doc.data);
+    		});
+    		resolve();
+    	}).catch((error) => {
+    		return reject(error);
+    	});
+	});
 
 };
 
 Database.prototype.close = function () {
 
-    this.db.close();
-    this.meta.close();
-    this.dbenv.close();
-    console.log('Database connection closed.');
+	return new Promise((resolve, reject) => {
+    	this.db.close().then(() => {
+    		console.log('Database connection closed.');
+    		return resolve();
+    	});
+	});
 
 };
 

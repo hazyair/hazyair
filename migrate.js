@@ -3,39 +3,57 @@
 
 const path = require('path');
 
+const argv = require('yargs').
+    usage('Usage:' + path.basename(__filename) + ' [args]').
+    example(path.basename(__filename) + ' -d db/dust', ' - executed by default').
+    alias('d', 'db').
+    describe('d', 'databse').
+    default('d', 'db/dust').
+    help('h').
+    alias('h', 'help').argv;
+
+
 const bdb = require('berkeleydb');
 
-const opts = { json: true };
+const options = { json: true };
 
+const PouchDB = require('pouchdb-node');
 
-let dbenv = new bdb.DbEnv();
-dbenv.open(path.dirname(__filename) + '/db');
-let db = new bdb.Db(dbenv);
-db.open('hazy.db');
-let meta = new bdb.Db(dbenv);
-meta.open('meta.db');
+let dbenvorig = new bdb.DbEnv();
+dbenvorig.open(path.dirname(__filename) + '/' + argv.d);
+let dborig = new bdb.Db(dbenvorig);
+dborig.open('hazyair.db');
+let cursor = new bdb.DbCursor(dborig);
 
-let dbenvdust = new bdb.DbEnv();
-dbenvdust.open(path.dirname(__filename) + '/db/dust');
-let dbdust = new bdb.Db(dbenvdust);
-dbdust.open('hazyair.db');
-let metadust = new bdb.Db(dbenvdust);
-metadust.open('meta.db');
+let db = new PouchDB(path.dirname(__filename) + '/' + argv.d + '.db');
 
-let records = meta.get('records', opts);
-metadust.put('records', records, opts);
-let cursor = new bdb.DbCursor(db);
-let record = cursor.first(opts);
-dbdust.put(record.key, record.value, opts);
-for (let i =0 ; i < records.records-1; i ++) {
-    record = cursor.next(opts);
-    dbdust.put(record.key, record.value, opts);
+function put(record) {
+	if (record.key !== null) {
+		db.put({
+			_id: record.key,
+			data: record.value
+		}).then((result) => {
+			if (result.ok) {
+				put(cursor.next(options));
+			}
+		}).catch((error) => {
+			console.log(error);
+		});
+	} else {
+		dborig.close();
+		dbenvorig.close();
+		db.close();
+	}
 }
 
-db.close();
-meta.close();
-dbenv.close();
+db.allDocs({include_docs: true}).then((result) => {
+	console.log(result.rows.length);
+	
+	put(cursor.first(options));
+	
+}).catch((err) => {
+	console.log(err);
+});
 
-dbdust.close();
-metadust.close();
-dbenvdust.close();
+
+

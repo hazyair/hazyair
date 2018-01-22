@@ -5,22 +5,22 @@ const fs = require('fs');
 
 process.stdin.setEncoding('utf8');
 
-let out;
-let str ='';
+let output;
+let string ='';
 
-fs.readFile('config.json', 'utf8', (err, data) => {
+fs.readFile('config.json', 'utf8', (error, data) => {
 
-    if (err) {
-        if (err.errno===-2) {
-            out = [];
+    if (error) {
+        if (error.errno===-2) {
+            output = [];
         } else {
-            throw err;
+            throw error;
         }
     } else {
         if (data === '' ) {
-            out = [];
+            output = [];
         } else {
-            out = JSON.parse(data);
+            output = JSON.parse(data);
         }
     }
 
@@ -28,7 +28,7 @@ fs.readFile('config.json', 'utf8', (err, data) => {
 
         const chunk = process.stdin.read();
         if (chunk !== null) {
-            str += chunk;
+            string += chunk;
         }
 
     });
@@ -37,10 +37,10 @@ fs.readFile('config.json', 'utf8', (err, data) => {
 
 process.stdin.on('end', () => {
 
-    out.push(JSON.parse(str));
-    fs.writeFile('config.json', JSON.stringify(out, undefined, 2), 'utf8',(err) => {
+    output.push(JSON.parse(string));
+    fs.writeFile('config.json', JSON.stringify(output, undefined, 2), 'utf8',(error) => {
 
-        if (err) throw err;
+        if (error) throw error;
         console.log('The config.json file has been saved.');
 
     });

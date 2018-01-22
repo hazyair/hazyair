@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Weather parameters monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "weather",
     "monitor",
     "dust",
-    "tempreature",
+    "temperature",
     "humidity",
     "pressure",
     "weather station",
@@ -54,6 +54,8 @@
     "express": "^4.16.2",
     "moment": "^2.20.1",
     "plantower": "^1.1.6",
+    "pouchdb-node": "^6.4.1",
+    "sse-broadcast": "^0.5.1",
     "yargs": "^10.0.3"
   }
 }

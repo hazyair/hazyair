@@ -22,73 +22,87 @@ Humidity.prototype.store = function() {
         this.bme280.humidity().then((data) => {
             this.cache.clean();
             this.database.store(data);
-        }).catch((err) => {
-            console.error(err);
+        }).catch((error) => {
+            console.error(error);
         });
     }
     
 };
 
-Humidity.prototype.info = function(req, res) {
+Humidity.prototype.info = function(request, response) {
     
-    res.json(this.database.records());
+	this.database.records().then((records) => {
+		response.json({ 'records': records });
+	});
 
 };
 
-Humidity.prototype.current = function(req, res) {
+Humidity.prototype.current = function(request, response) {
 
     if(this.model === 'BME280') {
         this.bme280.humidity().then((data) => {
-            res.json(data);
+            response.json(data);
         }).catch((err) => {
             console.log(err);
-            res.json('');
+            response.json('');
         });
     }
 
 };
 
-Humidity.prototype.last = function(req, res) {
+Humidity.prototype.last = function(request, response) {
  
-    let response = this.cache.read('last', req.query);
-    if (response === null) {
-        response = [];
-        this.database.find(this.cache.timestamp(req.query), (record) => {
-            response.unshift(record);
-        });
-        if (response.length) {
-            this.cache.write('last', req.query, response);
-        }
+    let result = this.cache.read('last', request.query);
+    if (result !== null) {
+    	response.json(result);   
+    } else {
+        result = [];
+        this.database.find(this.cache.timestamp(request.query), (record) => {
+            result.unshift(record);
+        }).then(() => {
+        	if (result.length) {
+            	this.cache.write('last', request.query, result);
+        	}
+    		response.json(result);   
+        }).catch((error) => {
+        	console.error(error);
+    		response.json('');   
+        }) ;
     }
-    res.json(response);   
 
 };
 
-Humidity.prototype.mean = function(req, res) {
+Humidity.prototype.mean = function(request, response) {
 
-    let response = this.cache.read('mean', req.query);
-    if (response === null) {
+    let result = this.cache.read('mean', request.query);
+    if (result !== null) {
+    	response.json(result);    
+    } else {
         let divider = 0;
-        this.database.find(this.cache.timestamp(req.query), (record) => {
-            if (response === null) {
-                response = record;
+        this.database.find(this.cache.timestamp(request.query), (record) => {
+            if (result === null) {
+                result = record;
             } else {
-                response.humidity.value += record.humidity.value;
+                result.humidity.value += record.humidity.value;
             }
             divider++;
+        }).then(() => {
+        	if (result !== undefined && result !== null && divider) {
+            	result.humidity.value = round(result.humidity.value/divider);
+            	this.cache.write('mean', request.query, result);
+        	}
+    		response.json(result);    
+        }).catch((error) => {
+        	console.error(error);
+    		response.json('');    
         });
-        if (response !== undefined && response !== null && divider) {
-            response.humidity.value = round(response.humidity.value/divider);
-            this.cache.write('mean', req.query, response);
-        }
     }
-    res.json(response);    
 
 };
 
-Humidity.prototype.close = function(req, res) {
+Humidity.prototype.close = function() {
     
-    this.database.close();
+    return this.database.close();
 
 };
 

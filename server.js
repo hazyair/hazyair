@@ -33,9 +33,9 @@ function handle() {
 
 }
 
-fs.readFile(argv.config, 'utf8', (err, config) => {
+fs.readFile(argv.config, 'utf8', (error, config) => {
 
-    if (err) {
+    if (error) {
         console.log(`Failed to read ${argv.config} file.`);
     }
     
