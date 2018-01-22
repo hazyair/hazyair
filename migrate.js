@@ -5,10 +5,10 @@ const path = require('path');
 
 const argv = require('yargs').
     usage('Usage:' + path.basename(__filename) + ' [args]').
-    example(path.basename(__filename) + ' -d db/dust', ' - executed by default').
+    example(path.basename(__filename) + ' -d dust', ' - executed by default').
     alias('d', 'db').
     describe('d', 'databse').
-    default('d', 'db/dust').
+    default('d', 'dust').
     help('h').
     alias('h', 'help').argv;
 
@@ -20,12 +20,12 @@ const options = { json: true };
 const PouchDB = require('pouchdb-node');
 
 let dbenvorig = new bdb.DbEnv();
-dbenvorig.open(path.dirname(__filename) + '/' + argv.d);
+dbenvorig.open(path.dirname(__filename) + '/db/' + argv.d);
 let dborig = new bdb.Db(dbenvorig);
 dborig.open('hazyair.db');
 let cursor = new bdb.DbCursor(dborig);
 
-let db = new PouchDB(path.dirname(__filename) + '/' + argv.d + '.db');
+let db = new PouchDB(path.dirname(__filename) + '/db/' + argv.d + '.db');
 
 function put(record) {
 	if (record.key !== null) {
@@ -47,7 +47,6 @@ function put(record) {
 }
 
 db.allDocs({include_docs: true}).then((result) => {
-	console.log(result.rows.length);
 	
 	put(cursor.first(options));
 	
