@@ -57,7 +57,7 @@ class Pressure {
             response.json(result);    
         } else {
             result = [];
-            this.database.find(this.cache.timestamp(request.query), (record) => {
+            this.database.find(Cache.timestamp(request.query), (record) => {
                 result.unshift(record);
             }).then(() => {
                 if (result.length) {
@@ -79,7 +79,7 @@ class Pressure {
             response.json(result);
         } else {
             let divider = 0;
-            this.database.find(this.cache.timestamp(request.query), (record) => {
+            this.database.find(Cache.timestamp(request.query), (record) => {
                 if (result === null) {
                     result = record;
                 } else {
