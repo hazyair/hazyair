@@ -40,6 +40,12 @@ class Hazyair extends EventEmitter {
         });
     }
 
+    info (request, response) {
+
+        response.json(this.config);
+
+    }
+
     listen(options, callback = null) {
 
         const app = express();
