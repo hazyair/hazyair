@@ -25,7 +25,7 @@ const Hazyair = require('./hazyair');
 
 let hazyair;
 
-function handle() {
+function close() {
 
     hazyair.close(() => {
         process.exit(0);
@@ -39,13 +39,21 @@ fs.readFile(argv.config, 'utf8', (error, config) => {
         console.log(`Failed to read ${argv.config} file.`);
     }
     
-    hazyair = new Hazyair(JSON.parse(config));
+    config = JSON.parse(config);
+    hazyair = new Hazyair(config);
 
-    process.on('SIGINT', () => handle());
-    process.on('SIGTERM', () => handle());
+    process.on('SIGINT', () => close());
+    process.on('SIGTERM', () => close());
 
+    config.forEach((item) => {
+        hazyair.on(item.parameter, (data) =>{
+            console.log(data);
+        });
+    });
     hazyair.listen({
         port: argv.port
+    }).then(() => {
+        process.send('ready');
     });
     
 });

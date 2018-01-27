@@ -67,6 +67,12 @@ hazyair = new Hazyair([{
     }
 }]);
 
+hazyair.on('dust', (data) => {
+   
+   // New measurement result available.
+    
+});
+
 hazyair.listen({
     port: '8081'
 }, () => {

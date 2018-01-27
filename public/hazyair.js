@@ -114,8 +114,8 @@ function hazyair(type, period) {
                     }
                 });
             })
-            .catch(function(err) {
-                document.getElementById("chart").innerHTML = err;
+            .catch(function(error) {
+                document.getElementById("chart").innerHTML = error;
             });
             
     } else {
@@ -183,8 +183,8 @@ function hazyair(type, period) {
                     }
                 });
             })
-            .catch(function(err) {
-                document.getElementById("chart").innerHTML = err;
+            .catch(function(error) {
+                document.getElementById("chart").innerHTML = error;
             });
     }
 }
@@ -206,20 +206,17 @@ try {
             hazyair(gType, gPeriod);
             let source = new EventSource('hazyair/update');
             source.onmessage = function(message) {
-                if (message.data === 'update') {
+                if (message.data === gType) {
                     hazyair(gType, gPeriod);
                 }
             };
-            source.onerror = function(error) {
-                console.error(error);
-            };
         })
-        .catch(function (err) {
-            document.getElementById("chart").innerHTML = err;
+        .catch(function (error) {
+            document.getElementById("chart").innerHTML = error;
         });
 
-} catch (err) {
+} catch (error) {
 
-    document.getElementById("chart").innerHTML = err;
+    document.getElementById("chart").innerHTML = error;
 
 }
