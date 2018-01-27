@@ -13,6 +13,8 @@ require('http-shutdown').extend();
 
 const Dust = require('./dust');
 const Temperature = require('./temperature');
+const Pressure = require('./pressure');
+const Humidity = require('./humidity');
 
 class Hazyair extends EventEmitter {
 
@@ -25,18 +27,22 @@ class Hazyair extends EventEmitter {
 
             if (item.hasOwnProperty('parameter')) {
                 if (item.parameter === 'dust') {
-                    if (item.hasOwnProperty('options') && item.options.hasOwnProperty('model') &&
+                    if (item.hasOwnProperty('model') && item.hasOwnProperty('options') &&
                     item.options.hasOwnProperty('device')) {
-                        this.dust = new Dust(item.options.model, item.options.device);
+                        this.dust = new Dust(item.model, item.options);
                     }
                 } else if (item.parameter === 'temperature') {
-                    if (item.hasOwnProperty('options') && item.options.hasOwnProperty('model')) {
-                        this.temperature = new Temperature(item.options.model); 
+                    if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
+                        this.temperature = new Temperature(item.model, item.options); 
+                    }
+                } else if (item.parameter === 'pressure') {
+                    if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
+                        this.pressure = new Pressure(item.model, item.options); 
                     }
                 } else if (item.parameter === 'humidity') {
-            
-                } else if (item.parameter === 'pressure') {
-            
+                    if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
+                        this.humidity = new Humidity(item.model, item.options); 
+                    }
                 }
             }
 

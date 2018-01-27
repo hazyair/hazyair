@@ -59,7 +59,7 @@ class Pressure {
     last(request, response) {
     
         let result = this.cache.read('last', request.query);
-        if (result === null) {
+        if (result !== null) {
             response.json(result);    
         } else {
             result = [];

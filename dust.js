@@ -8,9 +8,9 @@ const round = require('./round');
 
 class Dust {
 
-    constructor(model, device) {
+    constructor(model, options) {
 
-        this.plantower = new Plantower(model, device);
+        this.plantower = new Plantower(model, options.device);
         this.database = new Database('dust', 24 * 366);
         this.cache = new Cache(['last', 'mean']);
 

@@ -44,36 +44,35 @@ function hazyair(type, period) {
             pm25limit = 10;
         }
 
-        fetch('hazyair/dust/last?'+period)
-            .then(function(res) {
-                return res.json();
-            })
-            .then(function(data) {
-                var x = ['x'];
-                var pm10 = ['PM 1.0'];
-                var pm25 = ['PM 2.5'];
-                var pm100 = ['PM 10'];
-                var pm10mean = 0;
-                var pm25mean = 0;
-                var pm100mean = 0;
-                data.forEach(function(record) {
-                    x.push(record.timestamp);
-                    pm10.push(record['concentration_pm1.0_normal'].value);
-                    pm25.push(record['concentration_pm2.5_normal'].value);
-                    pm100.push(record.concentration_pm10_normal.value);
-                    pm10mean += record['concentration_pm1.0_normal'].value;
-                    pm25mean += record['concentration_pm2.5_normal'].value;
-                    pm100mean += record.concentration_pm10_normal.value;
-                });
+        fetch('hazyair/dust/last?'+period).then(function(res) {
+            return res.json();
+        }).then(function(data) {
+            var x = ['x'];
+            var pm10 = ['PM 1.0'];
+            var pm25 = ['PM 2.5'];
+            var pm100 = ['PM 10'];
+            var pm10mean = 0;
+            var pm25mean = 0;
+            var pm100mean = 0;
+            data.forEach(function(record) {
+                x.push(record.timestamp);
+                pm10.push(record['concentration_pm1.0_normal'].value);
+                pm25.push(record['concentration_pm2.5_normal'].value);
+                pm100.push(record.concentration_pm10_normal.value);
+                pm10mean += record['concentration_pm1.0_normal'].value;
+                pm25mean += record['concentration_pm2.5_normal'].value;
+                pm100mean += record.concentration_pm10_normal.value;
+            });
+            if (data.length > 0) {
                 pm10mean = round(pm10mean/data.length, 0);
                 pm25mean = round(pm25mean/data.length, 0);
                 pm100mean = round(pm100mean/data.length, 0);
-                
+
                 document.getElementById('chart').className = 'c3-title';
-                
+                    
                 var chart = c3.generate({
                     bindto: '#chart',
-                    data: {
+                        data: {
                         x: 'x',
                         columns: [
                             x,
@@ -113,34 +112,33 @@ function hazyair(type, period) {
                         }
                     }
                 });
-            })
-            .catch(function(error) {
-                document.getElementById("chart").innerHTML = error;
-            });
+            }
+        }).catch(function(error) {
+            document.getElementById("chart").innerHTML = error;
+        });
             
     } else {
         
         document.getElementById('title').innerHTML = uppercase(type) +' chart during last';
         
-        fetch('hazyair/'+type+'/last?'+period)
-            .then(function(res) {
-                return res.json();
-            })
-            .then(function(data) {
-                var x = ['x'];
-                var serie = [uppercase(type)];
-                var mean = 0;
-                var precision = 0;
-                data.forEach(function(record) {
-                    x.push(record.timestamp);
-                    serie.push(record[type].value);
-                    mean += record[type].value;
-                });
-                if (type == 'temperature') {
-                    precision = 1;
-                }
+        fetch('hazyair/'+type+'/last?'+period).then(function(res) {
+            return res.json();
+        }).then(function(data) {
+            var x = ['x'];
+            var serie = [uppercase(type)];
+            var mean = 0;
+            var precision = 0;
+            data.forEach(function(record) {
+                x.push(record.timestamp);
+                serie.push(record[type].value);
+                mean += record[type].value;
+            });
+            if (type == 'temperature') {
+                precision = 1;
+            }
+            if (data.length > 0) {
                 mean = round(mean/data.length, precision);
-                
+                 
                 document.getElementById('chart').className = 'c3-title';
 
                 var chart = c3.generate({
@@ -163,7 +161,7 @@ function hazyair(type, period) {
                         },
                         y: {
                             tick: {
-                                format: d3.format(".1f"),  
+                                format: d3.format('.' + precision + 'f'),  
                             },
                             label: data[0][type].unit
                         }
@@ -182,38 +180,35 @@ function hazyair(type, period) {
                         }
                     }
                 });
-            })
-            .catch(function(error) {
-                document.getElementById("chart").innerHTML = error;
-            });
+            }
+        }).catch(function(error) {
+            document.getElementById("chart").innerHTML = error;
+        });
     }
 }
 
 try {
 
-    fetch('hazyair/info')
-        .then(function(res) {
-            return res.json();
-        })
-        .then(function(data) {
-            document.getElementById("type").innerHTML = '<th>Chart type:</th>';
-            gTypes = data;
-            gTypes.forEach(function(type) {
-                document.getElementById("type").innerHTML +=
-                '<td id="'+type.parameter+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type.parameter+'</td>';
-            });
-            gType = gTypes[0].parameter;
-            hazyair(gType, gPeriod);
-            var source = new EventSource('hazyair/update');
-            source.onmessage = function(message) {
-                if (message.data === gType) {
-                    hazyair(gType, gPeriod);
-                }
-            };
-        })
-        .catch(function (error) {
-            document.getElementById("chart").innerHTML = error;
+    fetch('hazyair/info').then(function(res) {
+        return res.json();
+    }).then(function(data) {
+        document.getElementById("type").innerHTML = '<th>Chart type:</th>';
+        gTypes = data;
+        gTypes.forEach(function(type) {
+            document.getElementById("type").innerHTML +=
+            '<td id="'+type.parameter+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type.parameter+'</td>';
         });
+        gType = gTypes[0].parameter;
+        hazyair(gType, gPeriod);
+        var source = new EventSource('hazyair/update');
+        source.onmessage = function(message) {
+            if (message.data === gType) {
+                hazyair(gType, gPeriod);
+            }
+        };
+    }).catch(function (error) {
+        document.getElementById("chart").innerHTML = error;
+    });
 
 } catch (error) {
 

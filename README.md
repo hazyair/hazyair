@@ -3,8 +3,8 @@
 ```hazyair``` is a handy tool that enables to store measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
 * temperature,
-* humidity (__under development__),
-* pressure (__under development__)
+* humidity,
+* pressure.
 
 to the simple database. It also visualizes the measurement results on the charts that are accessible from the web browsers.
 
@@ -14,7 +14,7 @@ to the simple database. It also visualizes the measurement results on the charts
 Following sensors are supported:
 * dust sensors - list are available under following [link](https://github.com/perfectworks/node-plantower),
 * temperature sensors - DS18B20,
-* temperature, pressure and optionally humidity combo sensors - BME280, BMP280 (__under development__)
+* temperature, pressure and optionally humidity combo sensors - BME280, BMP280.
 
 ## Installation
 
@@ -47,6 +47,8 @@ Run desired sensor configuration script (examples below).
 ```npm run plantower PMS7003 /dev/serial0```
 
 ```npm run maxim```
+
+```npm run bosh BME280 1 119```
 
 Deploy ```hazyair``` service.
 

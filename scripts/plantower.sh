@@ -48,12 +48,8 @@ if ! grep -q -E "^dtoverlay=pi3-miniuart-bt" $CONFIG; then
   ASK_TO_REBOOT = 1
 fi
 
-if [ ! -d "db/dust" ]; then
-  mkdir -p db/dust
-fi
-
-if ! grep -q -E $1 config.json; then
-  echo \{ \"parameter\": \"dust\", \"options\": \{ \"model\": \"$1\", \"device\": \"$2\"\} \} | node config.js
+if ! grep -q -E dust config.json; then
+  echo \{ \"parameter\": \"dust\", \"model\": \"$1\", \"options\": \{ \"device\": \"$2\" \} \} | node config.js
 fi
 
 if [ $ASK_TO_REBOOT -eq 1 ]; then

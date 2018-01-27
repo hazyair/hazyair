@@ -19,7 +19,7 @@ class Temperature {
         } else if(this.model === 'BME280') {
             this.bme280 = new BME280(options);
         }
-        this.database = new Database('dust', 24 * 366);
+        this.database = new Database('temperature', 24 * 366);
         this.cache = new Cache(['last', 'mean']);
 
     }
