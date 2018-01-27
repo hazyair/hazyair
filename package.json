@@ -10,10 +10,10 @@
     "bosh": "sudo ./scripts/bosh.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
     "undeploy": "pm2 stop server && pm2 delete server && pm2 save && pm2 unstartup | grep -v PM2 | sh",
-    "start": "pm2 start server.js --wait-ready",
+    "start": "pm2 start server.js",
     "stop": "pm2 stop server",
-    "restart": "pm2 restart server --wait-ready",
-    "reload": "pm2 reload server --wait-ready",
+    "restart": "pm2 restart server",
+    "reload": "pm2 reload server",
     "delete": "pm2 delete server",
     "show": "pm2 show server"
   },

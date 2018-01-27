@@ -52,8 +52,6 @@ fs.readFile(argv.config, 'utf8', (error, config) => {
     });
     hazyair.listen({
         port: argv.port
-    }).then(() => {
-        process.send('ready');
     });
     
 });

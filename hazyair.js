@@ -32,8 +32,12 @@ class Hazyair extends EventEmitter {
                         this.dust = new Dust(item.model, item.options);
                     }
                 } else if (item.parameter === 'temperature') {
-                    if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.temperature = new Temperature(item.model, item.options); 
+                    let options = null;
+                    if (item.hasOwnProperty('options')) {
+                        options = item.options;
+                    }
+                    if (item.hasOwnProperty('model')) {
+                        this.temperature = new Temperature(item.model, options); 
                     }
                 } else if (item.parameter === 'pressure') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
