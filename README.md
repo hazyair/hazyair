@@ -63,8 +63,8 @@ const Hazyair = require('hazyair');
 
 hazyair = new Hazyair([{    
     parameter: 'dust',
+    model: 'PMS7003',
     options: {
-        model: 'PMS7003',
         device:'/dev/serial0'
     }
 }]);
