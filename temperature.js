@@ -26,24 +26,35 @@ class Temperature {
 
     store() {
 
-        if (this.model === 'DS18B20') {
-            ds18b20.temperature(this.device, (error, value) => {
-                if (error) {
-                    console.error(error);
-                } else {
+        return new Promise((resolve, reject) => {
+            if (this.model === 'DS18B20') {
+                ds18b20.temperature(this.device, (error, value) => {
+                    if (error) {
+                        return reject(error);
+                    } else {
+                        this.cache.clean();
+                        let data = { 'temperature': { 'value': value, 'unit': '°C' },
+                        'model': this.model, 'timestamp': Date.now() };
+                        this.database.store(data).then(() => {
+                            return resolve(data); 
+                        }).catch((error) => {
+                            return reject(error);
+                        });
+                    }
+                });    
+            } else if(this.model === 'BME280') {
+                this.bme280.temperature().then((data) => {
                     this.cache.clean();
-                    this.database.store({ 'temperature': { 'value': value, 'unit': '°C' },
-                    'model': this.model, 'timestamp': Date.now() });
-                }
-            });    
-        } else if(this.model === 'BME280') {
-            this.bme280.temperature().then((data) => {
-                this.cache.clean();
-                this.database.store(data);
-            }).catch((error) => {
-                console.error(error);
-            });
-        }
+                    this.database.store(data).then(() => {
+                        return resolve(data);
+                    }).catch((error) => {
+                        return reject(error);
+                    });
+                }).catch((error) => {
+                    return reject(error);
+                });
+            }
+        });
 
     }
 

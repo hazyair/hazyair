@@ -18,11 +18,17 @@ class Dust {
 
     store() {
 
-        this.plantower.read().then((data) => {
-            this.cache.clean();
-            this.database.store(data);
-        }).catch((error) => {
-            console.error(error);
+        return new Promise((resolve, reject) => {
+            this.plantower.read().then((data) => {
+                this.cache.clean();
+                this.database.store(data).then(() => {
+                    return resolve(data);
+                }).catch((error) => {
+                    return reject(error); 
+                });
+            }).catch((error) => {
+                return reject(error);
+            });
         });
 
     }

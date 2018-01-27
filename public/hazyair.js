@@ -204,6 +204,15 @@ try {
             });
             gType = gTypes[0].parameter;
             hazyair(gType, gPeriod);
+            let source = new EventSource('hazyair/update');
+            source.onmessage = function(message) {
+                if (message.data === 'update') {
+                    hazyair(gType, gPeriod);
+                }
+            };
+            source.onerror = function(error) {
+                console.error(error);
+            };
         })
         .catch(function (err) {
             document.getElementById("chart").innerHTML = err;

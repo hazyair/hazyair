@@ -6,7 +6,7 @@ const EventEmitter = require('events');
 const CronJob = require('cron').CronJob;
 const moment = require('moment');
 const express = require('express');
-//const sse = require('sse-broadcast')();
+const sse = require('sse-broadcast')();
 
 const Dust = require('./dust');
 const Temperature = require('./temperature');
@@ -40,12 +40,6 @@ class Hazyair extends EventEmitter {
         });
     }
 
-    info (request, response) {
-
-        response.json(this.config);
-
-    }
-
     listen(options, callback = null) {
 
         const app = express();
@@ -54,18 +48,25 @@ class Hazyair extends EventEmitter {
 
         app.use(express.static('public'));
 
-//app.get('/events', function (req, res) {
-//    sse.subscribe('channel', res);
-//});
+        app.get(service + '/update', sse.middleware('update'));
+        
+        // send keep-alive every minute
+        setInterval(() => {
+           sse.publish('update', ':'); 
+        }, 60 * 1000);
 
-        app.get(service + '/info', (request, response) => this.info(request, response));
+        app.get(service + '/info', (request, response) => {
+            response.json(this.config);
+        });
 
         this.config.forEach((item) => {
 
             if (item.hasOwnProperty('parameter')) {
                 if (!item.hasOwnProperty('options') || !item.options.hasOwnProperty('persistent') ||
                 item.options.persistent === true) {
-                    new CronJob('0 0 * * * *', () => this[item.parameter].store(), null, true, moment.tz.guess());
+                    new CronJob('0 0 * * * *', () => this[item.parameter].store().then((data) => {
+                        sse.publish('update', { 'data': 'update' } );
+                    }), null, true, moment.tz.guess());
                 }
                 this.apis.forEach((api) => {
                     app.get(service + '/' + item.parameter + '/' + api,

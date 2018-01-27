@@ -20,14 +20,20 @@ class Pressure {
 
     store() {
     
-        if(this.model === 'BME280') {
-            this.bme280.pressure().then((data) => {
-                this.cache.clean();
-                this.database.store(data);
-            }).catch((err) => {
-                console.error(err);
-            });
-        }
+        return new Promise((resolve, reject) => {
+            if(this.model === 'BME280') {
+                this.bme280.pressure().then((data) => {
+                    this.cache.clean();
+                    this.database.store(data).then(() => {
+                        return resolve(data);
+                    }).catch((error) => {
+                        return reject(error);
+                    });
+                }).catch((error) => {
+                    return reject(error);
+                });
+            }
+        });
     
     }
 
@@ -42,8 +48,8 @@ class Pressure {
         if(this.model === 'BME280') {
             this.bme280.pressure().then((data) => {
                 response.json(data);
-            }).catch((err) => {
-                console.log(err);
+            }).catch((error) => {
+                console.log(error);
                 response.json('');
             });
         }

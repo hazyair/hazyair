@@ -20,14 +20,20 @@ class Humidity {
 
     store() {
     
-        if(this.model === 'BME280') {
-            this.bme280.humidity().then((data) => {
-                this.cache.clean();
-                this.database.store(data);
-            }).catch((error) => {
-                console.error(error);
-            });
-        }
+        return new Promise((resolve, reject) => {
+            if(this.model === 'BME280') {
+                this.bme280.humidity().then((data) => {
+                    this.cache.clean();
+                    this.database.store(data).then(() => {
+                        return resolve(data);
+                    }).catch((error) => {
+                        return reject(error);
+                    });
+                }).catch((error) => {
+                    return reject(error);
+                });
+            }
+        });
     
     }
 
