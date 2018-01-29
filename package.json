@@ -1,11 +1,12 @@
 {
   "name": "hazyair",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Weather parameters monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
     "postinstall": "cd public && npm install && sudo npm install pm2 -g",
     "plantower": "sudo ./scripts/plantower.sh",
+    "nova": "sudo ./scripts/plantower.sh",
     "maxim": "sudo ./scripts/maxim.sh",
     "bosh": "sudo ./scripts/bosh.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
@@ -56,7 +57,11 @@
     "pms7003m",
     "pms7003p",
     "pmsa003",
+    "sds011",
+    "sds018",
+    "sds021",
     "plantower",
+    "nova",
     "bosh",
     "maxim"
   ],
@@ -73,6 +78,7 @@
     "moment": "^2.20.1",
     "plantower": "^1.1.6",
     "pouchdb-node": "^6.4.1",
+    "sds011-wrapper": "^1.0.0",
     "sse-broadcast": "^0.5.1",
     "yargs": "^10.0.3"
   }
