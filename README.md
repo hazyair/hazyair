@@ -12,7 +12,7 @@ to the simple database. It also visualizes the measurement results on the charts
 
 ```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
 Following sensors are supported:
-* dust sensors - list are available under following [link](https://github.com/perfectworks/node-plantower),
+* dust sensors - list of Plantower sesors is available under following [link](https://github.com/perfectworks/node-plantower), SDS011, SDS018, SDS021 (__untested__)
 * temperature sensors - DS18B20,
 * temperature, pressure and optionally humidity combo sensors - BME280, BMP280.
 
