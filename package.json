@@ -8,7 +8,7 @@
     "plantower": "sudo ./scripts/plantower.sh",
     "nova": "sudo ./scripts/plantower.sh",
     "maxim": "sudo ./scripts/maxim.sh",
-    "bosh": "sudo ./scripts/bosh.sh",
+    "bosch": "sudo ./scripts/bosch.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
     "undeploy": "pm2 stop server && pm2 delete server && pm2 save && pm2 unstartup | grep -v PM2 | sh",
     "start": "pm2 start server.js",

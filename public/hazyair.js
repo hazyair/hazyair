@@ -10,6 +10,17 @@ function round(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
+function fetchRetry(url, n, timeout) {
+    return fetch(url).catch(function(error) {
+        if (n === 1) throw error;
+        return new Promise(function(resolve) {
+            setTimeout(resolve, timeout);
+        }).then(function() {
+            return fetchRetry(url, n - 1, timeout);  
+        });
+    });
+}
+
 function hazyair(type, period) {
     
     if (type === null) {
@@ -36,7 +47,7 @@ function hazyair(type, period) {
     
     if (type === 'dust') {
     
-        document.getElementById('title').innerHTML = 'Dust concentration chart during last';
+        document.getElementById('title').innerHTML = 'Dust concentration during last';
         var pm100limit = 50;
         var pm25limit = 25;
         if (period === 'year') {
@@ -44,29 +55,48 @@ function hazyair(type, period) {
             pm25limit = 10;
         }
 
-        fetch('hazyair/dust/last?'+period).then(function(res) {
-            return res.json();
+        fetchRetry('hazyair/dust/last?'+period, 60, 1000).then(function(response) {
+            
+            return response.json();
+            
         }).then(function(data) {
-            var x = ['x'];
-            var pm10 = ['PM 1.0'];
-            var pm25 = ['PM 2.5'];
-            var pm100 = ['PM 10'];
-            var pm10mean = 0;
-            var pm25mean = 0;
-            var pm100mean = 0;
-            data.forEach(function(record) {
-                x.push(record.timestamp);
-                pm10.push(record['concentration_pm1.0_normal'].value);
-                pm25.push(record['concentration_pm2.5_normal'].value);
-                pm100.push(record.concentration_pm10_normal.value);
-                pm10mean += record['concentration_pm1.0_normal'].value;
-                pm25mean += record['concentration_pm2.5_normal'].value;
-                pm100mean += record.concentration_pm10_normal.value;
-            });
+            
             if (data.length > 0) {
-                pm10mean = round(pm10mean/data.length, 0);
-                pm25mean = round(pm25mean/data.length, 0);
-                pm100mean = round(pm100mean/data.length, 0);
+                var columns = [];
+                var map = {};
+                var x = ['x'];
+                var mean = {};
+                var lines = [];
+                if (data[0].hasOwnProperty('concentration_pm1.0_normal')) {
+                    columns.push(['PM 1.0']);
+                    map['PM 1.0'] = 'concentration_pm1.0_normal';
+                    mean['PM 1.0'] = 0;
+                }
+                if (data[0].hasOwnProperty('concentration_pm2.5_normal')) {
+                    columns.push(['PM 2.5']);
+                    map['PM 2.5'] = 'concentration_pm2.5_normal';
+                    mean['PM 2.5'] = 0;
+                }
+                if (data[0].hasOwnProperty('concentration_pm10_normal')) {
+                    columns.push(['PM 10']);
+                    map['PM 10'] = 'concentration_pm10_normal';
+                    mean['PM 10'] = 0;
+                }
+                data.forEach(function(record) {
+                    x.push(record.timestamp);
+                    columns.forEach(function(column) {
+                        var value = record[map[column[0]]].value;
+                        column.push(value);
+                        mean[column[0]] += value;
+                    });
+                });
+                columns.unshift(x);
+                lines.push({ value: pm25limit, text: 'PM 2.5 Limit ('+pm25limit+')', position: 'start' });
+                lines.push({ value: pm100limit, text: 'PM 10 Limit ('+pm100limit+')', position: 'start' });
+                Object.keys(mean).forEach(function(item) {
+                    var value = round(mean[item]/data.length,0);
+                    lines.push({ value: value, text: item+' Mean ('+value+')', position: 'middle' });
+                });
 
                 document.getElementById('chart').className = 'c3-title';
                     
@@ -74,12 +104,7 @@ function hazyair(type, period) {
                     bindto: '#chart',
                         data: {
                         x: 'x',
-                        columns: [
-                            x,
-                            pm10,
-                            pm25,
-                            pm100
-                        ],
+                        columns: columns,
                     },
                     axis: {
                         x: {
@@ -102,27 +127,31 @@ function hazyair(type, period) {
                     },
                     grid: {
                         y: {
-                            lines: [
-                                { value: pm25limit, text: 'PM 2.5 limit ('+pm25limit+')', position: 'start' },
-                                { value: pm100limit, text: 'PM 10 limit ('+pm100limit+')', position: 'start' },
-                                { value: pm25mean, text: 'PM 2.5 Mean ('+pm25mean+')', position: 'middle' },
-                                { value: pm100mean, text: 'PM 10 Mean ('+pm100mean+')', position: 'middle' },
-                                { value: pm10mean, text: 'PM 1.0 Mean ('+pm10mean+')', position: 'middle' }
-                            ]
+                            lines: lines
                         }
                     }
                 });
+            } else {
+
+                document.getElementById('chart').className = 'c3-title hazyair-color';
+                document.getElementById('chart').innerHTML = 'No data to display';
+
             }
         }).catch(function(error) {
-            document.getElementById("chart").innerHTML = error;
+            
+            document.getElementById('chart').className = 'c3-title hazyair-color';
+            document.getElementById('chart').innerHTML = error;
+
         });
             
     } else {
         
-        document.getElementById('title').innerHTML = uppercase(type) +' chart during last';
+        document.getElementById('title').innerHTML = uppercase(type) +' during last';
         
-        fetch('hazyair/'+type+'/last?'+period).then(function(res) {
-            return res.json();
+        fetchRetry('hazyair/'+type+'/last?'+period, 60, 1000).then(function(response) {
+            
+            return response.json();
+            
         }).then(function(data) {
             var x = ['x'];
             var serie = [uppercase(type)];
@@ -180,18 +209,29 @@ function hazyair(type, period) {
                         }
                     }
                 });
+            } else {
+
+                document.getElementById('chart').className = 'c3-title hazyair-color';
+                document.getElementById('chart').innerHTML = 'No data to display';
+                
             }
         }).catch(function(error) {
-            document.getElementById("chart").innerHTML = error;
+
+            document.getElementById('chart').className = 'c3-title hazyair-color';
+            document.getElementById('chart').innerHTML = error;
+
         });
     }
 }
 
 try {
 
-    fetch('hazyair/info').then(function(res) {
-        return res.json();
+    fetchRetry('hazyair/info', 60, 1000).then(function(response) {
+        
+        return response.json();
+        
     }).then(function(data) {
+        
         document.getElementById("type").innerHTML = '<th>Chart type:</th>';
         gTypes = data;
         gTypes.forEach(function(type) {
@@ -206,12 +246,17 @@ try {
                 hazyair(gType, gPeriod);
             }
         };
+        
     }).catch(function (error) {
-        document.getElementById("chart").innerHTML = error;
+
+        document.getElementById('chart').className = 'c3-title hazyair-color';
+        document.getElementById('chart').innerHTML = error;
+
     });
 
 } catch (error) {
 
-    document.getElementById("chart").innerHTML = error;
+    document.getElementById('chart').className = 'c3-title hazyair-color';
+    document.getElementById('chart').innerHTML = error;
 
 }

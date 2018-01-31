@@ -13,7 +13,7 @@ class Plantower {
     
     dust() {
         
-         return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
              
             this.sensor.read().then((data) => {
                 return resolve(data);

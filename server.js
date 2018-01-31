@@ -45,11 +45,6 @@ fs.readFile(argv.config, 'utf8', (error, config) => {
     process.on('SIGINT', () => close());
     process.on('SIGTERM', () => close());
 
-    config.forEach((item) => {
-        hazyair.on(item.parameter, (data) =>{
-            console.log(data);
-        });
-    });
     hazyair.listen({
         port: argv.port
     });
