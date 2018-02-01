@@ -42,6 +42,8 @@ fs.readFile(argv.config, 'utf8', (error, config) => {
     config = JSON.parse(config);
     hazyair = new Hazyair(config);
 
+    hazyair.start();
+    
     process.on('SIGINT', () => close());
     process.on('SIGTERM', () => close());
 

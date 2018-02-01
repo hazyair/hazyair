@@ -2,12 +2,16 @@
 
 const PMS = require('plantower');
 
+let sensor = {};
+
 class Plantower {
     
-    constructor(model, options) {
+    constructor(model, options = { device: '/dev/serial0' }) {
         
-        // TODO make default ptions
-        this.sensor = new PMS(model, options.device);
+        if(!sensor.hasOwnProperty(model)) {
+            sensor[model] = new PMS(model, options.device);
+        }
+        this.sensor = sensor[model];
         
     }
     

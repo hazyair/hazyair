@@ -61,20 +61,27 @@ Run web browser and open charts under following link ```http://<ip_address>:8081
 ```javascript
 const Hazyair = require('hazyair');
 
+// Initialize Hazyair.
 hazyair = new Hazyair([{    
     parameter: 'dust',
     model: 'PMS7003',
+    persistent: true;
     options: {
         device:'/dev/serial0'
     }
 }]);
 
+// Optionally handle incoming measurements.
 hazyair.on('dust', (data) => {
    
    // New measurement result available.
     
 });
 
+// Start to collect data.
+hazyair.start();
+
+// Optionally start http server make data accessible to the web browsers.
 hazyair.listen({
     port: '8081'
 }, () => {

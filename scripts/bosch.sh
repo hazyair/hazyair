@@ -49,3 +49,5 @@ fi
 if ! grep -q -E humidity config.json; then
   echo \{ \"parameter\": \"humidity\", \"model\": \"$1\", \"options\": \{ \"i2cBusNo\": $2, \"i2cAddress\": $3 \} \} | node config.js
 fi
+
+exit 0

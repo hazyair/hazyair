@@ -6,7 +6,7 @@ const Nova = require('./nova');
 
 class Dust extends Parameter {
 
-    constructor(model, options) {
+    constructor(model, persistent = true, options = null) {
 
         switch(model) {
             case 'PMS1003':
@@ -20,7 +20,7 @@ class Dust extends Parameter {
             case 'PMSA003':
             case 'PMS5003ST':
             case 'PMS5003S':
-                super('dust', 0, [
+                super('dust', persistent, 0, [
                     'concentration_pm1.0_normal',
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal',
@@ -37,7 +37,7 @@ class Dust extends Parameter {
                 this.sensor = new Plantower(model, options);
                 break;
             case 'PMS3003':
-                super('dust', 0, [
+                super('dust', persistent, 0, [
                     'concentration_pm1.0_normal',
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal',
@@ -48,7 +48,7 @@ class Dust extends Parameter {
                 this.sensor = new Plantower(model, options);
                 break;
             case 'PMS5003T':
-                super('dust', 0, [
+                super('dust', persistent, 0, [
                     'concentration_pm1.0_normal',
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal',
@@ -65,7 +65,7 @@ class Dust extends Parameter {
             case 'SDS011':
             case 'SDS018':
             case 'SDS021':
-                super('dust', 0, [
+                super('dust', persistent, 0, [
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal'
                 ]);

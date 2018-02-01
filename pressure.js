@@ -5,9 +5,9 @@ const Bosch = require('./bosch');
 
 class Pressure extends Parameter {
 
-    constructor(model, options = null) {
+    constructor(model, persistent, options = null) {
         
-        super('pressure');
+        super('pressure', persistent);
         switch(model) {
             case 'BME280':
             case 'BMP280':

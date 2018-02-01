@@ -29,7 +29,7 @@ class Hazyair extends EventEmitter {
                 if (item.parameter === 'dust') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options') &&
                     item.options.hasOwnProperty('device')) {
-                        this.dust = new Dust(item.model, item.options);
+                        this.dust = new Dust(item.model, item.persistent, item.options);
                     }
                 } else if (item.parameter === 'temperature') {
                     let options = null;
@@ -37,15 +37,15 @@ class Hazyair extends EventEmitter {
                         options = item.options;
                     }
                     if (item.hasOwnProperty('model')) {
-                        this.temperature = new Temperature(item.model, options); 
+                        this.temperature = new Temperature(item.model, item.persistent, options); 
                     }
                 } else if (item.parameter === 'pressure') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.pressure = new Pressure(item.model, item.options); 
+                        this.pressure = new Pressure(item.model, item.persistent, item.options); 
                     }
                 } else if (item.parameter === 'humidity') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.humidity = new Humidity(item.model, item.options); 
+                        this.humidity = new Humidity(item.model, item.persistent, item.options); 
                     }
                 }
             }
@@ -53,9 +53,27 @@ class Hazyair extends EventEmitter {
         });
     }
 
+    start() {
+        
+        this.config.forEach((item) => {
+
+            if (item.hasOwnProperty('parameter')) {
+                new CronJob('0 0 * * * *', () => this[item.parameter].read().then((data) => {
+                    this[item.parameter].store(data).then((data) => {
+                        sse.publish('update', { 'data': item.parameter } );
+                        this.emit(item.parameter, data);
+                    });
+                }), null, true, moment.tz.guess());
+            }
+
+        });
+        
+    }
+
     listen(options, callback = null) {
 
         let promise = new Promise((resolve, reject) => {
+            
             const app = express();
 
             const service = '/' + path.basename(__filename, '.js');
@@ -76,13 +94,6 @@ class Hazyair extends EventEmitter {
             this.config.forEach((item) => {
 
                 if (item.hasOwnProperty('parameter')) {
-                    if (!item.hasOwnProperty('options') || !item.options.hasOwnProperty('persistent') ||
-                    item.options.persistent === true) {
-                        new CronJob('0 0 * * * *', () => this[item.parameter].store().then((data) => {
-                            sse.publish('update', { 'data': item.parameter } );
-                            this.emit(item.parameter, data);
-                        }), null, true, moment.tz.guess());
-                    }
                     this.apis.forEach((api) => {
                         app.get(service + '/' + item.parameter + '/' + api,
                         (request, response) => this[item.parameter][api](request, response));
