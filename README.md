@@ -13,8 +13,9 @@ browsers.
 
 ```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
 Following sensors are supported:
-* dust sensors - list of Plantower sesors is available under following
-[link](https://github.com/perfectworks/node-plantower), SDS011, SDS018, SDS021 (__not tested__)
+* dust sensors - list of Plantower sesors
+[list of Plantower sesors](https://github.com/perfectworks/node-plantower#supported-device-models),
+SDS011, SDS018, SDS021 (__not tested__),
 * temperature sensors - DS18B20,
 * temperature, pressure and optionally humidity combo sensors - BME280, BMP280.
 
