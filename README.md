@@ -52,7 +52,7 @@ Run desired sensor configuration script (examples below).
 
 ```npm run maxim```
 
-```npm run bosh BME280 1 119```
+```npm run bosch BME280 1 119```
 
 Deploy ```hazyair``` service.
 
