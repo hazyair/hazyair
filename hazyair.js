@@ -16,8 +16,29 @@ const Temperature = require('./temperature');
 const Pressure = require('./pressure');
 const Humidity = require('./humidity');
 
+/**
+* Class implementing the interface to the Hazyair monitoring tool.
+* 
+* @extends EventEmitter
+**/
 class Hazyair extends EventEmitter {
 
+/**
+* Create a Hazyair instance.
+* 
+* @param {config} configuration <code>[ {parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
+* persistent: (true\|false), options: {... } }, ...]</code>
+* 
+* @example
+let hazyair = new Hazyair([
+    parameter: 'dust',
+    model: 'PMS7003',
+    persistent: true,
+    options: {
+        device: '/dev/serial0'
+    }
+]);
+**/
     constructor(config) {
 
         super();
@@ -53,6 +74,17 @@ class Hazyair extends EventEmitter {
         });
     }
 
+/**
+* Start monitoring of the specified parameter(s).
+* 
+* @fires Hazyair#dust
+* @fires Hazyair#temperature
+* @fires Hazyair#pressure
+* @fires Hazyair#humidity
+* 
+* @example
+hazyair.start()
+**/
     start() {
         
         this.config.forEach((item) => {
@@ -70,6 +102,20 @@ class Hazyair extends EventEmitter {
         
     }
 
+/**
+* Start http web service.
+* 
+* @param {Object} options passed to the [http server](https://nodejs.org/api/net.html#net_server_listen)
+* @param {Function} [callback] function passed to the [http server](https://nodejs.org/api/net.html#net_server_listen)
+* @returns {Promise} Promise object
+* 
+* @example
+hazyair.listen({
+    port: 8081
+}).then(() => {
+    // web service started
+});
+**/
     listen(options, callback = null) {
 
         let promise = new Promise((resolve, reject) => {
@@ -116,7 +162,18 @@ class Hazyair extends EventEmitter {
         }
         return promise;
     }
-    
+
+/**
+* Close http web server and access to the databases if required.
+* 
+* @param {Function} [callback] function executed when action is completed
+* @returns {Promise} Promise object
+* 
+* @example
+hazyair.close().then(() => {
+    // Hazyair closed
+});
+**/    
     close(callback = null) {
 
         let promise = new Promise((resolve, reject) => {
@@ -128,7 +185,7 @@ class Hazyair extends EventEmitter {
                 });         
                 await Promise.all(promises);
                 console.log('hazyair'.green + ' service has been stopped.');
-                return resolve();
+                resolve();
             });
         });
         if (callback && typeof callback == 'function') {

@@ -1,10 +1,12 @@
 {
   "name": "hazyair",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "Weather parameters monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
     "postinstall": "cd public && npm install && sudo npm install pm2 -g",
+    "installdocs": "sudo npm install jsdoc-to-markdown -g && cd .. && git clone https://github.com/marcin-sielski/hazyair.wiki.git",
+    "generatedocs": "jsdoc2md hazyair.js > ../hazyair.wiki/API.md",
     "plantower": "sudo ./scripts/plantower.sh",
     "nova": "sudo ./scripts/plantower.sh",
     "maxim": "sudo ./scripts/maxim.sh",
@@ -81,5 +83,6 @@
     "sds011-wrapper": "^1.0.0",
     "sse-broadcast": "^0.5.1",
     "yargs": "^10.0.3"
-  }
+  },
+  "devDependencies": {}
 }

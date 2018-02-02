@@ -6,13 +6,15 @@
 * humidity,
 * pressure.
 
-to the simple database. It also visualizes the measurement results on the charts that are accessible from the web browsers.
+to the simple database. It also visualizes the measurement results on the charts that can be accessed from the web
+browsers.
 
-## Configuration
+## Hardware - [Configuration](https://github.com/marcin-sielski/hazyair/wiki)
 
 ```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
 Following sensors are supported:
-* dust sensors - list of Plantower sesors is available under following [link](https://github.com/perfectworks/node-plantower), SDS011, SDS018, SDS021 (__untested__)
+* dust sensors - list of Plantower sesors is available under following
+[link](https://github.com/perfectworks/node-plantower), SDS011, SDS018, SDS021 (__not tested__)
 * temperature sensors - DS18B20,
 * temperature, pressure and optionally humidity combo sensors - BME280, BMP280.
 
@@ -46,6 +48,8 @@ Run desired sensor configuration script (examples below).
 
 ```npm run plantower PMS7003 /dev/serial0```
 
+```npm run nova SDS011 /dev/serial0```
+
 ```npm run maxim```
 
 ```npm run bosh BME280 1 119```
@@ -56,7 +60,8 @@ Deploy ```hazyair``` service.
 
 Run web browser and open charts under following link ```http://<ip_address>:8081```.
 
-### Use as a module
+### Use as a module - [API](https://github.com/marcin-sielski/hazyair/wiki/API)
+
 
 ```javascript
 const Hazyair = require('hazyair');
@@ -71,17 +76,20 @@ hazyair = new Hazyair([{
     }
 }]);
 
-// Optionally handle incoming measurements.
+// Optionally handle incoming
+// measurements.
 hazyair.on('dust', (data) => {
    
    // New measurement result available.
     
 });
 
-// Start to collect data.
+// Start collecting measurements data.
 hazyair.start();
 
-// Optionally start http server make data accessible to the web browsers.
+// Optionally start http server and
+// make data accessible to the web
+// browsers.
 hazyair.listen({
     port: '8081'
 }, () => {
