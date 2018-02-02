@@ -79,9 +79,7 @@ hazyair = new Hazyair([{
 // Optionally handle incoming
 // measurements.
 hazyair.on('dust', (data) => {
-   
    // New measurement result available.
-    
 });
 
 // Start collecting measurements data.
@@ -91,11 +89,9 @@ hazyair.start();
 // make data accessible to the web
 // browsers.
 hazyair.listen({
-    port: '8081'
+    port: 8081
 }, () => {
-    
     // Additional code goes here.
-
 });
 ```
 
