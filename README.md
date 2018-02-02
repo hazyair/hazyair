@@ -72,7 +72,7 @@ hazyair = new Hazyair([{
     model: 'PMS7003',
     persistent: true;
     options: {
-        device:'/dev/serial0'
+        device: '/dev/serial0'
     }
 }]);
 
