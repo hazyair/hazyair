@@ -4,7 +4,7 @@
 * dust conectration in the air (PM1.0, PM2.5, PM10),
 * temperature,
 * humidity,
-* pressure.
+* pressure,
 
 to the simple database. It also visualizes the measurement results on the charts that can be accessed from the web
 browsers.
