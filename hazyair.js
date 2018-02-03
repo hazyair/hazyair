@@ -84,7 +84,7 @@ class Hazyair extends EventEmitter {
 * 
 * @example
 hazyair.thingspeak({
-    api_key: ...,
+    api_key: 'XXXXXXXXXXXXXXXX',
     dust: {
         concentration_pm10_normal : 'field1'
     }
@@ -212,7 +212,7 @@ hazyair.listen({
 * 
 * @example
 hazyair.close().then(() => {
-    // Hazyair closed
+    // hazyair closed
 });
 **/    
     close(callback = null) {
