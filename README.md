@@ -1,4 +1,4 @@
-# hazyair - Weather parameters monitoring tool. 
+# hazyair - air quality monitoring tool. 
 
 [hazyair](https://marcin-sielski.github.io/hazyair/) is a handy tool that enables to store measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
@@ -66,7 +66,7 @@ Run web browser and open charts under following link ```http://<ip_address>:8081
 ```javascript
 const Hazyair = require('hazyair');
 
-// Initialize Hazyair.
+// Initialize hazyair.
 hazyair = new Hazyair([{    
     parameter: 'dust',
     model: 'PMS7003',
