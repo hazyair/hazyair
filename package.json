@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Weather parameters monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
