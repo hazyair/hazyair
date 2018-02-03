@@ -1,6 +1,6 @@
 # hazyair - Weather parameters monitoring tool. 
 
-```hazyair``` is a handy tool that enables to store measurments of the:
+[hazyair](https://marcin-sielski.github.io/hazyair/) is a handy tool that enables to store measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
 * temperature,
 * humidity,
@@ -80,6 +80,14 @@ hazyair = new Hazyair([{
 // measurements.
 hazyair.on('dust', (data) => {
    // New measurement result available.
+});
+// or send out data to the
+// ThinkSpeak™ service
+hazyair.thingspeak({ 
+    api_key: 'XXXXXXXXXXXXXXXX',
+    dust: {
+        concentration_pm10_normal : 'field1'
+    }
 });
 
 // Start collecting measurements data.

@@ -16,6 +16,9 @@ const argv = require('yargs').
     alias('c', 'config').
     describe('c', 'config.json').
     default('c', 'config.json').
+    alias('t', 'thingspeak').
+    describe('t', 'thingspeak.json').
+    default('t', 'thingspeak.json').
     help('h').
     alias('h', 'help').argv;
 
@@ -36,19 +39,31 @@ function close() {
 fs.readFile(argv.config, 'utf8', (error, config) => {
 
     if (error) {
-        console.log(`Failed to read ${argv.config} file.`);
+        console.error(`Failed to read ${argv.config} file.`);
     }
     
     config = JSON.parse(config);
-    hazyair = new Hazyair(config);
-
-    hazyair.start();
     
-    process.on('SIGINT', () => close());
-    process.on('SIGTERM', () => close());
+    fs.readFile(argv.thingspeak, 'utf8', (error, thingspeak) => {
 
-    hazyair.listen({
-        port: argv.port
+        if (error) {
+            console.error(`Failed to read ${argv.thingspeak} file.`);
+        }
+
+        thingspeak = JSON.parse(thingspeak);
+
+        hazyair = new Hazyair(config);
+
+        hazyair.thingspeak(thingspeak);
+
+        hazyair.start();
+    
+        process.on('SIGINT', () => close());
+        process.on('SIGTERM', () => close());
+
+        hazyair.listen({
+            port: argv.port
+        });
     });
     
 });

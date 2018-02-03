@@ -8,6 +8,7 @@ const moment = require('moment');
 const express = require('express');
 const sse = require('sse-broadcast')();
 const colors = require('colors');
+const fetch = require('node-fetch');
 
 require('http-shutdown').extend();
 
@@ -71,6 +72,36 @@ let hazyair = new Hazyair([
                 }
             }
 
+        });
+    }
+
+/**
+* Send all sensors data to the ThingSpeak™ service once they are available available.
+* 
+* @param {config} configuration { 'api_key': ..., ('dust'\|'temperature'\|'pressure'\|'humidity'):
+* ({..., 'field1'}\|('field1'\|...)) } }
+* 
+* @example
+hazyair.thingspeak({ 'api_key': ..., 'dust': { 'concentration_pm2.5_normal' : 'field1' } })
+**/
+    thingspeak(config) {
+
+        this.wait = Object.keys(config.parameters).length;
+        this.url = 'https://api.thingspeak.com/update?api_key=' + config.api_key;
+        Object.keys(config.parameters).forEach((parameter) => {
+            this.on(parameter, (data) => {
+                if (typeof config.parameters[parameter] == 'string') {
+                    this.url += '&'+config.parameters[parameter]+'='+data[parameter].value;
+                } else {
+                    Object.keys(config.parameters[parameter]).forEach((item) => {
+                        this.url += '&'+config.parameters[parameter][item]+'='+data[item].value;
+                    });
+                }
+                this.wait --;
+                if (!this.wait) {
+                    fetch(this.url);
+                }
+            });
         });
     }
 
