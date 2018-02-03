@@ -1,4 +1,4 @@
 theme: jekyll-theme-dinky
 github:
-    API: https://github.com/marcin-sielski/hazyair/wiki/API
-    NPM: https://www.npmjs.com/package/hazyair 
+    api_url: https://github.com/marcin-sielski/hazyair/wiki/API
+    npm_url: https://www.npmjs.com/package/hazyair 
