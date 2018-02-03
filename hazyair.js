@@ -86,23 +86,25 @@ hazyair.thingspeak({ 'api_key': ..., 'dust': { 'concentration_pm2.5_normal' : 'f
 **/
     thingspeak(config) {
 
-        this.wait = Object.keys(config.parameters).length;
-        this.url = 'https://api.thingspeak.com/update?api_key=' + config.api_key;
-        Object.keys(config.parameters).forEach((parameter) => {
-            this.on(parameter, (data) => {
-                if (typeof config.parameters[parameter] == 'string') {
-                    this.url += '&'+config.parameters[parameter]+'='+data[parameter].value;
-                } else {
-                    Object.keys(config.parameters[parameter]).forEach((item) => {
-                        this.url += '&'+config.parameters[parameter][item]+'='+data[item].value;
-                    });
-                }
-                this.wait --;
-                if (!this.wait) {
-                    ThingSpeak.fetch(this.url);
-                }
+        if (config.hasOwnProperty('parameters')) {
+            this.wait = Object.keys(config.parameters).length;
+            this.url = 'https://api.thingspeak.com/update?api_key=' + config.api_key;
+            Object.keys(config.parameters).forEach((parameter) => {
+                this.on(parameter, (data) => {
+                    if (typeof config.parameters[parameter] == 'string') {
+                        this.url += '&'+config.parameters[parameter]+'='+data[parameter].value;
+                    } else {
+                        Object.keys(config.parameters[parameter]).forEach((item) => {
+                            this.url += '&'+config.parameters[parameter][item]+'='+data[item].value;
+                        });
+                    }
+                    this.wait --;
+                    if (!this.wait) {
+                        ThingSpeak.fetch(this.url);
+                    }
+                });
             });
-        });
+        }
     }
 
 /**

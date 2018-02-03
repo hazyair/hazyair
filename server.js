@@ -40,17 +40,19 @@ fs.readFile(argv.config, 'utf8', (error, config) => {
 
     if (error) {
         console.error(`Failed to read ${argv.config} file.`);
+        config = {};
+    } else {
+        config = JSON.parse(config);
     }
-    
-    config = JSON.parse(config);
     
     fs.readFile(argv.thingspeak, 'utf8', (error, thingspeak) => {
 
         if (error) {
             console.error(`Failed to read ${argv.thingspeak} file.`);
+            thingspeak = {};
+        } else {
+            thingspeak = JSON.parse(thingspeak);
         }
-
-        thingspeak = JSON.parse(thingspeak);
 
         hazyair = new Hazyair(config);
 
