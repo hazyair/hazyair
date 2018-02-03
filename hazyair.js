@@ -106,7 +106,9 @@ hazyair.thingspeak({
                     }
                     this.wait --;
                     if (!this.wait) {
-                        ThingSpeak.fetch(this.url);
+                        ThingSpeak.fetch(this.url).then(() => {
+                            console.log(this.url);
+                        });
                     }
                 });
             });
