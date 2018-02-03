@@ -20,6 +20,6 @@
 <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Pressure&type=line&yaxis=hPa"></iframe>
 </td><td style="background: inherit">
 <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Humidity&type=line&yaxis=%25"></iframe>
-</td style="background: inherit">
+</td>
 </tr>
 <table>
