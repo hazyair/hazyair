@@ -7,8 +7,10 @@ class ThingSpeak {
     static fetch(url) {
         
         return fetch(url, 4, 15000).then((response) => {
-            if (response) {
-                console.log(response);
+            return response.text();
+        }).then((status) => {
+            if (status) {
+                console.log(status);
                 return new Promise((resolve) => resolve());
             } else {
                 return new Promise((resolve) => {
