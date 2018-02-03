@@ -21,6 +21,16 @@ const Humidity = require('./humidity');
 * Class implementing the interface to the Hazyair monitoring tool.
 * 
 * @extends EventEmitter
+* 
+* @example
+let hazyair = new Hazyair([{
+    parameter: 'dust',
+    model: 'PMS7003',
+    persistent: true,
+    options: {
+        device: '/dev/serial0'
+    }
+}]);
 **/
 class Hazyair extends EventEmitter {
 
@@ -28,17 +38,8 @@ class Hazyair extends EventEmitter {
 * Create a Hazyair instance.
 * 
 * @param {Object} config <code>[ { parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
-persistent: (true\|false), options: {... } }, ...]</code>
+* persistent: (true\|false), options: {... } }, ...]</code>
 * 
-* @example
-let hazyair = new Hazyair([
-    parameter: 'dust',
-    model: 'PMS7003',
-    persistent: true,
-    options: {
-        device: '/dev/serial0'
-    }
-]);
 **/
     constructor(config) {
 
@@ -78,14 +79,14 @@ let hazyair = new Hazyair([
 /**
 * Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
 * 
-* @param {Object} config <code>{ 'api_key': ..., ('dust'\|'temperature'\|'pressure'\|'humidity'):
-({..., 'field1'}\|('field1'\|...)) } }</code>
+* @param {Object} config <code>{ api_key: ..., (dust\|temperature\|pressure\|humidity):
+* ({..., 'field1'}\|('field1'\|...)) } }</code>
 * 
 * @example
 hazyair.thingspeak({
-    'api_key': ...,
-    'dust': {
-        'concentration_pm2.5_normal' : 'field1'
+    api_key: ...,
+    dust: {
+        concentration_pm10_normal : 'field1'
     }
 });
 **/
