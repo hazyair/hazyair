@@ -8,7 +8,7 @@ const moment = require('moment');
 const express = require('express');
 const sse = require('sse-broadcast')();
 const colors = require('colors');
-const fetch = require('node-fetch');
+const ThingSpeak = require('./thingspeak');
 
 require('http-shutdown').extend();
 
@@ -99,7 +99,7 @@ hazyair.thingspeak({ 'api_key': ..., 'dust': { 'concentration_pm2.5_normal' : 'f
                 }
                 this.wait --;
                 if (!this.wait) {
-                    fetch(this.url);
+                    ThingSpeak.fetch(this.url);
                 }
             });
         });
