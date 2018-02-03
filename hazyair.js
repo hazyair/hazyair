@@ -27,8 +27,8 @@ class Hazyair extends EventEmitter {
 /**
 * Create a Hazyair instance.
 * 
-* @param {config} configuration <code>[ {parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
-* persistent: (true\|false), options: {... } }, ...]</code>
+* @param {Object} config <code>[ { parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
+persistent: (true\|false), options: {... } }, ...]</code>
 * 
 * @example
 let hazyair = new Hazyair([
@@ -76,13 +76,18 @@ let hazyair = new Hazyair([
     }
 
 /**
-* Send all sensors data to the ThingSpeak™ service once they are available available.
+* Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
 * 
-* @param {config} configuration { 'api_key': ..., ('dust'\|'temperature'\|'pressure'\|'humidity'):
-* ({..., 'field1'}\|('field1'\|...)) } }
+* @param {Object} config <code>{ 'api_key': ..., ('dust'\|'temperature'\|'pressure'\|'humidity'):
+({..., 'field1'}\|('field1'\|...)) } }</code>
 * 
 * @example
-hazyair.thingspeak({ 'api_key': ..., 'dust': { 'concentration_pm2.5_normal' : 'field1' } })
+hazyair.thingspeak({
+    'api_key': ...,
+    'dust': {
+        'concentration_pm2.5_normal' : 'field1'
+    }
+});
 **/
     thingspeak(config) {
 
