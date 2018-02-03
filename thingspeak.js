@@ -6,8 +6,9 @@ class ThingSpeak {
     
     static fetch(url) {
         
-        fetch(url, 4, 15000).then((response) => {
+        return fetch(url, 4, 15000).then((response) => {
             if (response) {
+                console.log(response);
                 return new Promise((resolve) => resolve());
             } else {
                 return new Promise((resolve) => {
