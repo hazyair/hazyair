@@ -80,7 +80,7 @@ class Hazyair extends EventEmitter {
 * Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
 * 
 * @param {Object} config <code>{ api_key: ..., (dust\|temperature\|pressure\|humidity):
-* ({..., 'field1'}\|('field1'\|...)) } }</code>
+* ({...: 'field1', ...}\|('field1'\|...)) } }</code>
 * 
 * @example
 hazyair.thingspeak({
