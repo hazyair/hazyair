@@ -70,7 +70,21 @@
     "thingspeak"
   ],
   "author": "Marcin Sielski",
+  "contributors": {
+    "name" : "Marcin Sielski",
+    "email" : "marcin.sielski@gmail.com",
+    "url" : "https://www.linkedin.com/in/msielski"
+  },
+  "homepage": "https://marcin-sielski.guthub.io/hazyair",
+  "bugs": {
+    "url": "https://github.com/marcin-sielski/hazyair/issues",
+    "email": "marcin.sielski@gmail.com"
+  },
   "license": "MIT",
+  "engines": {
+    "node": "*",
+    "npm": "*"
+  },
   "dependencies": {
     "berkeleydb": "^0.2.1",
     "bme280-sensor": "^0.1.6",
