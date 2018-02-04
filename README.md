@@ -83,7 +83,7 @@ hazyair.on('dust', (data) => {
 });
 
 // Optionally send out incoming data
-// to the ThinkSpeak™ service.
+// to the ThingSpeak™ service.
 hazyair.thingspeak({ 
     api_key: 'XXXXXXXXXXXXXXXX',
     dust: {
