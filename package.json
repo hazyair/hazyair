@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -75,7 +75,7 @@
     "email" : "marcin.sielski@gmail.com",
     "url" : "https://www.linkedin.com/in/msielski"
   },
-  "homepage": "https://marcin-sielski.guthub.io/hazyair",
+  "homepage": "https://marcin-sielski.github.io/hazyair",
   "bugs": {
     "url": "https://github.com/marcin-sielski/hazyair/issues",
     "email": "marcin.sielski@gmail.com"
