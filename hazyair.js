@@ -18,29 +18,29 @@ const Pressure = require('./pressure');
 const Humidity = require('./humidity');
 
 /**
-* Class implementing the interface to the Hazyair monitoring tool.
-* 
-* @extends EventEmitter
-* 
-* @example
-* let hazyair = new Hazyair([{
-*     parameter: 'dust',
-*     model: 'PMS7003',
-*     persistent: true,
-*     options: {
-*         device: '/dev/serial0'
-*     }
-* }]);
-**/
+ * Class implementing the interface to the Hazyair monitoring tool.
+ * 
+ * @extends EventEmitter
+ * 
+ * @example
+ * let hazyair = new Hazyair([{
+ *     parameter: 'dust',
+ *     model: 'PMS7003',
+ *     persistent: true,
+ *     options: {
+ *         device: '/dev/serial0'
+ *     }
+ * }]);
+ */
 class Hazyair extends EventEmitter {
 
-/**
-* Create a Hazyair instance.
-* 
-* @param {Object} config <code>[ { parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
-* persistent: (true\|false), options: {... } }, ...]</code>
-* 
-**/
+    /**
+     * Create a Hazyair instance.
+     * 
+     * @param {Object} config <code>[ { parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
+     * persistent: (true\|false), options: {... } }, ...]</code>
+     * 
+     */
     constructor(config) {
 
         super();
@@ -76,20 +76,20 @@ class Hazyair extends EventEmitter {
         });
     }
 
-/**
-* Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
-* 
-* @param {Object} config <code>{ api_key: ..., (dust\|temperature\|pressure\|humidity):
-* ({...: 'field1', ...}\|('field1'\|...)) } }</code>
-* 
-* @example
-* hazyair.thingspeak({
-*     api_key: 'XXXXXXXXXXXXXXXX',
-*     dust: {
-*         concentration_pm10_normal : 'field1'
-*     }
-* });
-**/
+    /**
+     * Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
+     * 
+     * @param {Object} config <code>{ api_key: ..., (dust\|temperature\|pressure\|humidity):
+     * ({...: 'field1', ...}\|('field1'\|...)) } }</code>
+     * 
+     * @example
+     * hazyair.thingspeak({
+     *     api_key: 'XXXXXXXXXXXXXXXX',
+     *     dust: {
+     *         concentration_pm10_normal : 'field1'
+     *     }
+     * });
+     */
     thingspeak(config) {
 
         if (config.hasOwnProperty('parameters')) {
@@ -120,17 +120,17 @@ class Hazyair extends EventEmitter {
 
     }
 
-/**
-* Start monitoring of the specified parameter(s).
-* 
-* @fires Hazyair#dust
-* @fires Hazyair#temperature
-* @fires Hazyair#pressure
-* @fires Hazyair#humidity
-* 
-* @example
-* hazyair.start()
-**/
+    /**
+     * Start monitoring of the specified parameter(s).
+     * 
+     * @fires Hazyair#dust
+     * @fires Hazyair#temperature
+     * @fires Hazyair#pressure
+     * @fires Hazyair#humidity
+     * 
+     * @example
+     * hazyair.start()
+     */
     start() {
         
         this.config.forEach((item) => {
@@ -148,20 +148,21 @@ class Hazyair extends EventEmitter {
         
     }
 
-/**
-* Start http web service.
-* 
-* @param {Object} options passed to the [http server](https://nodejs.org/api/net.html#net_server_listen)
-* @param {Function} [callback] function passed to the [http server](https://nodejs.org/api/net.html#net_server_listen)
-* @returns {Promise} Promise object
-* 
-* @example
-* hazyair.listen({
-*     port: 8081
-* }).then(() => {
-*     // web service started
-* });
-**/
+    /**
+     * Start http web service.
+     * 
+     * @param {Object} options passed to the [http server](https://nodejs.org/api/net.html#net_server_listen)
+     * @param {Function} [callback] function passed to the
+     * [http server](https://nodejs.org/api/net.html#net_server_listen)
+     * @returns {Promise} Promise object
+     * 
+     * @example
+     * hazyair.listen({
+     *     port: 8081
+     * }).then(() => {
+     *     // web service started
+     * });
+     */
     listen(options, callback = null) {
 
         let promise = new Promise((resolve, reject) => {
@@ -209,17 +210,17 @@ class Hazyair extends EventEmitter {
         return promise;
     }
 
-/**
-* Close http web server and access to the databases if required.
-* 
-* @param {Function} [callback] function executed when action is completed
-* @returns {Promise} Promise object
-* 
-* @example
-* hazyair.close().then(() => {
-*     // hazyair closed
-* });
-**/    
+    /**
+     * Close http web server and access to the databases if required.
+     * 
+     * @param {Function} [callback] function executed when action is completed
+     * @returns {Promise} Promise object
+     * 
+     * @example
+     * hazyair.close().then(() => {
+     *     // hazyair closed
+     * });
+     */    
     close(callback = null) {
 
         let promise = new Promise((resolve, reject) => {

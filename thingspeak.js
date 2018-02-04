@@ -18,9 +18,7 @@ class ThingSpeak {
             return response.text();
         }).then((status) => {
             console.log(status);
-            if (status) {
-                return new Promise((resolve) => resolve());
-            } else {
+            if (status == '0') {
                 console("trying again");
                 return new Promise((resolve) => {
                     setTimeout(resolve, ThingSpeak.TIMEOUT);
@@ -28,6 +26,8 @@ class ThingSpeak {
                     console.log(url);
                     return ThingSpeak.fetch(url);  
                 });
+            } else {
+                return new Promise((resolve) => resolve());
             }
         });
         
