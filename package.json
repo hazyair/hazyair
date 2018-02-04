@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -65,7 +65,8 @@
     "plantower",
     "nova",
     "bosh",
-    "maxim"
+    "maxim",
+    "thingspeak"
   ],
   "author": "Marcin Sielski",
   "license": "MIT",

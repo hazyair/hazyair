@@ -81,8 +81,9 @@ hazyair = new Hazyair([{
 hazyair.on('dust', (data) => {
    // New measurement result available.
 });
-// or send out data to the
-// ThinkSpeak™ service
+
+// Optionally send out incoming data
+// to the ThinkSpeak™ service.
 hazyair.thingspeak({ 
     api_key: 'XXXXXXXXXXXXXXXX',
     dust: {

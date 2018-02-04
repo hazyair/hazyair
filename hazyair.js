@@ -23,14 +23,14 @@ const Humidity = require('./humidity');
 * @extends EventEmitter
 * 
 * @example
-let hazyair = new Hazyair([{
-    parameter: 'dust',
-    model: 'PMS7003',
-    persistent: true,
-    options: {
-        device: '/dev/serial0'
-    }
-}]);
+* let hazyair = new Hazyair([{
+*     parameter: 'dust',
+*     model: 'PMS7003',
+*     persistent: true,
+*     options: {
+*         device: '/dev/serial0'
+*     }
+* }]);
 **/
 class Hazyair extends EventEmitter {
 
@@ -83,36 +83,40 @@ class Hazyair extends EventEmitter {
 * ({...: 'field1', ...}\|('field1'\|...)) } }</code>
 * 
 * @example
-hazyair.thingspeak({
-    api_key: 'XXXXXXXXXXXXXXXX',
-    dust: {
-        concentration_pm10_normal : 'field1'
-    }
-});
+* hazyair.thingspeak({
+*     api_key: 'XXXXXXXXXXXXXXXX',
+*     dust: {
+*         concentration_pm10_normal : 'field1'
+*     }
+* });
 **/
     thingspeak(config) {
 
         if (config.hasOwnProperty('parameters')) {
-            this.wait = Object.keys(config.parameters).length;
-            this.url = 'https://api.thingspeak.com/update?api_key=' + config.api_key;
+            let length = Object.keys(config.parameters).length;
+            let endpoint = 'https://api.thingspeak.com/update?api_key=' + config.api_key;
+            let wait = length;
+            let url = endpoint;
             Object.keys(config.parameters).forEach((parameter) => {
                 this.on(parameter, (data) => {
                     if (typeof config.parameters[parameter] == 'string') {
-                        this.url += '&'+config.parameters[parameter]+'='+data[parameter].value;
+                        url += '&' + config.parameters[parameter] + '=' + data[parameter].value;
                     } else {
                         Object.keys(config.parameters[parameter]).forEach((item) => {
-                            this.url += '&'+config.parameters[parameter][item]+'='+data[item].value;
+                            url += '&' + config.parameters[parameter][item] + '=' + data[item].value;
                         });
                     }
-                    this.wait --;
-                    if (!this.wait) {
-                        ThingSpeak.fetch(this.url).then(() => {
-                            console.log(this.url);
+                    wait --;
+                    if (!wait) {
+                        ThingSpeak.fetch(url).then(() => {
+                            wait = length;
+                            url = endpoint;
                         });
                     }
                 });
             });
         }
+
     }
 
 /**
@@ -124,7 +128,7 @@ hazyair.thingspeak({
 * @fires Hazyair#humidity
 * 
 * @example
-hazyair.start()
+* hazyair.start()
 **/
     start() {
         
@@ -151,11 +155,11 @@ hazyair.start()
 * @returns {Promise} Promise object
 * 
 * @example
-hazyair.listen({
-    port: 8081
-}).then(() => {
-    // web service started
-});
+* hazyair.listen({
+*     port: 8081
+* }).then(() => {
+*     // web service started
+* });
 **/
     listen(options, callback = null) {
 
@@ -211,9 +215,9 @@ hazyair.listen({
 * @returns {Promise} Promise object
 * 
 * @example
-hazyair.close().then(() => {
-    // hazyair closed
-});
+* hazyair.close().then(() => {
+*     // hazyair closed
+* });
 **/    
     close(callback = null) {
 

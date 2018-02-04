@@ -12,24 +12,6 @@ class Cache {
 
     }
 
-    static timestamp(query) {
-
-        let timestamp = Date.now();
-        if (query.hour !== undefined) {
-            timestamp -= 1000 * 60 * 60;
-        } else if (query.day !== undefined) {
-            timestamp -= 1000 * 60 * 60 * 24;
-        } else if (query.week !== undefined) {
-            timestamp -= 1000 * 60 * 60 * 24 * 7;
-        } else if (query.month !== undefined) {
-            timestamp -= 1000 * 60 * 60 * 24 * 31;
-        } else if (query.year !== undefined) {
-            timestamp -= 1000 * 60 * 60 * 24 * 366;
-        }
-        return timestamp;
-
-    } 
-
     clean() {
 
         let i = Object.keys(this.cache).length;

@@ -1,20 +1,20 @@
 'use strict';
 
 const fetch = require('./fetch').fetch;
+const Utils = require('./utils');
 
 class ThingSpeak {
     
     static fetch(url) {
         
-        return fetch(url, 4, 15000).then((response) => {
+        return fetch(url, Utils.RETRIES, Utils.TIMEOUT).then((response) => {
             return response.text();
         }).then((status) => {
             if (status) {
-                console.log(status);
                 return new Promise((resolve) => resolve());
             } else {
                 return new Promise((resolve) => {
-                    setTimeout(resolve, 15000);
+                    setTimeout(resolve, Utils.TIMEOUT);
                 }).then(() => {
                     return ThingSpeak.fetch(url);  
                 });

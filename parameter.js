@@ -3,6 +3,7 @@
 const Database = require('./database');
 const Cache = require('./cache');
 const round = require('./round');
+const Utils = require('./utils');
 
 class Parameter {
     
@@ -18,7 +19,7 @@ class Parameter {
             this.parameters = parameters;
         }
         if (this.persistent) {
-            this.database = new Database(parameter, 24 * 366);
+            this.database = new Database(parameter, Utils.LIMIT);
             this.cache = new Cache(['last', 'mean']);
         }
     }
@@ -87,7 +88,7 @@ class Parameter {
                 response.json(result);
             } else {
                 result = [];
-                this.database.find(Cache.timestamp(request.query), (record) => {
+                this.database.find(Utils.timestamp(request.query), (record) => {
                     result.unshift(record);
                 }).then(() => {
                     if (result.length) {
@@ -113,7 +114,7 @@ class Parameter {
                 response.json(result);
             } else {
                 let divider = 0;
-                this.database.find(Cache.timestamp(request.query), (record) => {
+                this.database.find(Utils.timestamp(request.query), (record) => {
                     if (result === null) {
                         result = record;
                     } else {
