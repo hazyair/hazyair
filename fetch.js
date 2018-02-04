@@ -10,7 +10,7 @@ class Fetch {
             if (n === 1) throw error;
             return new Promise((resolve) => {
                 setTimeout(resolve, timeout);
-            }).then(function() {
+            }).then(() => {
                 return Fetch.fetch(url, n - 1, timeout);  
             });
         });

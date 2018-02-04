@@ -18,7 +18,8 @@
     "restart": "pm2 restart server",
     "reload": "pm2 reload server",
     "delete": "pm2 delete server",
-    "show": "pm2 show server"
+    "show": "pm2 show server",
+    "logs": "pm2 logs server"
   },
   "repository": {
     "type": "git",
