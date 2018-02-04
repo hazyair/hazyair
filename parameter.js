@@ -3,9 +3,32 @@
 const Database = require('./database');
 const Cache = require('./cache');
 const round = require('./round');
-const Utils = require('./utils');
 
 class Parameter {
+    
+    static get LIMIT() {
+        
+        return 24 * 366;
+        
+    }
+    
+    static timestamp(query) {
+
+        let timestamp = Date.now();
+        if (query.hour !== undefined) {
+            timestamp -= 1000 * 60 * 60;
+        } else if (query.day !== undefined) {
+            timestamp -= 1000 * 60 * 60 * 24;
+        } else if (query.week !== undefined) {
+            timestamp -= 1000 * 60 * 60 * 24 * 7;
+        } else if (query.month !== undefined) {
+            timestamp -= 1000 * 60 * 60 * 24 * 31;
+        } else if (query.year !== undefined) {
+            timestamp -= 1000 * 60 * 60 * 24 * 366;
+        }
+        return timestamp;
+
+    } 
     
     constructor(parameter, persistent = true, precision = 0, parameters = []) {
         
@@ -19,7 +42,7 @@ class Parameter {
             this.parameters = parameters;
         }
         if (this.persistent) {
-            this.database = new Database(parameter, Utils.LIMIT);
+            this.database = new Database(parameter, Parameter.LIMIT);
             this.cache = new Cache(['last', 'mean']);
         }
     }
@@ -88,7 +111,7 @@ class Parameter {
                 response.json(result);
             } else {
                 result = [];
-                this.database.find(Utils.timestamp(request.query), (record) => {
+                this.database.find(Parameter.timestamp(request.query), (record) => {
                     result.unshift(record);
                 }).then(() => {
                     if (result.length) {
@@ -114,7 +137,7 @@ class Parameter {
                 response.json(result);
             } else {
                 let divider = 0;
-                this.database.find(Utils.timestamp(request.query), (record) => {
+                this.database.find(Parameter.timestamp(request.query), (record) => {
                     if (result === null) {
                         result = record;
                     } else {
