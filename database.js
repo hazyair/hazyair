@@ -20,14 +20,14 @@ class Database {
             this.db.allDocs().then((data) => {
                 return resolve(data.rows.length);
             }).catch((error) => {
-                return reject(error);    
+                return reject(error);
             });
         });
 
     }
 
     remove() {
-    
+
         return new Promise((resolve, reject) => {
             this.records().then((limit) => {
                 if (limit >= this.limit) {
@@ -45,13 +45,13 @@ class Database {
                         return reject(error);
                     });
                 } else {
-                    return resolve();        
+                    return resolve();
                 }
             }).catch((error) => {
                 return reject(error);
             });
         });
-    
+
     }
 
     store(data) {
@@ -72,7 +72,7 @@ class Database {
                 });
             });
         });
-    
+
     }
 
     find(timestamp, callback) {

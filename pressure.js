@@ -1,12 +1,12 @@
 'use strict';
 
-const Parameter = require('./parameter'); 
+const Parameter = require('./parameter');
 const Bosch = require('./bosch');
 
 class Pressure extends Parameter {
 
     constructor(model, persistent, options = null) {
-        
+
         super('pressure', persistent);
         switch(model) {
             case 'BME280':

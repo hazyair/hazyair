@@ -1,13 +1,13 @@
 'use strict';
 
-const Parameter = require('./parameter'); 
+const Parameter = require('./parameter');
 const Bosch = require('./bosch');
 const Plantower = require('./plantower');
 
 class Humidity extends Parameter {
 
     constructor(model, persistent, options = null) {
-        
+
         super('humidity', persistent);
         switch(model) {
             case 'BME280':

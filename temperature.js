@@ -1,6 +1,6 @@
 'use strict';
 
-const Parameter = require('./parameter'); 
+const Parameter = require('./parameter');
 const Maxim = require('./maxim');
 const Bosch = require('./bosch');
 const Plantower = require('./plantower');
@@ -8,7 +8,7 @@ const Plantower = require('./plantower');
 class Temperature extends Parameter {
 
     constructor(model, persistent = true, options = null) {
-        
+
         super('temperature', persistent, 1);
         switch(model) {
             case 'DS18B20':

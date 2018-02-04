@@ -6,7 +6,7 @@ const round = require('./round');
 let sensor = {};
 
 class Bosch {
-    
+
     constructor(model, options) {
 
         if (!sensor.hasOwnProperty(model)) {
@@ -20,14 +20,14 @@ class Bosch {
     temperature() {
 
         return new Promise((resolve, reject) => {
-            
+
             this.sensor.readSensorData().then((data) => {
                 return resolve({ 'temperature': { 'value': round(data.temperature_C,1), 'unit': '°C'},
                 'model': this.sensor.model, 'timestamp': Date.now() });
             }).catch((error) => {
-                return reject(error);  
+                return reject(error);
             });
-            
+
         });
 
     }
@@ -35,14 +35,14 @@ class Bosch {
     pressure() {
 
         return new Promise((resolve, reject) => {
-            
+
             this.sensor.readSensorData().then((data) => {
                 return resolve({ 'pressure': { 'value': round(data.pressure_hPa), 'unit': 'hPa' },
                 'model': this.sensor.model, 'timestamp': Date.now() });
             }).catch((error) => {
-                return reject(error);  
+                return reject(error);
             });
-            
+
         });
 
     }
@@ -51,14 +51,14 @@ class Bosch {
     humidity() {
 
         return new Promise((resolve, reject) => {
-            
+
             this.sensor.readSensorData().then((data) => {
                 return resolve({ 'humidity': { 'value': round(data.humidity), 'unit': '%' },
                 'model': this.sensor.model, 'timestamp': Date.now() });
             }).catch((error) => {
-                return reject(error);  
+                return reject(error);
             });
-            
+
         });
 
     }

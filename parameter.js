@@ -5,13 +5,13 @@ const Cache = require('./cache');
 const round = require('./round');
 
 class Parameter {
-    
+
     static get LIMIT() {
-        
+
         return 24 * 366;
-        
+
     }
-    
+
     static timestamp(query) {
 
         let timestamp = Date.now();
@@ -28,10 +28,10 @@ class Parameter {
         }
         return timestamp;
 
-    } 
-    
+    }
+
     constructor(parameter, persistent = true, precision = 0, parameters = []) {
-        
+
         this.parameter = parameter;
         this.persistent = persistent;
         this.precision = precision;
@@ -46,11 +46,11 @@ class Parameter {
             this.cache = new Cache(['last', 'mean']);
         }
     }
-    
+
     read() {
 
         return new Promise((resolve, reject) => {
-            
+
             this.sensor[this.parameter]().then((data) => {
                 return resolve(data);
             }).catch((error) => {
@@ -60,11 +60,11 @@ class Parameter {
         });
 
     }
-    
+
     store(data) {
-        
+
         return new Promise((resolve, reject) => {
-            
+
             if (this.persistent) {
                 this.cache.clean();
                 this.database.store(data).then(() => {
@@ -75,13 +75,13 @@ class Parameter {
             } else {
                 return resolve(data);
             }
-            
+
         });
-        
+
     }
 
     info(requet, response) {
-        
+
         if (this.persistent) {
             this.database.records().then((records) => {
                 response.json({ 'records': records });
@@ -89,7 +89,7 @@ class Parameter {
         } else {
             response.json('');
         }
-    
+
     }
 
     current(request, response) {
@@ -166,13 +166,13 @@ class Parameter {
     }
 
     close() {
-        
+
         if (this.persistent) {
             return this.database.close();
         } else {
             return new Promise((resolve) => resolve());
         }
-    
+
     }
 
 }

@@ -19,9 +19,9 @@ const Humidity = require('./humidity');
 
 /**
  * Class implementing the interface to the Hazyair monitoring tool.
- * 
+ *
  * @extends EventEmitter
- * 
+ *
  * @example
  * let hazyair = new Hazyair([{
  *     parameter: 'dust',
@@ -36,10 +36,10 @@ class Hazyair extends EventEmitter {
 
     /**
      * Create a Hazyair instance.
-     * 
+     *
      * @param {Object} config <code>[ { parameter: ('dust'\|'temperature'\|'pressure'\|'humidity'), model: ...,
      * persistent: (true\|false), options: {... } }, ...]</code>
-     * 
+     *
      */
     constructor(config) {
 
@@ -78,10 +78,10 @@ class Hazyair extends EventEmitter {
 
     /**
      * Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
-     * 
+     *
      * @param {Object} config <code>{ api_key: ..., (dust\|temperature\|pressure\|humidity):
      * ({...: 'field1', ...}\|('field1'\|...)) } }</code>
-     * 
+     *
      * @example
      * hazyair.thingspeak({
      *     api_key: 'XXXXXXXXXXXXXXXX',
@@ -122,17 +122,17 @@ class Hazyair extends EventEmitter {
 
     /**
      * Start monitoring of the specified parameter(s).
-     * 
+     *
      * @fires Hazyair#dust
      * @fires Hazyair#temperature
      * @fires Hazyair#pressure
      * @fires Hazyair#humidity
-     * 
+     *
      * @example
      * hazyair.start()
      */
     start() {
-        
+
         this.config.forEach((item) => {
 
             if (item.hasOwnProperty('parameter')) {
@@ -145,17 +145,17 @@ class Hazyair extends EventEmitter {
             }
 
         });
-        
+
     }
 
     /**
      * Start http web service.
-     * 
+     *
      * @param {Object} options passed to the [http server](https://nodejs.org/api/net.html#net_server_listen)
      * @param {Function} [callback] function passed to the
      * [http server](https://nodejs.org/api/net.html#net_server_listen)
      * @returns {Promise} Promise object
-     * 
+     *
      * @example
      * hazyair.listen({
      *     port: 8081
@@ -166,7 +166,7 @@ class Hazyair extends EventEmitter {
     listen(options, callback = null) {
 
         let promise = new Promise((resolve, reject) => {
-            
+
             const app = express();
 
             const service = '/' + path.basename(__filename, '.js');
@@ -174,7 +174,7 @@ class Hazyair extends EventEmitter {
             app.use(express.static('public'));
 
             app.get(service + '/update', sse.middleware('update'));
-        
+
             // send keep-alive every minute
             setInterval(() => {
                 sse.publish('update', ':'); 
@@ -212,15 +212,15 @@ class Hazyair extends EventEmitter {
 
     /**
      * Close http web server and access to the databases if required.
-     * 
+     *
      * @param {Function} [callback] function executed when action is completed
      * @returns {Promise} Promise object
-     * 
+     *
      * @example
      * hazyair.close().then(() => {
      *     // hazyair closed
      * });
-     */    
+     */
     close(callback = null) {
 
         let promise = new Promise((resolve, reject) => {
@@ -229,7 +229,7 @@ class Hazyair extends EventEmitter {
                     if (item.hasOwnProperty('parameter')) {
                         await this[item.parameter].close();
                     }
-                });         
+                });
                 await Promise.all(promises);
                 console.log('hazyair'.green + ' service has been stopped.');
                 resolve();
