@@ -1,6 +1,6 @@
 # hazyair - air quality monitoring tool. 
 
-[hazyair](https://marcin-sielski.github.io/hazyair/) is a handy tool that enables to store measurments of the:
+__hazyair__ is a handy tool that enables to store measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
 * temperature,
 * humidity,
@@ -11,7 +11,7 @@ browsers.
 
 ## Hardware - [Configuration](https://github.com/marcin-sielski/hazyair/wiki)
 
-```hazyair``` was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
+__hazyair__ was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
 Following sensors are supported:
 * dust sensors - [Plantower sesors](https://github.com/perfectworks/node-plantower#supported-device-models),
 SDS011, SDS018, SDS021 (__not tested__),
@@ -34,13 +34,13 @@ Create ```node_modules``` folder.
 
 ```mkdir node_modules```
 
-Install ```hazyair``` module.
+Install __hazyair__ module.
 
 ```npm install hazyair```
 
 ### Use as a service
 
-Browse to ```hazyair``` folder.
+Browse to __hazyair__ folder.
 
 ```cd node_modules/hazyair```
 
@@ -54,7 +54,7 @@ Run desired sensor configuration script (examples below).
 
 ```npm run bosch BME280 1 119```
 
-Deploy ```hazyair``` service.
+Deploy __hazyair__ service.
 
 ```npm run deploy```
 

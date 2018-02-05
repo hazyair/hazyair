@@ -71,9 +71,9 @@
   ],
   "author": "Marcin Sielski",
   "contributors": {
-    "name" : "Marcin Sielski",
-    "email" : "marcin.sielski@gmail.com",
-    "url" : "https://www.linkedin.com/in/msielski"
+    "name": "Marcin Sielski",
+    "email": "marcin.sielski@gmail.com",
+    "url": "https://www.linkedin.com/in/msielski"
   },
   "homepage": "https://marcin-sielski.github.io/hazyair",
   "bugs": {
@@ -86,9 +86,8 @@
     "npm": "*"
   },
   "dependencies": {
-    "berkeleydb": "^0.2.1",
     "bme280-sensor": "^0.1.6",
-    "colors": "^1.1.2",
+    "chalk": "^2.3.0",
     "console-stamp": "^0.2.6",
     "cron": "^1.3.0",
     "ds18b20": "^0.1.0",

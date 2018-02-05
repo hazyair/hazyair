@@ -7,8 +7,7 @@ const CronJob = require('cron').CronJob;
 const moment = require('moment');
 const express = require('express');
 const sse = require('sse-broadcast')();
-const colors = require('colors');
-const ThingSpeak = require('./thingspeak');
+const chalk = require('chalk');
 
 require('http-shutdown').extend();
 
@@ -16,6 +15,7 @@ const Dust = require('./dust');
 const Temperature = require('./temperature');
 const Pressure = require('./pressure');
 const Humidity = require('./humidity');
+const ThingSpeak = require('./thingspeak');
 
 /**
  * Class implementing the interface to the Hazyair monitoring tool.
@@ -198,7 +198,7 @@ class Hazyair extends EventEmitter {
 
                 var host = this.server.address().address;
                 var port = this.server.address().port;
-                console.log('hazyair'.green + ' service is listening at http://%s:%s.', host, port);
+                console.log(chalk.green('hazyair') + ' service is listening at http://%s:%s.', host, port);
                 resolve();
 
             }).withShutdown();
@@ -230,7 +230,7 @@ class Hazyair extends EventEmitter {
                     }
                 });
                 await Promise.all(promises);
-                console.log('hazyair'.green + ' service has been stopped.');
+                console.log(chalk.green('hazyair') + ' service has been stopped.');
                 resolve();
             });
         });
