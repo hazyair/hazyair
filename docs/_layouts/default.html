@@ -24,9 +24,9 @@
         <p class="header">{{ site.description | default: site.github.project_tagline }}</p>
 
         <ul>
-          <li class="menu"><a class="buttons none" href="{{ site.github.hw_url }}">Hardware</a></li>
-          <li class="menu"><a class="buttons none" href="{{ site.github.api_url }}">API Reference</a></li>
-          <li class="menu"><a class="buttons none" href="{{ site.github.npm_url }}">View On NPM</a></li>
+          <li style="width: 170px; height: 30px"><a class="buttons none" href="{{ site.github.hw_url }}">Hardware</a></li>
+          <li style="width: 170px; height: 30px"><a class="buttons none" href="{{ site.github.api_url }}">API Reference</a></li>
+          <li style="width: 170px; height: 30px"><a class="buttons none" href="{{ site.github.npm_url }}">View On NPM</a></li>
         </ul>
         <hr/>
         <ul>
@@ -34,7 +34,7 @@
             <li class="download"><a class="buttons" href="{{ site.github.zip_url }}">Download ZIP</a></li>
             <li class="download"><a class="buttons" href="{{ site.github.tar_url }}">Download TAR</a></li>
           {% endif %}
-          <li class="menu"><a class="buttons github" href="{{ site.github.repository_url }}">View On GitHub</a></li>
+          <li style="width: 170px; height: 30px"><a class="buttons github" href="{{ site.github.repository_url }}">View On GitHub</a></li>
         </ul>
 
         {% if site.github.is_project_page %}
