@@ -2,7 +2,7 @@ a.none {
     background: none;
 }
 
-a.menu {
+li.menu {
     width: 170px;
     height: 30px;
 }
