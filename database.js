@@ -4,6 +4,8 @@ const path = require('path');
 
 const PouchDB = require('pouchdb-node');
 
+require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
+
 class Database {
 
     constructor(name, limit) {

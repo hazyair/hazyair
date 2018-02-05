@@ -3,6 +3,8 @@
 
 const fs = require('fs');
 
+require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
+
 process.stdin.setEncoding('utf8');
 
 let output;
@@ -17,7 +19,7 @@ fs.readFile('config.json', 'utf8', (error, data) => {
             throw error;
         }
     } else {
-        if (data === '' ) {
+        if (data === '') {
             output = [];
         } else {
             output = JSON.parse(data);

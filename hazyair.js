@@ -10,6 +10,7 @@ const sse = require('sse-broadcast')();
 const chalk = require('chalk');
 
 require('http-shutdown').extend();
+require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
 
 const Dust = require('./dust');
 const Temperature = require('./temperature');
