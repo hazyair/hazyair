@@ -1,3 +1,30 @@
-a.none {
-    background: none;
+body {
+    padding: 0px;
+    overflow-x: hidden;
+    background-color: black;
+}
+
+.hazyair-style {
+    font-weight: bold
+}
+
+.hazyair-wrap {
+    width: 360px;
+    height: 208;
+    padding: 0;
+    overflow: hidden;
+}
+
+.hazyair-frame {
+    border: 0;
+    -ms-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
 }
