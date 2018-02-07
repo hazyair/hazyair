@@ -7,6 +7,7 @@ body {
 .hazyair-style {
     font-weight: bold;
     color: white;
+    font-style: italic;
 }
 
 .hazyair-wrap {
@@ -17,6 +18,8 @@ body {
 }
 
 .hazyair-frame {
+    width: 450px;
+    height: 260px;
     border: 0;
     -ms-transform: scale(0.8);
     -moz-transform: scale(0.8);

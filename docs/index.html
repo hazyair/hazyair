@@ -8,7 +8,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <div class="navbar-brand hazyair-style">hazyair</div>
+            <span class="navbar-brand hazyair-style">hazyair</span>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,80 +35,92 @@
             </div>
         </nav>
         <div class="container" style="padding: 0px">
-            <div class="row"><div class="col-sm"><center><div class="hazyair-style">Live Chart</<div></div></center></div></div>
-            <div class="row"><div class="col-sm">
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM1.0+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3"></iframe>
+            <div class="row">
+                <div class="col-sm">
+                    <center>
+                        <div class="hazyair-style">Live Chart</div>
+                    </center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM1.0+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM2.5+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3"></iframe>
+                            <div class="carousel-item">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM2.5+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM10+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3"></iframe>
+                            <div class="carousel-item">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM10+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Temperature&type=line&yaxis=%C2%B0C"></iframe>
+                            <div class="carousel-item">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Temperature&type=line&yaxis=%C2%B0C"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Pressure&type=line&yaxis=hPa"></iframe>
+                            <div class="carousel-item">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Pressure&type=line&yaxis=hPa"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Humidity&type=line&yaxis=%25"></iframe>
+                            <div class="carousel-item">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Humidity&type=line&yaxis=%25"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <div class="hazyair-wrap">
-                                <iframe width="450" height="260" class="d-block hazyair-frame" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/418257/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Outside+Temperature&type=line&yaxis=%C2%B0C"></iframe>
+                            <div class="carousel-item">
+                                <center>
+                                    <div class="hazyair-wrap">
+                                        <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Outside+Temperature&type=line&yaxis=%C2%B0C"></iframe>
+                                    </div>
+                                </center>
                             </div>
-                        </center>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="flase"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="false"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="flase"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="false"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
-            </div></div>
-            <div class="row"><div class="col-sm"><center>MIT License, Copyright (c) 2018 Marcin Sielski</center></div></div>
+            <div class="row">
+                <div class="col-sm">
+                    <center>MIT License, Copyright (c) 2018 Marcin Sielski</center>
+                </div>
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
