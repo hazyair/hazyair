@@ -5,7 +5,8 @@ body {
 }
 
 .hazyair-style {
-    font-weight: bold
+    font-weight: bold;
+    color: white;
 }
 
 .hazyair-wrap {
