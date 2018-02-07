@@ -25,8 +25,10 @@ SDS011, SDS018, SDS021 (__not tested__),
 Install `node`.
 
 ```
-git clone --depth=1 https://github.com/tj/n.git
-cd n && sudo make install && cd ..
+git clone --depth=1 \
+https://github.com/tj/n.git;
+cd n && sudo make install && \
+cd ..
 n lts
 ```
 
@@ -47,9 +49,11 @@ Browse to __*hazyair*__ folder.
 Run desired sensor configuration script (examples below).
 
 ```
-npm run plantower PMS7003 /dev/serial0
+npm run plantower PMS7003 \
+/dev/serial0
 
-npm run nova SDS011 /dev/serial0
+npm run nova SDS011 \
+/dev/serial0
 
 npm run maxim
 
@@ -66,7 +70,8 @@ Run web browser and open charts under following link ```http://<ip_address>:8081
 
 
 ```javascript
-const Hazyair = require('hazyair');
+const Hazyair =
+            require('hazyair');
 
 // Initialize hazyair.
 hazyair = new Hazyair([{    
