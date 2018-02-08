@@ -45,6 +45,7 @@ body {
         height: 260px;
         padding: 0;
         overflow: hidden;
+        padding-bottom: 100px;
     }
 
     .hazyair-frame {
@@ -72,6 +73,7 @@ body {
         height: 312px;
         padding: 0;
         overflow: hidden;
+        padding-bottom: 100px;
     }
 
     .hazyair-frame {
