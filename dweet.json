@@ -1,0 +1,13 @@
+{
+    "thing": "25935C0E2C7F42558309E27E216C1D65",
+    "parameters": {
+        "dust": {
+            "concentration_pm1.0_normal": "PM1.0Concentration",
+            "concentration_pm2.5_normal": "PM2.5Concentration",
+            "concentration_pm10_normal": "PM10Concentration"
+        },
+        "temperature": "InsideTemperature",
+        "pressure": "InsidePressure",
+        "humidity": "InsideHumidity"
+    }
+}

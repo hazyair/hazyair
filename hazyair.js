@@ -8,6 +8,7 @@ const moment = require('moment');
 const express = require('express');
 const sse = require('sse-broadcast')();
 const chalk = require('chalk');
+const DweetClient = require("node-dweetio");
 
 require('http-shutdown').extend();
 require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
@@ -80,14 +81,16 @@ class Hazyair extends EventEmitter {
     /**
      * Send all sensors data to the [ThingSpeak™](https://thingspeak.com) service once they are available.
      *
-     * @param {Object} config <code>{ api_key: ..., (dust\|temperature\|pressure\|humidity):
-     * ({...: 'field1', ...}\|('field1'\|...)) } }</code>
+     * @param {Object} config <code>{ api_key: ..., parameters: { (dust\|temperature\|pressure\|humidity):
+     * ({...: 'field1', ...}\|('field1'\|...)) } } }</code>
      *
      * @example
      * hazyair.thingspeak({
      *     api_key: 'XXXXXXXXXXXXXXXX',
-     *     dust: {
-     *         concentration_pm10_normal : 'field1'
+     *     parameters: {
+     *         dust: {
+     *             concentration_pm10_normal: 'field1'
+     *         }
      *     }
      * });
      */
@@ -112,6 +115,51 @@ class Hazyair extends EventEmitter {
                         ThingSpeak.fetch(url).then(() => {
                             wait = length;
                             url = endpoint;
+                        });
+                    }
+                });
+            });
+        }
+
+    }
+
+    /**
+     * Send all sensors data to the [dweet.io](https://dweet.io) service once they are available.
+     *
+     * @param {Object} config <code>{ thing: ..., parameters: { (dust\|temperature\|pressure\|humidity):
+     * ({...: ..., ...}\|(...)) } } }</code>
+     *
+     * @example
+     * hazyair.dweet({
+     *     thing: 'XXXXXXXXXXXXXXXX',
+     *     parameters: {
+     *         dust: {
+     *             concentration_pm10_normal: 'PM10'
+     *         }
+     *     }
+     * });
+     */
+    dweet(config) {
+
+        if (config.hasOwnProperty('parameters')) {
+            let dweetio = new DweetClient();
+            let length = Object.keys(config.parameters).length;
+            let wait = length;
+            let dweet = {};
+            Object.keys(config.parameters).forEach((parameter) => {
+                this.on(parameter, (data) => {
+                    if (typeof config.parameters[parameter] == 'string') {
+                        dweet[config.parameters[parameter]] = data[parameter].value;
+                    } else {
+                        Object.keys(config.parameters[parameter]).forEach((item) => {
+                            dweet[config.parameters[parameter][item]] = data[item].value;
+                        });
+                    }
+                    wait --;
+                    if (!wait) {
+                        dweetio.dweet_for(config.thing, dweet, () => {
+                            wait = length;
+                            dweet = {};
                         });
                     }
                 });

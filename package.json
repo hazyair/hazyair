@@ -94,6 +94,7 @@
     "express": "^4.16.2",
     "http-shutdown": "^1.2.0",
     "moment": "^2.20.1",
+    "node-dweetio": "0.0.11",
     "node-fetch": "^1.7.3",
     "plantower": "^1.1.6",
     "pouchdb-node": "^6.4.1",

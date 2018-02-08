@@ -19,6 +19,9 @@ const argv = require('yargs').
     alias('t', 'thingspeak').
     describe('t', 'thingspeak.json').
     default('t', 'thingspeak.json').
+    alias('d', 'dweet').
+    describe('d', 'dweet.json').
+    default('d', 'dweet.json').
     help('h').
     alias('h', 'help').argv;
 
@@ -36,39 +39,44 @@ function close() {
 
 }
 
-fs.readFile(argv.config, 'utf8', (error, config) => {
+let config;
+try {
+    config = fs.readFileSync(argv.config, 'utf8');
+} catch(error) {
+    console.error(`Failed to read ${argv.config} file.`);
+    config = '{}';
+}
+config = JSON.parse(config);
 
-    if (error) {
-        console.error(`Failed to read ${argv.config} file.`);
-        config = {};
-    } else {
-        config = JSON.parse(config);
-    }
+let thingspeak;
+try {
+    thingspeak = fs.readFileSync(argv.thingspeak, 'utf8');
+} catch(error) {
+    console.error(`Failed to read ${argv.thingspeak} file.`);
+    thingspeak = '{}';
+}
+thingspeak = JSON.parse(thingspeak);
+
+let dweet;
+try {
+    dweet = fs.readFileSync(argv.dweet, 'utf8');
+} catch(error) {
+    console.error(`Failed to read ${argv.dweet} file.`);
+    dweet = '{}';
+}
+dweet = JSON.parse(dweet);
+
+hazyair = new Hazyair(config);
+
+hazyair.thingspeak(thingspeak);
+
+hazyair.dweet(dweet);
+
+hazyair.start();
     
-    fs.readFile(argv.thingspeak, 'utf8', (error, thingspeak) => {
+process.on('SIGINT', () => close());
+process.on('SIGTERM', () => close());
 
-        if (error) {
-            console.error(`Failed to read ${argv.thingspeak} file.`);
-            thingspeak = {};
-        } else {
-            thingspeak = JSON.parse(thingspeak);
-        }
-
-        hazyair = new Hazyair(config);
-
-        hazyair.thingspeak(thingspeak);
-
-        hazyair.start();
-    
-        process.on('SIGINT', () => close());
-        process.on('SIGTERM', () => close());
-
-        hazyair.listen({
-            port: argv.port
-        });
-    });
-    
+hazyair.listen({
+    port: argv.port
 });
-
-
-

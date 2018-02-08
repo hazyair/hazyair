@@ -104,10 +104,30 @@ hazyair.on('dust', (data) => {
 hazyair.thingspeak({ 
     api_key:
         'XXXXXXXXXXXXXXXX',
-    dust: {
+    parameters: {
+        dust: {
     
     concentration_pm10_normal:
-        'field1'
+            'field1'
+        
+        }
+
+    }
+});
+
+// Optionally send out incoming
+// data to the dweet.io
+// service.
+hazyair.dweet({ 
+    thing:
+        'XXXXXXXXXXXXXXXX',
+    parameters: {
+        dust: {
+    
+    concentration_pm10_normal:
+            'PM10'
+        
+        }
 
     }
 });

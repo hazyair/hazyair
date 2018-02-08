@@ -1,12 +1,4 @@
 {
-  "name": "hazyair",
-  "description": "Air quality monitoring tool.",
-  "author": "Marcin Sielski",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/marcin-sielski/hazyair.git"
-  },
-  "license": "MIT",
   "dependencies": {
     "bootstrap": "^4.0.0",
     "c3": "^0.4.18",

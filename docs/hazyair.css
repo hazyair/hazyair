@@ -10,6 +10,17 @@ body {
     font-style: italic;
 }
 
+.hazyair-result {
+    font-weight: bold;
+    color: green;
+}
+
+.hazyair-alert {
+    font-weight: bold;
+    color: red;
+}
+
+
 .hazyair-carousel {
     padding-bottom: 50px;
 }
