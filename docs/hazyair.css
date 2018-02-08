@@ -67,8 +67,8 @@ body {
 @media (min-width: 540px) {
 
     .hazyair-wrap {
-        width: 540px;
-        height: 312px;
+        width: 540vw;
+        height: 312vw;
         padding: 0;
         overflow: hidden;
     }
