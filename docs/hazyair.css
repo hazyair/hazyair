@@ -14,6 +14,87 @@ body {
     padding-bottom: 50px;
 }
 
+@media (min-width: 90px) {
+
+    .hazyair-wrap {
+        width: 90px;
+        height: 52px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .hazyair-frame {
+        width: 450px;
+        height: 260px;
+        border: 0;
+        -ms-transform: scale(0.2);
+        -moz-transform: scale(0.2);
+        -o-transform: scale(0.2);
+        -webkit-transform: scale(0.2);
+        transform: scale(0.2);
+        -ms-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+}
+
+@media (min-width: 180px) {
+
+    .hazyair-wrap {
+        width: 180px;
+        height: 104px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .hazyair-frame {
+        width: 450px;
+        height: 260px;
+        border: 0;
+        -ms-transform: scale(0.4);
+        -moz-transform: scale(0.4);
+        -o-transform: scale(0.4);
+        -webkit-transform: scale(0.4);
+        transform: scale(0.4);
+        -ms-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+}
+
+@media (min-width: 270px) {
+
+    .hazyair-wrap {
+        width: 270px;
+        height: 156px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .hazyair-frame {
+        width: 450px;
+        height: 260px;
+        border: 0;
+        -ms-transform: scale(0.6);
+        -moz-transform: scale(0.6);
+        -o-transform: scale(0.6);
+        -webkit-transform: scale(0.6);
+        transform: scale(0.6);
+        -ms-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+}
+
 @media (min-width: 360px) {
 
     .hazyair-wrap {
