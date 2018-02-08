@@ -10,7 +10,7 @@ body {
     font-style: italic;
 }
 
-@media width and (min-width: 360px) {
+@media (min-width: 360px) {
 
     .hazyair-wrap {
         width: 360px;
@@ -37,7 +37,7 @@ body {
 
 }
 
-@media width and (min-width: 450px) {
+@media (min-width: 450px) {
 
     .hazyair-wrap {
         width: 450px;
@@ -64,7 +64,7 @@ body {
 
 }
 
-@media width and (min-width: 540px) {
+@media (min-width: 540px) {
 
     .hazyair-wrap {
         width: 540px;
