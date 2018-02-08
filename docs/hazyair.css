@@ -10,6 +10,10 @@ body {
     font-style: italic;
 }
 
+.hazyair-carusel {
+    padding-bottom: 50px;
+}
+
 @media (min-width: 360px) {
 
     .hazyair-wrap {
@@ -17,7 +21,6 @@ body {
         height: 208px;
         padding: 0;
         overflow: hidden;
-        padding-bottom: 100px;
     }
 
     .hazyair-frame {
@@ -45,7 +48,6 @@ body {
         height: 260px;
         padding: 0;
         overflow: hidden;
-        padding-bottom: 100px;
     }
 
     .hazyair-frame {
@@ -73,7 +75,6 @@ body {
         height: 312px;
         padding: 0;
         overflow: hidden;
-        padding-bottom: 100px;
     }
 
     .hazyair-frame {
