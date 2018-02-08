@@ -94,3 +94,30 @@ body {
     }
 
 }
+
+@media (min-width: 1024px) {
+
+    .hazyair-wrap {
+        width: 630px;
+        height: 364px;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .hazyair-frame {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        -ms-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        -webkit-transform: scale(1.4);
+        transform: scale(1.2);
+        -ms-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+    }
+
+}
