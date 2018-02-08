@@ -2,8 +2,6 @@
 
 function handler(dweet) {
 
-    console.log(dweet);
-
     Object.keys(dweet.content).forEach(function(parameter) {
         document.getElementById(parameter).innerHTML = dweet.content[parameter];
         if (parameter === 'PM2.5Concentration' && parseInt(dweet.content[parameter], 10) > 25) {
