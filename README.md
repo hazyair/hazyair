@@ -1,4 +1,4 @@
-# hazyair - air quality monitoring tool. 
+# __*hazyair*__ - air quality monitoring tool. 
 
 __*hazyair*__ is a handy tool that enables to store measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
