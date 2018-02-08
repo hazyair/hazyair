@@ -24,7 +24,7 @@ SDS011, SDS018, SDS021 (__not tested__),
 
 Install `node`.
 
-```
+```bash
 git clone --depth=1 \
 https://github.com/tj/n.git;
 cd n && sudo make install && \
@@ -34,21 +34,27 @@ n lts
 
 Create `node_modules` folder.
 
-```mkdir node_modules```
+```bash
+mkdir node_modules
+```
 
-Install __*hazyair*__ module.
+Install `hazyair` module.
 
-```npm install hazyair```
+```bash
+npm install hazyair
+```
 
 ### Use as a service
 
-Browse to __*hazyair*__ folder.
+Browse to `hazyair` folder.
 
-```cd node_modules/hazyair```
+```bash
+cd node_modules/hazyair
+```
 
 Run desired sensor configuration script (examples below).
 
-```
+```bash
 npm run plantower PMS7003 \
 /dev/serial0
 
@@ -60,16 +66,18 @@ npm run maxim
 npm run bosch BME280 1 119
 ```
 
-Deploy __*hazyair*__ service.
+Deploy `hazyair` service.
 
-```npm run deploy```
+```bash
+npm run deploy
+```
 
 Run web browser and open charts under following link ```http://<ip_address>:8081```.
 
 ### Use as a module - [API](https://github.com/marcin-sielski/hazyair/wiki/API)
 
 
-```javascript
+```node
 const Hazyair =
             require('hazyair');
 
