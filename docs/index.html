@@ -6,6 +6,7 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="theme-color" content="black">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="hazyair.css">
         <link rel="icon" href="favicon.ico" type="image/x-icon" />        
     </head>
@@ -36,6 +37,9 @@
                     </li>
                 </div>
             </div>
+            <button type="button" class="btn btn-light hazyair-scroll" onclick="window.scrollBy(0, 56);">
+                <span class="oi oi-chevron-top"></span>
+            </button>
         </nav>
         <div class="container" style="padding: 0px">
             <div class="row">
@@ -81,7 +85,7 @@
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="OutsideTemperatureText" class="hazyair-result">LIVE:&nbsp;<span id="OutsideTemperature">0.0</span>&nbsp;°C</div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Outside+Temperature&type=line&yaxis=%C2%B0C&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="aaa" class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Outside+Temperature&type=line&yaxis=%C2%B0C&width=auto&height=auto&days=7"></iframe>
                                 </center>
                             </div>
                         </div>

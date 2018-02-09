@@ -64,3 +64,17 @@ body {
         border: 0px;
     }
 }
+
+@media screen and (orientation: landscape) {
+    .hazyair-scroll {
+        font-weight: bold;
+        display: inline;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .hazyair-scroll {
+        font-weight: bold;
+        display: none;
+    }
+}
