@@ -7,10 +7,8 @@ function listenHandler(dweet) {
         document.getElementById(parameter).innerHTML = dweet.content[parameter];
         if (parameter === 'PM2.5Concentration' && parseInt(dweet.content[parameter], 10) > 25) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
-            navigator.vibrate(200);
         } else if (parameter === 'PM10Concentration' && parseInt(dweet.content[parameter], 10) > 50) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
-            navigator.vibrate(200);
         } else {
             document.getElementById(parameter+'Text').className = 'hazyair-result';
         }
