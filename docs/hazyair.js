@@ -2,7 +2,7 @@
 
 function notification() {
     if (window.Notification && Notification.permission === "granted") {
-        new Notification('',{ body: '', vibrate: [200] });
+        new Notification("Hi! ", {tag: 'soManyNotification'});
     }
     
 }
