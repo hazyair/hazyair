@@ -2,6 +2,7 @@
 /*global navigator*/
 function notification() {
   Notification.requestPermission(function(result) {
+    console.log('notification');
     if (result === 'granted') {
       navigator.serviceWorker.ready.then(function(registration) {
         registration.showNotification('Vibration Sample', {
