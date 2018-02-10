@@ -37,9 +37,6 @@
                     </li>
                 </div>
             </div>
-            <button type="button" class="btn btn-light hazyair-scroll" onclick="window.scrollBy(0, 56);">
-                <span class="oi oi-chevron-top"></span>
-            </button>
         </nav>
         <div class="container" style="padding: 0px">
             <div class="row">
@@ -49,43 +46,43 @@
                             <div class="carousel-item hazyair-carousel active">
                                 <center>
                                     <div id="PM1.0ConcentrationText" class="hazyair-result">LIVE:&nbsp;<span id="PM1.0Concentration">0</span>&nbsp;µg/m<sup>3</sup></div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM1.0+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="PM1.0ConcentrationChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="PM2.5ConcentrationText" class="hazyair-result">LIVE:&nbsp;<span id="PM2.5Concentration">0</span>&nbsp;µg/m<sup>3</sup></div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM2.5+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="PM2.5ConcentrationChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="PM10ConcentrationText" class="hazyair-result">LIVE:&nbsp;<span id="PM10Concentration">0</span>&nbsp;µg/m<sup>3</sup></div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=PM10+Concentration&type=line&yaxis=%C2%B5g%2Fm%5E3&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="PM10ConcentrationChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="InsideTemperatureText" class="hazyair-result">LIVE:&nbsp;<span id="InsideTemperature">0.0</span>&nbsp;°C</div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Temperature&type=line&yaxis=%C2%B0C&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="InsideTemperatureChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="InsidePressureText" class="hazyair-result">LIVE:&nbsp;<span id="InsidePressure">0</span>&nbsp;hPa</div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Pressure&type=line&yaxis=hPa&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="InsidePressureChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="InsideHumidityText" class="hazyair-result">LIVE:&nbsp;<span id="InsideHumidity">0</span>&nbsp;%</div>
-                                    <iframe class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Inside+Humidity&type=line&yaxis=%25&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="InsideHumidityChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                             <div class="carousel-item hazyair-carousel">
                                 <center>
                                     <div id="OutsideTemperatureText" class="hazyair-result">LIVE:&nbsp;<span id="OutsideTemperature">0.0</span>&nbsp;°C</div>
-                                    <iframe id="aaa" class="d-block hazyair-frame" src="https://thingspeak.com/channels/418257/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=8000&title=Outside+Temperature&type=line&yaxis=%C2%B0C&width=auto&height=auto&days=7"></iframe>
+                                    <iframe id="OutsideTemperatureChart" class="d-block hazyair-frame" src=""></iframe>
                                 </center>
                             </div>
                         </div>
