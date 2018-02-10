@@ -4,14 +4,25 @@ function notification() {
   Notification.requestPermission(function(result) {
     console.log(result);
     if (result === 'granted') {
-      navigator.serviceWorker.ready.then(function(registration) {
-          console.log('ready');
+      //navigator.serviceWorker.ready.then(function(registration) {
+if ('serviceWorker' in navigator) {
+  // Register a service worker hosted at the root of the
+  // site using the default scope.
+  navigator.serviceWorker.register('sw.js').then(function(registration) {
+    console.log('Service worker registration succeeded:', registration);
         registration.showNotification('Vibration Sample', {
           body: 'Buzz! Buzz!',
           vibrate: [200],
           tag: 'vibration-sample'
         });
-      });
+
+  }).catch(function(error) {
+    console.log('Service worker registration failed:', error);
+  });
+} else {
+  console.log('Service workers are not supported.');
+}          console.log('ready');
+     // });
     }
   });    
 }
@@ -101,17 +112,6 @@ function handleResize() {
 
 //window.addEventListener('load', function () {
 
-if ('serviceWorker' in navigator) {
-  // Register a service worker hosted at the root of the
-  // site using the default scope.
-  navigator.serviceWorker.register('sw.js').then(function(registration) {
-    console.log('Service worker registration succeeded:', registration);
-  }).catch(function(error) {
-    console.log('Service worker registration failed:', error);
-  });
-} else {
-  console.log('Service workers are not supported.');
-}
 
     dweetio.get_latest_dweet_for('25935C0E2C7F42558309E27E216C1D65', latestHandler);
     dweetio.listen_for('25935C0E2C7F42558309E27E216C1D65', listenHandler);
