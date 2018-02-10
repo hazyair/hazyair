@@ -1,10 +1,17 @@
 /*global Notification*/
-
+/*global navigator*/
 function notification() {
-    if (window.Notification && Notification.permission === "granted") {
-        new Notification("Hi! ", {tag: 'soManyNotification'});
+  Notification.requestPermission(function(result) {
+    if (result === 'granted') {
+      navigator.serviceWorker.ready.then(function(registration) {
+        registration.showNotification('Vibration Sample', {
+          body: 'Buzz! Buzz!',
+          vibrate: [200],
+          tag: 'vibration-sample'
+        });
+      });
     }
-    
+  });    
 }
 
 function listenHandler(dweet) {
@@ -92,13 +99,7 @@ function handleResize() {
 
 window.addEventListener('load', function () {
 
-    if (window.Notification && Notification.permission !== "granted") {
-        Notification.requestPermission(function (status) {
-            if (Notification.permission !== status) {
-                Notification.permission = status;
-            }
-        });
-    }
+    navigator.serviceWorker.register('hazyair.js')
 
 
     dweetio.get_latest_dweet_for('25935C0E2C7F42558309E27E216C1D65', latestHandler);
