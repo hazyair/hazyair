@@ -97,9 +97,9 @@ function handleResize() {
 
 }
 
-window.addEventListener('load', function () {
+//window.addEventListener('load', function () {
 
-    navigator.serviceWorker.register('hazyair.js')
+    navigator.serviceWorker.register('hazyair.js');
 
 
     dweetio.get_latest_dweet_for('25935C0E2C7F42558309E27E216C1D65', latestHandler);
@@ -114,4 +114,4 @@ window.addEventListener('load', function () {
 
     handleResize();
 
-});
+//});
