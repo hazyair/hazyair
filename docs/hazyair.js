@@ -11,7 +11,7 @@ function notification(pm2_5, pm10) {
                     // site using the default scope.
                     navigator.serviceWorker.register('sw.js').then(function(registration) {
                         console.log('Service worker registration succeeded:', registration);
-                        navigator.serviceWorker.addEventListener('notificationclick', function(event) {
+                        registration.addEventListener('notificationclick', function(event) {
                             console.log(event);
                         });
                         registration.showNotification('Air quality standards exceeded!', {
