@@ -18,9 +18,10 @@ function notification(pm2_5, pm10) {
                             vibrate: [200],
                             tag: 'hazyair-alert'
                         }).then(function(event) {
-                            if(event.action == 'dismiss') {
+                            cosole.log(event);
+                            /*if(event.action == 'dismiss') {
                                 event.notification.close();
-                            }
+                            }*/
                         }).catch(function(error) {
                             console.log(error);
                         });
