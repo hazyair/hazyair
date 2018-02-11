@@ -12,10 +12,17 @@ function notification(pm2_5, pm10) {
                     navigator.serviceWorker.register('sw.js').then(function(registration) {
                         console.log('Service worker registration succeeded:', registration);
                         registration.showNotification('Air quality standards exceeded!', {
+                            actions: [{action: 'dismiss', title: 'Dismiss'}],
                             body: 'PM2.5: '+pm2_5*4+'%, PM10: '+pm10*2+'%',
                             icon: 'favicon.ico',
                             vibrate: [200],
                             tag: 'hazyair-alert'
+                        }).then(function(event) {
+                            if(event.action == 'dismiss') {
+                                event.notification.close();
+                            }
+                        }).catch(function(error) {
+                            console.log(error);
                         });
                     }).catch(function(error) {
                         console.log('Service worker registration failed:', error);
