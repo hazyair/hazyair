@@ -11,17 +11,15 @@ function notification(pm2_5, pm10) {
                     // site using the default scope.
                     navigator.serviceWorker.register('sw.js').then(function(registration) {
                         console.log('Service worker registration succeeded:', registration);
+                        navigator.serviceWorker.addEventListener('notificationclick', function(event) {
+                            console.log(event);
+                        });
                         registration.showNotification('Air quality standards exceeded!', {
                             actions: [{action: 'dismiss', title: 'Dismiss'}],
                             body: 'PM2.5: '+pm2_5*4+'%, PM10: '+pm10*2+'%',
                             icon: 'favicon.ico',
                             vibrate: [200],
                             tag: 'hazyair-alert'
-                        }).then(function(event) {
-                            console.log(event);
-                            /*if(event.action == 'dismiss') {
-                                event.notification.close();
-                            }*/
                         }).catch(function(error) {
                             console.log(error);
                         });
