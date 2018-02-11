@@ -13,11 +13,11 @@ self.addEventListener('notificationclick', function(event) {
                 console.log(clientList);
                 for (var i = 0; i < clientList.length; i++) {
                 var client = clientList[i];
-                if (client.url == '/' && 'focus' in client)
+                if (client.url == '/hazyair' && 'focus' in client)
                     return client.focus();
                 }
                 if (clients.openWindow)
-                    return clients.openWindow('/');
+                    return clients.openWindow('/hazyair');
             }));        
         case 'dismiss':
         default: event.notification.close();
