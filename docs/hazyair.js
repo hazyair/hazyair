@@ -1,52 +1,65 @@
 /*global Notification*/
 /*global navigator*/
-function notification() {
-  Notification.requestPermission(function(result) {
-    console.log(result);
-    if (result === 'granted') {
-      //navigator.serviceWorker.ready.then(function(registration) {
-if ('serviceWorker' in navigator) {
-  // Register a service worker hosted at the root of the
-  // site using the default scope.
-  navigator.serviceWorker.register('sw.js').then(function(registration) {
-    console.log('Service worker registration succeeded:', registration);
-        registration.showNotification('Vibration Sample', {
-          body: 'Buzz! Buzz!',
-          vibrate: [200],
-          tag: 'vibration-sample'
-        });
+function notification(pm2_5, pm10) {
 
-  }).catch(function(error) {
-    console.log('Service worker registration failed:', error);
-  });
-} else {
-  console.log('Service workers are not supported.');
-}          console.log('ready');
-     // });
+    Notification.requestPermission(function(result) {
+        console.log(result);
+        if (result === 'granted') {
+            if ('serviceWorker' in navigator) {
+                if (pm2_5 > 25 || pm10 > 50) {
+                    // Register a service worker hosted at the root of the
+                    // site using the default scope.
+                    navigator.serviceWorker.register('sw.js').then(function(registration) {
+                        console.log('Service worker registration succeeded:', registration);
+                        registration.showNotification('Air quality standards exceeded!', {
+                            body: 'PM2.5: '+pm2_5*4+'%, PM10: '+pm10*2+'%',
+                            vibrate: [200],
+                            tag: 'hazyair-alert'
+                        });
+                    }).catch(function(error) {
+                        console.log('Service worker registration failed:', error);
+                    });
+                }
+            } else {
+                console.log('Service workers are not supported.');
+            }
+        }
+    });    
+
+}
+
+function handleAlert(dweet, parameter, output) {
+
+    document.getElementById(parameter).innerHTML = dweet.content[parameter];
+    let value = parseInt(dweet.content[parameter], 10);
+    if (parameter === 'PM2.5Concentration' && value > 25) {
+        document.getElementById(parameter+'Text').className = 'hazyair-alert';
+        output.pm2_5 = value;
+    } else if (parameter === 'PM10Concentration' && value > 50) {
+        document.getElementById(parameter+'Text').className = 'hazyair-alert';
+        output.pm10 = value;
+    } else {
+        document.getElementById(parameter+'Text').className = 'hazyair-result';
     }
-  });    
+
 }
 
 function listenHandler(dweet) {
 
+    let result = {};
     Object.keys(dweet.content).forEach(function(parameter) {
-        document.getElementById(parameter).innerHTML = dweet.content[parameter];
-        if (parameter === 'PM2.5Concentration' && parseInt(dweet.content[parameter], 10) > 25) {
-            document.getElementById(parameter+'Text').className = 'hazyair-alert';
-            notification();
-        } else if (parameter === 'PM10Concentration' && parseInt(dweet.content[parameter], 10) > 50) {
-            document.getElementById(parameter+'Text').className = 'hazyair-alert';
-            notification();
-        } else {
-            document.getElementById(parameter+'Text').className = 'hazyair-result';
-        }
+        handleAlert(dweet, parameter, result);
     });
+    notification(result.pm2_5, result.pm10);
     
 }
 
 function latestHandler(error, dweet) {
 
-    if (error) return;
+    if (error) {
+        alert(error);
+        return;
+    }
     dweet = dweet[0];
     listenHandler(dweet);
 
@@ -54,22 +67,18 @@ function latestHandler(error, dweet) {
 
 function visibleHandler(error, dweet) {
 
-    if (error) return;
+    if (error) {
+        alert(error);
+        return;
+    }
     dweet = dweet[0];
 
+    let result = {};
     Object.keys(dweet.content).forEach(function(parameter) {
-        document.getElementById(parameter).innerHTML = dweet.content[parameter];
-        if (parameter === 'PM2.5Concentration' && parseInt(dweet.content[parameter], 10) > 25) {
-            document.getElementById(parameter+'Text').className = 'hazyair-alert';
-            notification();
-        } else if (parameter === 'PM10Concentration' && parseInt(dweet.content[parameter], 10) > 50) {
-            document.getElementById(parameter+'Text').className = 'hazyair-alert';
-            notification();
-        } else {
-            document.getElementById(parameter+'Text').className = 'hazyair-result';
-        }
+        handleAlert(dweet, parameter, result);
         document.getElementById(parameter+'Chart').src += '';
     });
+    notification(result.pm2_5, result.pm10);
     
 }
 
