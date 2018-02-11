@@ -32,11 +32,15 @@ function handleAlert(dweet, parameter, output) {
 
     document.getElementById(parameter).innerHTML = dweet.content[parameter];
     let value = parseInt(dweet.content[parameter], 10);
-    if (parameter === 'PM2.5Concentration' && value > 25) {
-        document.getElementById(parameter+'Text').className = 'hazyair-alert';
+    if (parameter === 'PM2.5Concentration') {
+        if (value > 25) {
+            document.getElementById(parameter+'Text').className = 'hazyair-alert';
+        }
         output.pm2_5 = value;
-    } else if (parameter === 'PM10Concentration' && value > 50) {
-        document.getElementById(parameter+'Text').className = 'hazyair-alert';
+    } else if (parameter === 'PM10Concentration') {
+        if (value > 50) {
+            document.getElementById(parameter+'Text').className = 'hazyair-alert';
+        }
         output.pm10 = value;
     } else {
         document.getElementById(parameter+'Text').className = 'hazyair-result';
@@ -119,8 +123,9 @@ function handleResize() {
 
 }
 
-//window.addEventListener('load', function () {
+window.addEventListener('load', function () {
 
+try {
 
     dweetio.get_latest_dweet_for('25935C0E2C7F42558309E27E216C1D65', latestHandler);
     dweetio.listen_for('25935C0E2C7F42558309E27E216C1D65', listenHandler);
@@ -134,4 +139,8 @@ function handleResize() {
 
     handleResize();
 
-//});
+} catch (error) {
+    alert(error);
+}
+
+});
