@@ -10,14 +10,15 @@ self.addEventListener('notificationclick', function(event) {
             event.waitUntil(clients.matchAll({
                 type: "window"
             }).then(function(clientList) {
-                console.log(clientList);
                 for (var i = 0; i < clientList.length; i++) {
-                var client = clientList[i];
-                if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client)
-                    return client.focus();
+                    var client = clientList[i];
+                    if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client) {
+                        return client.focus();
+                    }
                 }
-                if (clients.openWindow)
+                if (clients.openWindow) {
                     return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
+                }
             }));        
         case 'dismiss':
         default: event.notification.close();

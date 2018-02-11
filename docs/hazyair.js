@@ -10,15 +10,12 @@ function notification(pm2_5, pm10) {
                     // Register a service worker hosted at the root of the
                     // site using the default scope.
                     navigator.serviceWorker.register('notification.js').then(function(registration) {
-                        console.log('Service worker registration succeeded:', registration);
                         registration.showNotification('Air quality standards exceeded!', {
                             actions: [ { action: 'dismiss', title: 'dismiss'}, { action: 'hazyair', title: 'hazyair' } ],
                             body: 'PM2.5: '+pm2_5*4+'%, PM10: '+pm10*2+'%',
                             icon: 'favicon.ico',
                             vibrate: [200],
                             tag: 'hazyair-alert'
-                        }).catch(function(error) {
-                            console.log(error);
                         });
                     }).catch(function(error) {
                         console.log('Service worker registration failed:', error);
@@ -35,7 +32,7 @@ function notification(pm2_5, pm10) {
 function handleAlert(dweet, parameter, output) {
 
     document.getElementById(parameter).innerHTML = dweet.content[parameter];
-    let value = parseInt(dweet.content[parameter], 10);
+    var value = parseInt(dweet.content[parameter], 10);
     if (parameter === 'PM2.5Concentration') {
         if (value > 25) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
@@ -54,7 +51,7 @@ function handleAlert(dweet, parameter, output) {
 
 function listenHandler(dweet) {
 
-    let result = {};
+    var result = {};
     Object.keys(dweet.content).forEach(function(parameter) {
         handleAlert(dweet, parameter, result);
     });
@@ -64,24 +61,19 @@ function listenHandler(dweet) {
 
 function latestHandler(error, dweet) {
 
-    if (error) {
-        alert(error);
-        return;
-    }
+    if (error) return;
     dweet = dweet[0];
+
     listenHandler(dweet);
 
 }
 
 function visibleHandler(error, dweet) {
 
-    if (error) {
-        alert(error);
-        return;
-    }
+    if (error) return;
     dweet = dweet[0];
 
-    let result = {};
+    var result = {};
     Object.keys(dweet.content).forEach(function(parameter) {
         handleAlert(dweet, parameter, result);
         document.getElementById(parameter+'Chart').src += '';
@@ -90,7 +82,7 @@ function visibleHandler(error, dweet) {
     
 }
 
-let gTimeout;
+var gTimeout;
 
 /*global dweetio*/
 function handleVisibilityChange() {
@@ -106,11 +98,11 @@ function handleVisibilityChange() {
 
 }
 
-let gDays = 0;
+var gDays = 0;
 
 function handleResize() {
 
-    let days = 7;
+    var days = 7;
     if (document.body.offsetWidth < 1020) {
         days = 3;
     }
