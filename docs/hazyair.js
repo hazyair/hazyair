@@ -3,7 +3,6 @@
 function notification(pm2_5, pm10) {
 
     Notification.requestPermission(function(result) {
-        console.log(result);
         if (result === 'granted') {
             if ('serviceWorker' in navigator) {
                 if (pm2_5 > 25 || pm10 > 50) {
@@ -121,8 +120,6 @@ function handleResize() {
 
 window.addEventListener('load', function () {
 
-try {
-
     dweetio.get_latest_dweet_for('25935C0E2C7F42558309E27E216C1D65', latestHandler);
     dweetio.listen_for('25935C0E2C7F42558309E27E216C1D65', listenHandler);
 
@@ -134,9 +131,5 @@ try {
     window.addEventListener('resize', handleResize, false);
 
     handleResize();
-
-} catch (error) {
-    alert(error);
-}
 
 });
