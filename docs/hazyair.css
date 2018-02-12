@@ -48,11 +48,3 @@ body {
         border: 0px;
     }
 }
-
-@media (min-width: 1440px) {
-    .hazyair-frame {
-        width: 1140px;
-        height: 960px;
-        border: 0px;
-    }
-}
