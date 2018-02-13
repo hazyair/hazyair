@@ -10,6 +10,7 @@ self.addEventListener('notificationclick', function(event) {
                 type: "window"
             }).then(function(clients) {
                 clients.forEach(function(client) {
+                    console.log(client);
                     if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client) {
                         return client.focus();
                     }
