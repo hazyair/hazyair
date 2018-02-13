@@ -49,18 +49,3 @@ body {
     }
 }
 
-@media (min-width: 1740px) {
-    .hazyair-frame {
-        width: 1440px;
-        height: 960px;
-        border: 0px;
-    }
-}
-
-@media (min-width: 3180px) {
-    .hazyair-frame {
-        width: 2880px;
-        height: 1920px;
-        border: 0px;
-    }
-}
