@@ -10,9 +10,9 @@ function notification(pm2_5, pm10) {
                     // site using the default scope.
                     navigator.serviceWorker.register('notification.js').then(function(registration) {
                         registration.getNotifications({ tag : 'hazyair-alert' }).then(function(notifications) {
-                            for(var notification in notifications) {
+                            notifications.forEach(function(notification) {
                                 notification.close();
-                            }
+                            });
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
                                     { action: 'dismiss', title: 'dismiss'},
