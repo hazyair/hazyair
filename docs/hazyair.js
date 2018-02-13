@@ -5,14 +5,14 @@ function notification(pm2_5, pm10) {
     Notification.requestPermission(function(result) {
         if (result === 'granted') {
             if ('serviceWorker' in navigator) {
-                if (pm2_5 > 25 || pm10 > 50) {
-                    // Register a service worker hosted at the root of the
-                    // site using the default scope.
-                    navigator.serviceWorker.register('notification.js').then(function(registration) {
-                        registration.getNotifications({ tag : 'hazyair-alert' }).then(function(notifications) {
-                            notifications.forEach(function(notification) {
-                                notification.close();
-                            });
+                // Register a service worker hosted at the root of the
+                // site using the default scope.
+                navigator.serviceWorker.register('notification.js').then(function(registration) {
+                    registration.getNotifications({ tag : 'hazyair-alert' }).then(function(notifications) {
+                        notifications.forEach(function(notification) {
+                            notification.close();
+                        });
+                        if (pm2_5 > 25 || pm10 > 50) {
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
                                     { action: 'dismiss', title: 'dismiss'},
@@ -22,11 +22,11 @@ function notification(pm2_5, pm10) {
                                 vibrate: [200],
                                 tag: 'hazyair-alert'
                             });
-                        });
-                    }).catch(function(error) {
-                        console.log('Service worker registration failed:', error);
+                        }
                     });
-                }
+                }).catch(function(error) {
+                    console.log('Service worker registration failed:', error);
+                });
             } else {
                 console.log('Service workers are not supported.');
             }
