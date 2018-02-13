@@ -13,10 +13,10 @@ self.addEventListener('notificationclick', function(event) {
                     if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client) {
                         return client.focus();
                     }
+                    if (client.openWindow) {
+                        return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
+                    }
                 });
-                if (clients.openWindow) {
-                    return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
-                }
             }));
             break;
         case 'refresh':
