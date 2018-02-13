@@ -51,7 +51,6 @@ self.addEventListener('notificationclick', function(event) {
                 }
             });
             break;
-        case 'dismiss':
         default:
             event.notification.close();
     }
