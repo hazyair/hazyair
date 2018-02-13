@@ -77,7 +77,7 @@ Run web browser and open charts under following link ```http://<ip_address>:8081
 ### Use as a module - [API](https://github.com/marcin-sielski/hazyair/wiki/API)
 
 
-```node
+```javascript
 const Hazyair =
             require('hazyair');
 
