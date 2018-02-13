@@ -15,9 +15,11 @@ function notification(pm2_5, pm10) {
                         if (pm2_5 > 25 || pm10 > 50) {
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
-                                    { action: 'dismiss', title: 'dismiss'},
-                                    { action: 'hazyair', title: 'hazyair' } ],
-                                body: 'PM2.5: '+pm2_5*4+'%   PM10: '+pm10*2+'%',
+                                    { action: 'hazyair', title: 'hazyair' },
+                                    { action: 'refresh', title: 'refresh' },
+                                    { action: 'dismiss', title: 'dismiss'}
+                                ],
+                                body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                                 icon: 'favicon.ico',
                                 vibrate: [200],
                                 tag: 'hazyair-alert'
