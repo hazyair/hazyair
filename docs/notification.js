@@ -8,15 +8,15 @@ self.addEventListener('notificationclick', function(event) {
             // This looks to see if the current is already open and focuses if it is
             event.waitUntil(clients.matchAll({
                 type: "window"
-            }).then(function(clients) {
-                clients.forEach(function(client) {
+            }).then(function(clientList) {
+                clientList.forEach(function(client) {
                     if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client) {
                         return client.focus();
                     }
-                    if (client.openWindow) {
-                        return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
-                    }
                 });
+                if (clients.openWindow) {
+                    return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
+                }
             }));
             break;
         case 'refresh':
