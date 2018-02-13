@@ -15,7 +15,11 @@ self.addEventListener('notificationclick', function(event) {
                     }
                 });
                 if (clients.openWindow) {
-                    return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
+                    fetch('https://marcin-sielski.github.io/hazyair/').then(function (response) {
+                        if (response.ok) {
+                            return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
+                        }
+                    });
                 }
             }));
             break;
