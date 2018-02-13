@@ -10,7 +10,6 @@ self.addEventListener('notificationclick', function(event) {
                 type: "window"
             }).then(function(clients) {
                 clients.forEach(function(client) {
-                    console.log(client);
                     if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client) {
                         return client.focus();
                     }
@@ -41,8 +40,7 @@ self.addEventListener('notificationclick', function(event) {
                         self.registration.showNotification(title, {
                             actions: [
                                 { action: 'hazyair', title: 'hazyair' },
-                                { action: 'refresh', title: 'refresh' },
-                                { action: 'dismiss', title: 'dismiss'}
+                                { action: 'refresh', title: 'refresh' }
                             ],
                             body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                             icon: 'favicon.ico',

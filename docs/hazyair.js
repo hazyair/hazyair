@@ -16,8 +16,7 @@ function notification(pm2_5, pm10) {
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
                                     { action: 'hazyair', title: 'hazyair' },
-                                    { action: 'refresh', title: 'refresh' },
-                                    { action: 'dismiss', title: 'dismiss'}
+                                    { action: 'refresh', title: 'refresh' }
                                 ],
                                 body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                                 icon: 'favicon.ico',
