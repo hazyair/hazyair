@@ -23,11 +23,11 @@ class Nova {
                     this.sensor.setWorkingPeriod(30).then(() => {
                         return resolve(result);
                     }).catch((error) => {
-                        return resolve(result);
+                        return reject(error);
                     });
                 });
             }).catch((error) => {
-                reject(error);
+                return reject(error);
             });
 
         });

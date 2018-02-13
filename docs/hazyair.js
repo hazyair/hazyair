@@ -9,12 +9,19 @@ function notification(pm2_5, pm10) {
                     // Register a service worker hosted at the root of the
                     // site using the default scope.
                     navigator.serviceWorker.register('notification.js').then(function(registration) {
-                        registration.showNotification('Air quality standards exceeded!', {
-                            actions: [ { action: 'dismiss', title: 'dismiss'}, { action: 'hazyair', title: 'hazyair' } ],
-                            body: 'PM2.5: '+pm2_5*4+'%, PM10: '+pm10*2+'%',
-                            icon: 'favicon.ico',
-                            vibrate: [200],
-                            tag: 'hazyair-alert'
+                        registration.getNotifications({ tag : 'hazyair-alert' }).then(function(notifications) {
+                            for(var notification in notifications) {
+                                notification.close();
+                            }
+                            registration.showNotification('Air quality standards exceeded!', {
+                                actions: [
+                                    { action: 'dismiss', title: 'dismiss'},
+                                    { action: 'hazyair', title: 'hazyair' } ],
+                                body: 'PM2.5: '+pm2_5*4+'%   PM10: '+pm10*2+'%',
+                                icon: 'favicon.ico',
+                                vibrate: [200],
+                                tag: 'hazyair-alert'
+                            });
                         });
                     }).catch(function(error) {
                         console.log('Service worker registration failed:', error);

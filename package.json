@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -67,7 +67,10 @@
     "nova",
     "bosch",
     "maxim",
-    "thingspeak"
+    "thingspeak",
+    "dweet",
+    "dweetio",
+    "dweet.io"
   ],
   "author": "Marcin Sielski",
   "contributors": {
