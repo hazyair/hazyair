@@ -15,11 +15,7 @@ self.addEventListener('notificationclick', function(event) {
                     }
                 });
                 if (clients.openWindow) {
-                    return fetch('https://dweet.io/get/latest/dweet/for/25935C0E2C7F42558309E27E216C1D65').then(function (response) {
-                        if (response.ok) {
-                            return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
-                        }
-                    });
+                    return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
                 }
             }));
             break;
