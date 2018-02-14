@@ -40,6 +40,7 @@ function handleAlert(dweet, parameter, output) {
 
     document.getElementById(parameter).innerHTML = dweet.content[parameter];
     var value = parseInt(dweet.content[parameter], 10);
+    document.getElementById(parameter+'Text').className = 'hazyair-result';
     if (parameter === 'PM2.5Concentration') {
         if (value > 25) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
@@ -50,8 +51,6 @@ function handleAlert(dweet, parameter, output) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
         }
         output.pm10 = value;
-    } else {
-        document.getElementById(parameter+'Text').className = 'hazyair-result';
     }
 
 }
