@@ -8,7 +8,8 @@ self.addEventListener('notificationclick', function(event) {
 
     switch(event.action) {
         case 'details':
-            if (fetchAsync().ok) {
+            let response = fetchAsync();
+            if (response.ok) {
                 // This looks to see if the current is already open and focuses if it is
                 event.waitUntil(clients.matchAll({
                     type: "window"
