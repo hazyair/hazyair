@@ -1,15 +1,27 @@
+/* HTML tags */
 body {
     padding: 0px;
     overflow-x: hidden;
     background-color: black;
 }
 
-.hazyair-style {
+/* Bootstrap classes */
+.navbar-brand {
     font-weight: bold;
     color: white;
     font-style: italic;
 }
 
+.container {
+    padding: 0px;
+}
+
+.carousel-item {
+    padding-bottom: 50px;
+}
+
+
+/* hazyair classes */
 .hazyair-result {
     font-weight: bold;
     color: green;
@@ -19,12 +31,6 @@ body {
     font-weight: bold;
     color: red;
 }
-
-
-.hazyair-carousel {
-    padding-bottom: 50px;
-}
-
 
 .hazyair-frame {
     width: 300px;

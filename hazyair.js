@@ -126,7 +126,7 @@ class Hazyair extends EventEmitter {
     /**
      * Send all sensors data to the [dweet.io](https://dweet.io) service once they are available.
      *
-     * @param {Object} config <code>{ thing: ..., parameters: { (dust\|temperature\|pressure\|humidity):
+     * @param {Object} config <code>{ thing: ..., (key: ...,) parameters: { (dust\|temperature\|pressure\|humidity):
      * ({...: ..., ...}\|(...)) } } }</code>
      *
      * @example
@@ -146,6 +146,10 @@ class Hazyair extends EventEmitter {
             let length = Object.keys(config.parameters).length;
             let wait = length;
             let dweet = {};
+            let key = null;
+            if (config.hasOwnProperty('key')) {
+                key = config.key;
+            }
             Object.keys(config.parameters).forEach((parameter) => {
                 this.on(parameter, (data) => {
                     if (typeof config.parameters[parameter] == 'string') {
@@ -157,7 +161,7 @@ class Hazyair extends EventEmitter {
                     }
                     wait --;
                     if (!wait) {
-                        dweetio.dweet_for(config.thing, dweet, () => {
+                        dweetio.dweet_for(config.thing, dweet, key, () => {
                             wait = length;
                             dweet = {};
                         });

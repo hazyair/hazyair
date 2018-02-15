@@ -10,6 +10,7 @@ function round(value, decimals) {
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
 
+/*global fetch*/
 function fetchRetry(url, n, timeout) {
     return fetch(url).catch(function(error) {
         if (n === 1) throw error;
@@ -20,6 +21,9 @@ function fetchRetry(url, n, timeout) {
         });
     });
 }
+
+/*global c3*/
+/*global d3*/
 
 function hazyair(type, period) {
     
@@ -35,19 +39,18 @@ function hazyair(type, period) {
     }
     
     gTypes.forEach(function(type) {
-        document.getElementById(type.parameter).className = 'hazyair-link';
+        document.getElementById(type.parameter).classList.remove('active');
     });
-    document.getElementById(type).className = 'hazyair-link-active';
-
-    document.getElementById('day').className = 'hazyair-link';
-    document.getElementById('week').className = 'hazyair-link';
-    document.getElementById('month').className = 'hazyair-link';
-    document.getElementById('year').className = 'hazyair-link';
-    document.getElementById(period).className = 'hazyair-link-active';
+    document.getElementById(type).className += ' active'; 
+    
+    document.getElementById('day').classList.remove('active');
+    document.getElementById('week').classList.remove('active');
+    document.getElementById('month').classList.remove('active');
+    document.getElementById('year').classList.remove('active');
+    document.getElementById(period).className += ' active';
     
     if (type === 'dust') {
     
-        document.getElementById('title').innerHTML = 'Dust concentration during last';
         var pm100limit = 50;
         var pm25limit = 25;
         if (period === 'year') {
@@ -146,8 +149,6 @@ function hazyair(type, period) {
             
     } else {
         
-        document.getElementById('title').innerHTML = uppercase(type) +' during last';
-        
         fetchRetry('hazyair/'+type+'/last?'+period, 60, 1000).then(function(response) {
             
             return response.json();
@@ -224,6 +225,7 @@ function hazyair(type, period) {
     }
 }
 
+/*global EventSource*/
 try {
 
     fetchRetry('hazyair/info', 60, 1000).then(function(response) {
@@ -232,11 +234,10 @@ try {
         
     }).then(function(data) {
         
-        document.getElementById("type").innerHTML = '<th>Chart type:</th>';
         gTypes = data;
         gTypes.forEach(function(type) {
-            document.getElementById("type").innerHTML +=
-            '<td id="'+type.parameter+'" class="hazyair-link" onclick="hazyair(this.id, null)">'+type.parameter+'</td>';
+            document.getElementById("type").innerHTML += '<a id="'+type.parameter+
+                '" class="nav-item nav-link" href="#" onclick="hazyair(this.id, null)">'+type.parameter+'</a>';
         });
         gType = gTypes[0].parameter;
         hazyair(gType, gPeriod);

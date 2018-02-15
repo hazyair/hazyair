@@ -1,23 +1,27 @@
-.hazyair-background {
+/* HTML tags */
+body {
     background-color: #1a1a1a;
 }
 
-.hazyair-color {
-    color: #f8f8f8;
+/* Bootstrap classes */
+.navbar-brand {
+    font-weight: bold;
+    color: white;
+    font-style: italic;
 }
 
-.hazyair-link {
-    cursor: pointer;
-    color: #aaa;
-    font-weight: normal;
-}
-
-.hazyair-link-active {
-    cursor: pointer;
-    color: #f8f8f8;
+.disabled {
     font-weight: bold;
 }
 
+@media (max-width: 767px) {
+    .navbar-nav {
+        width: 50%;
+        float: left;
+    }
+}
+
+/* c3 classes */
 .c3 { 
     fill: #f8f8f8; 
 } 
@@ -28,4 +32,9 @@
 
 .tick line {
     stroke: #f8f8f8 !important; 
+}
+
+/* hazyair classes */
+.hazyair-color {
+    color: #f8f8f8;
 }

@@ -5,13 +5,14 @@
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="theme-color" content="black">
+        <title>hazyair</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="hazyair.css">
         <link rel="icon" href="favicon.ico" type="image/x-icon" />        
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <a class="navbar-brand hazyair-style" href="http://github.com/marcin-sielski/hazyair">hazyair</a>
+            <a class="navbar-brand" href="http://github.com/marcin-sielski/hazyair">hazyair</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,51 +38,51 @@
                 </div>
             </div>
         </nav>
-        <div class="container" style="padding: 0px">
+        <div class="container">
             <div class="row">
                 <div class="col-sm">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="0">
                         <div class="carousel-inner">
-                            <div class="carousel-item hazyair-carousel active">
+                            <div class="carousel-item active">
                                 <center>
                                     <div id="PM1.0ConcentrationText" class="hazyair-result">LIVE:&nbsp;<span id="PM1.0Concentration">0</span>&nbsp;µg/m<sup>3</sup></div>
-                                    <iframe id="PM1.0ConcentrationChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="PM1.0ConcentrationChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
-                            <div class="carousel-item hazyair-carousel">
+                            <div class="carousel-item">
                                 <center>
                                     <div id="PM2.5ConcentrationText" class="hazyair-result">LIVE:&nbsp;<span id="PM2.5Concentration">0</span>&nbsp;µg/m<sup>3</sup></div>
-                                    <iframe id="PM2.5ConcentrationChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="PM2.5ConcentrationChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
-                            <div class="carousel-item hazyair-carousel">
+                            <div class="carousel-item">
                                 <center>
                                     <div id="PM10ConcentrationText" class="hazyair-result">LIVE:&nbsp;<span id="PM10Concentration">0</span>&nbsp;µg/m<sup>3</sup></div>
-                                    <iframe id="PM10ConcentrationChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="PM10ConcentrationChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
-                            <div class="carousel-item hazyair-carousel">
+                            <div class="carousel-item">
                                 <center>
                                     <div id="InsideTemperatureText" class="hazyair-result">LIVE:&nbsp;<span id="InsideTemperature">0.0</span>&nbsp;°C</div>
-                                    <iframe id="InsideTemperatureChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="InsideTemperatureChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
-                            <div class="carousel-item hazyair-carousel">
+                            <div class="carousel-item">
                                 <center>
                                     <div id="InsidePressureText" class="hazyair-result">LIVE:&nbsp;<span id="InsidePressure">0</span>&nbsp;hPa</div>
-                                    <iframe id="InsidePressureChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="InsidePressureChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
-                            <div class="carousel-item hazyair-carousel">
+                            <div class="carousel-item">
                                 <center>
                                     <div id="InsideHumidityText" class="hazyair-result">LIVE:&nbsp;<span id="InsideHumidity">0</span>&nbsp;%</div>
-                                    <iframe id="InsideHumidityChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="InsideHumidityChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
-                            <div class="carousel-item hazyair-carousel">
+                            <div class="carousel-item">
                                 <center>
                                     <div id="OutsideTemperatureText" class="hazyair-result">LIVE:&nbsp;<span id="OutsideTemperature">0.0</span>&nbsp;°C</div>
-                                    <iframe id="OutsideTemperatureChart" class="d-block hazyair-frame" src=""></iframe>
+                                    <iframe id="OutsideTemperatureChart" class="d-block hazyair-frame"/>
                                 </center>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
                             <span class="carousel-control-next-icon" aria-hidden="false"></span>
                             <span class="sr-only">Next</span>
                         </a>
-                        <ol class="carousel-indicators hazyair-visible">
+                        <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -105,7 +106,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row hazyair-visible">
+            <div class="row">
                 <div class="col-sm">
                     <center>MIT License, Copyright (c) 2018 Marcin Sielski</center>
                 </div>
