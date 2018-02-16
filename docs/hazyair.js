@@ -1,6 +1,6 @@
 /*global Notification*/
 /*global navigator*/
-function notification(pm2_5, pm10) {
+function notification(dweet) {
 
     Notification.requestPermission(function(result) {
         if (result === 'granted') {
@@ -12,16 +12,18 @@ function notification(pm2_5, pm10) {
                         notifications.forEach(function(notification) {
                             notification.close();
                         });
-                        if (pm2_5 > 25 || pm10 > 50) {
+                        if (dweet.content['PM2.5Concentration'] > 25 || dweet.content['PM10Concentration'] > 50) {
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
                                     { action: 'details', title: 'details' },
                                     { action: 'refresh', title: 'refresh' }
                                 ],
-                                body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
+                                body: 'PM2.5: ' + dweet.content['PM2.5Concentration']*4 + '%   PM10: ' +
+                                    dweet.content['PM10Concentration']*2 + '%',
                                 icon: 'favicon.ico',
                                 vibrate: [200],
-                                tag: 'hazyair-alert'
+                                tag: 'hazyair-alert',
+                                timestamp: Date.parse(dweet.created)
                             });
                         }
                     });
@@ -36,7 +38,7 @@ function notification(pm2_5, pm10) {
 
 }
 
-function handleAlert(dweet, parameter, output) {
+function handleAlert(dweet, parameter) {
 
     document.getElementById(parameter).innerHTML = dweet.content[parameter];
     var value = parseInt(dweet.content[parameter], 10);
@@ -45,23 +47,20 @@ function handleAlert(dweet, parameter, output) {
         if (value > 25) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
         }
-        output.pm2_5 = value;
     } else if (parameter === 'PM10Concentration') {
         if (value > 50) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
         }
-        output.pm10 = value;
     }
 
 }
 
 function listenHandler(dweet) {
 
-    var result = {};
     Object.keys(dweet.content).forEach(function(parameter) {
-        handleAlert(dweet, parameter, result);
+        handleAlert(dweet, parameter);
     });
-    notification(result.pm2_5, result.pm10);
+    notification(dweet);
     
 }
 
@@ -79,12 +78,11 @@ function visibleHandler(error, dweet) {
     if (error) return;
     dweet = dweet[0];
 
-    var result = {};
     Object.keys(dweet.content).forEach(function(parameter) {
-        handleAlert(dweet, parameter, result);
+        handleAlert(dweet, parameter);
         document.getElementById(parameter+'Chart').src += '';
     });
-    notification(result.pm2_5, result.pm10);
+    notification(dweet);
     
 }
 
