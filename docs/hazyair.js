@@ -12,14 +12,15 @@ function notification(dweet) {
                         notifications.forEach(function(notification) {
                             notification.close();
                         });
-                        if (dweet.content['PM2.5Concentration'] > 25 || dweet.content['PM10Concentration'] > 50) {
+                        var pm2_5 = dweet.content['PM2.5Concentration'];
+                        var pm10 = dweet.content['PM10Concentration'];
+                        if (pm2_5 > 25 || pm10 > 50) {
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
                                     { action: 'details', title: 'details' },
                                     { action: 'refresh', title: 'refresh' }
                                 ],
-                                body: 'PM2.5: ' + dweet.content['PM2.5Concentration']*4 + '%   PM10: ' +
-                                    dweet.content['PM10Concentration']*2 + '%',
+                                body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                                 icon: 'favicon.ico',
                                 vibrate: [200],
                                 tag: 'hazyair-alert',
