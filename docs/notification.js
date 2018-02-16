@@ -21,7 +21,7 @@ self.addEventListener('notificationclick', function(event) {
                 }
             }));
             break;
-        case 'refresh':
+        default:
             fetch('https://dweet.io/get/latest/dweet/for/25935C0E2C7F42558309E27E216C1D65').then(function(response) {
                 return response.json();
             }).then(function(response) {
@@ -53,9 +53,6 @@ self.addEventListener('notificationclick', function(event) {
                     });
                 }
             });
-            break;
-        default:
-            event.notification.close();
     }
     
 
