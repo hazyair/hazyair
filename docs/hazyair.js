@@ -17,8 +17,7 @@ function notification(dweet) {
                         if (pm2_5 > 25 || pm10 > 50) {
                             registration.showNotification('Air quality standards exceeded!', {
                                 actions: [
-                                    { action: 'details', title: 'details' },
-                                    { action: 'refresh', title: 'refresh' }
+                                    { action: 'details', title: 'details' }
                                 ],
                                 body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                                 icon: 'favicon.ico',
