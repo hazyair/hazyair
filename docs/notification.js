@@ -46,7 +46,8 @@ self.addEventListener('notificationclick', function(event) {
                             body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                             icon: 'favicon.ico',
                             vibrate: pattern,
-                            tag: 'hazyair-alert'
+                            tag: 'hazyair-alert',
+                            timestamp: Date.parse(response.with[0].created)
                         });
 
                     });
