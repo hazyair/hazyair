@@ -25,12 +25,12 @@ body {
 @media (max-width: 575px) {
     
     .hazyair-left {
-        width: 40%;
+        width: 35%;
         float: left;
     }
     
     .hazyair-right {
-        width: 60%;
+        width: 65%;
         float: left;
     }
     

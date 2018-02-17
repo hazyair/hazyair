@@ -14,7 +14,7 @@ charts that can be accessed from the web browsers.
 __*hazyair*__ was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
 Following sensors are supported:
 * dust sensors - [Plantower sesors](https://github.com/perfectworks/node-plantower#supported-device-models),
-SDS011, SDS018, SDS021 (__not tested__),
+SDS011 (__not tested__), SDS018 (__not tested__), SDS021 (__not tested__),
 * temperature sensors - DS18B20,
 * temperature, pressure and optionally humidity combo sensors - BME280, BMP280.
 
