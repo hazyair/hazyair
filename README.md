@@ -1,13 +1,13 @@
 # __*hazyair*__ - air quality monitoring tool. 
 
-__*hazyair*__ is a handy tool that enables to store measurments of the:
+__*hazyair*__ is a handy tool that enables to retrieve measurments of the:
 * dust conectration in the air (PM1.0, PM2.5, PM10),
 * temperature,
 * humidity,
 * pressure,
 
-to the simple database. It also visualizes the measurement results on the charts that can be accessed from the web
-browsers.
+from the sensors and optionally store them to the simple database. It can also visualize the measurement results on the
+charts that can be accessed from the web browsers.
 
 ## Hardware - [Configuration](https://github.com/marcin-sielski/hazyair/wiki)
 
@@ -100,7 +100,7 @@ hazyair.on('dust', (data) => {
 
 // Optionally send out incoming
 // data to the ThingSpeak™
-// service.
+// service once available.
 hazyair.thingspeak({ 
     api_key:
         'XXXXXXXXXXXXXXXX',
@@ -117,7 +117,7 @@ hazyair.thingspeak({
 
 // Optionally send out incoming
 // data to the dweet.io
-// service.
+// service once available.
 hazyair.dweet({ 
     thing:
         'XXXXXXXXXXXXXXXX',
