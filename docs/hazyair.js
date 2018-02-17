@@ -22,6 +22,7 @@ function notification(dweet) {
                                 ],
                                 body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
                                 icon: 'favicon.ico',
+                                badge: 'hazyair.png',
                                 vibrate: [200],
                                 tag: 'hazyair-alert',
                                 timestamp: Date.parse(dweet.created)
