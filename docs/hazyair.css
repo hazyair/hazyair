@@ -12,12 +12,6 @@ body {
     font-style: italic;
 }
 
-@media (max-width: 575px) {
-    .navbar-nav {
-        width: 40%;
-        float: left;
-    }
-}
 .container {
     padding: 0px;
 }
@@ -28,6 +22,20 @@ body {
 
 
 /* hazyair classes */
+@media (max-width: 575px) {
+    
+    .hazyair-left {
+        width: 40%;
+        float: left;
+    }
+    
+    .hazyair-right {
+        width: 60%;
+        float: left;
+    }
+    
+}
+
 .hazyair-result {
     font-weight: bold;
     color: green;
