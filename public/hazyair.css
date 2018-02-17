@@ -14,7 +14,7 @@ body {
     font-weight: bold;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 575px) {
     .navbar-nav {
         width: 50%;
         float: left;
