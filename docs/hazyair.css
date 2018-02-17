@@ -12,6 +12,12 @@ body {
     font-style: italic;
 }
 
+@media (max-width: 767px) {
+    .navbar-nav {
+        width: 50%;
+        float: left;
+    }
+}
 .container {
     padding: 0px;
 }
