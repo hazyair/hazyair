@@ -12,7 +12,7 @@ body {
     font-style: italic;
 }
 
-@media (max-width: 575) {
+@media (max-width: 575px) {
     .navbar-nav {
         width: 40%;
         float: left;
