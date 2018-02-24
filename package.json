@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "undeploy": "pm2 stop server && pm2 delete server && pm2 save && pm2 unstartup | grep -v PM2 | sh",
     "start": "pm2 start server.js",
     "stop": "pm2 stop server",
-    "restart": "pm2 restart server",
+    "restart": "pm2 update && pm2 restart server",
     "reload": "pm2 reload server",
     "delete": "pm2 delete server",
     "show": "pm2 show server",
