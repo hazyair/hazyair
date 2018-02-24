@@ -150,5 +150,7 @@ window.addEventListener('load', function () {
 
     document.addEventListener('visibilitychange', handleVisibilityChange, false);
     window.addEventListener('resize', handleResize, false);
+    
+    handleResize();
 
 });
