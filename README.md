@@ -29,7 +29,7 @@ git clone --depth=1 \
 https://github.com/tj/n.git;
 cd n && sudo make install && \
 cd ..
-n lts
+sudo n lts
 ```
 
 Create `node_modules` folder.
