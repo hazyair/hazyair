@@ -52,6 +52,10 @@ if ! grep -q -E dust config.json; then
   echo \{ \"parameter\": \"dust\", \"model\": \"$1\", \"options\": \{ \"device\": \"$2\" \} \} | node config.js
 fi
 
+if [ ! -d "db" ]; then
+  mkdir db
+fi
+
 if [ $ASK_TO_REBOOT -eq 1 ]; then
   whiptail --yesno "Would you like to reboot now?" 20 60 2
   if [ $? -eq 0 ]; then # yes

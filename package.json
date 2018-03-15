@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.5.3",
+  "version": "1.5.5",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {

@@ -14,20 +14,24 @@ function notification(dweet) {
                         });
                         var pm2_5 = dweet.content['PM2.5Concentration'];
                         var pm10 = dweet.content['PM10Concentration'];
+                        var pattern = [];
+                        var title = 'Air quality is fine.';
                         if (pm2_5 > 25 || pm10 > 50) {
-                            registration.showNotification('Air quality standards exceeded!', {
-                                actions: [
-                                    { action: 'details', title: 'Details' },
-                                    { action: 'refresh', title: 'Refresh' }
-                                ],
-                                body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
-                                icon: 'favicon.ico',
-                                badge: 'hazyair.png',
-                                vibrate: [200],
-                                tag: 'hazyair-alert',
-                                timestamp: Date.parse(dweet.created)
-                            });
+                            title = 'Air quality standards exceeded!';
+                            pattern = [200];
                         }
+                        registration.showNotification(title, {
+                            actions: [
+                                { action: 'details', title: 'Details' },
+                                { action: 'refresh', title: 'Refresh' }
+                            ],
+                            body: 'PM2.5: ' + pm2_5*4 + '%   PM10: ' + pm10*2 + '%',
+                            icon: 'favicon.ico',
+                            badge: 'hazyair.png',
+                            vibrate: pattern,
+                            tag: 'hazyair-alert',
+                            timestamp: Date.parse(dweet.created)
+                        });
                     });
                 }).catch(function(error) {
                     console.log('Service worker registration failed:', error);
