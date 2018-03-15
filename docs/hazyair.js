@@ -1,7 +1,9 @@
 /*global Notification*/
 /*global navigator*/
 function notification(dweet) {
-
+    if (!dweet.content.hasOwnProperty('PM2.5Concentration') || !dweet.content.hasOwnProperty('PM10Concentration')) {
+        return;
+    }
     Notification.requestPermission(function(result) {
         if (result === 'granted') {
             if ('serviceWorker' in navigator) {
@@ -43,7 +45,6 @@ function notification(dweet) {
             }
         }
     });    
-
 }
 
 function handleAlert(dweet, parameter) {
@@ -68,10 +69,8 @@ function listenHandler(dweet) {
     Object.keys(dweet.content).forEach(function(parameter) {
         handleAlert(dweet, parameter);
     });
-    if (dweet.content.hasOwnProperty('PM2.5Concentration') && dweet.content.hasOwnProperty('PM10Concentration')) {
-        notification(dweet);
-    }
-    
+    notification(dweet);
+
 }
 
 function latestHandler(error, dweet) {
