@@ -12,8 +12,10 @@ function notification(dweet) {
                         notifications.forEach(function(notification) {
                             notification.close();
                         });
+                        console.log(dweet);
                         var pm2_5 = dweet.content['PM2.5Concentration'];
                         var pm10 = dweet.content['PM10Concentration'];
+                        console.log(pm2_5+" "+pm10);
                         var pattern = [];
                         var title = 'Air quality is fine.';
                         if (pm2_5 > 25 || pm10 > 50) {
