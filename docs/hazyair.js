@@ -68,7 +68,9 @@ function listenHandler(dweet) {
     Object.keys(dweet.content).forEach(function(parameter) {
         handleAlert(dweet, parameter);
     });
-    notification(dweet);
+    if (dweet.content.hasOwnProperty('PM2.5Concentration') && dweet.content.hasOwnProperty('PM10Concentration')) {
+        notification(dweet);
+    }
     
 }
 
