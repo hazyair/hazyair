@@ -115,6 +115,10 @@ class Hazyair extends EventEmitter {
                         ThingSpeak.fetch(url).then(() => {
                             wait = length;
                             url = endpoint;
+                        }).catch((error) => {
+                            wait = length;
+                            url = endpoint;
+                            console.log(error);
                         });
                     }
                 });
