@@ -26,7 +26,7 @@ Install `node`.
 
 ```bash
 git clone --depth=1 \
-https://github.com/tj/n.git;
+https://github.com/tj/n.git
 cd n && sudo make install && \
 cd ..
 sudo n lts
@@ -85,7 +85,7 @@ const Hazyair =
 hazyair = new Hazyair([{    
     parameter: 'dust',
     model: 'PMS7003',
-    persistent: true;
+    persistent: true,
     options: {
         device: '/dev/serial0'
     }
