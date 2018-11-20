@@ -22,6 +22,12 @@ SDS011 (__not tested__), SDS018 (__not tested__), SDS021 (__not tested__),
 
 ### Common Steps
 
+Install `git`.
+
+```bash
+sudo apt-get install git
+```
+
 Install `node`.
 
 ```bash
