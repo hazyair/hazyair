@@ -22,20 +22,18 @@ SDS011 (__not tested__), SDS018 (__not tested__), SDS021 (__not tested__),
 
 ### Common Steps
 
-Install `git`.
-
-```bash
-sudo apt-get install git
-```
-
 Install `node`.
 
 ```bash
-git clone --depth=1 \
-https://github.com/tj/n.git
-cd n && sudo make install && \
-cd ..
-sudo n lts
+sudo apt-get install nodejs
+```
+
+Install `npm`.
+
+```bash
+sudo apt-get install npm
+sudo npm install -g npm@latest
+sudo apt-get remove npm
 ```
 
 Create `node_modules` folder.
