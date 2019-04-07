@@ -3,6 +3,8 @@
 BLACKLIST=/etc/modprobe.d/raspi-blacklist.conf
 CONFIG=/boot/config.txt
 
+ASK_TO_REBOOT=0
+
 set_config_var() {
   lua - "$1" "$2" "$3" <<EOF > "$3.bak"
 local key=assert(arg[1])
@@ -22,6 +24,7 @@ if not made_change then
 end
 EOF
 mv "$3.bak" "$3"
+ASK_TO_REBOOT=1
 }
 
 if ! grep -q -E "^(device_tree_param|dtparam)=([^,]*,)*i2c(_arm)?(=(on|true|yes|1))?(,.*)?$" $CONFIG; then
@@ -52,6 +55,14 @@ fi
 
 if [ ! -d "db" ]; then
   mkdir db
+fi
+
+if [ $ASK_TO_REBOOT -eq 1 ]; then
+  whiptail --yesno "Would you like to reboot now?" 20 60 2
+  if [ $? -eq 0 ]; then # yes
+    sync
+    reboot
+  fi
 fi
 
 exit 0

@@ -4,6 +4,7 @@ const Parameter = require('./parameter');
 const Maxim = require('./maxim');
 const Bosch = require('./bosch');
 const Plantower = require('./plantower');
+const Xiaomi = require('./xiaomi');
 
 class Temperature extends Parameter {
 
@@ -21,6 +22,9 @@ class Temperature extends Parameter {
             case 'PMS5003T':
             case 'PMS5003ST':
                 this.sensor = new Plantower(model, options);
+                break;
+            case 'AirPurifier2':
+                this.sensor = new Xiaomi(model, options);
                 break;
             default:
                 throw new Error('unsupport device model ' + model);

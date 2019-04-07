@@ -3,11 +3,12 @@
 const Parameter = require('./parameter');
 const Plantower = require('./plantower');
 const Nova = require('./nova');
+const Xiaomi = require('./xiaomi');
 
 class Dust extends Parameter {
 
     constructor(model, persistent = true, options = null) {
-
+        
         switch(model) {
             case 'PMS1003':
             case 'PMS5003':
@@ -70,6 +71,12 @@ class Dust extends Parameter {
                     'concentration_pm10_normal'
                 ]);
                 this.sensor = new Nova(model, options);
+                break;
+            case 'AirPurifier2':
+                super('dust', persistent, 0, [
+                    'concentration_pm2.5_normal'
+                ]);
+                this.sensor = new Xiaomi(model, options);
                 break;
             default:
                 throw new Error('unsupport device model ' + model);

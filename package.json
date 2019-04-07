@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "nova": "sudo ./scripts/plantower.sh",
     "maxim": "sudo ./scripts/maxim.sh",
     "bosch": "sudo ./scripts/bosch.sh",
+    "xiaomi": "./scripts/xiaomi.sh",
     "deploy": "pm2 start server.js && pm2 save && pm2 startup | grep -v PM2 | sh",
     "undeploy": "pm2 stop server && pm2 delete server && pm2 save && pm2 unstartup | grep -v PM2 | sh",
     "start": "pm2 start server.js",
@@ -90,20 +91,21 @@
   },
   "dependencies": {
     "bme280-sensor": "^0.1.6",
-    "chalk": "^2.3.0",
-    "console-stamp": "^0.2.6",
-    "cron": "^1.3.0",
+    "chalk": "^2.4.2",
+    "console-stamp": "^0.2.7",
+    "cron": "^1.7.0",
     "ds18b20": "^0.1.0",
-    "express": "^4.16.2",
+    "express": "^4.16.4",
     "http-shutdown": "^1.2.0",
-    "moment": "^2.20.1",
+    "miio": "^0.15.6",
+    "moment": "^2.24.0",
     "node-dweetio": "0.0.11",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.3.0",
     "plantower": "^1.1.6",
-    "pouchdb-node": "^6.4.1",
-    "sds011-wrapper": "^1.0.0",
-    "sse-broadcast": "^0.5.1",
-    "yargs": "^10.0.3"
+    "pouchdb-node": "^7.0.0",
+    "sds011-wrapper": "^1.2.0",
+    "sse-broadcast": "^0.5.2",
+    "yargs": "^13.2.2"
   },
   "devDependencies": {}
 }

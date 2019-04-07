@@ -16,7 +16,8 @@ Following sensors are supported:
 * dust sensors - [Plantower sesors](https://github.com/perfectworks/node-plantower#supported-device-models),
 SDS011 (__not tested__), SDS018 (__not tested__), SDS021 (__not tested__),
 * temperature sensors - DS18B20,
-* temperature, pressure and optionally humidity combo sensors - BME280, BMP280.
+* temperature, pressure and optionally humidity combo sensors - BME280, BMP280,
+* builtin dust, temperature, humidity sensors - Xiaomi Air Purifier 2.
 
 ## Installation
 
@@ -34,7 +35,18 @@ Install `npm`.
 sudo apt-get install npm
 sudo npm install -g npm@latest
 sudo apt-get remove npm
+sudo apt-get autoremove
 ```
+
+### Development
+
+```bash
+git clone https://github.com/marcin-sielski/hazyair.git
+cd hazyair
+npm install
+```
+
+### Production 
 
 Create `node_modules` folder.
 
@@ -68,6 +80,9 @@ npm run nova SDS011 \
 npm run maxim
 
 npm run bosch BME280 1 119
+
+npm run xiaomi AirPurifier2 \
+192.168.0.1
 ```
 
 Deploy `hazyair` service.

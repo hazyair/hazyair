@@ -103,7 +103,7 @@ function hazyair(type, period) {
 
                 document.getElementById('chart').className = 'c3-title';
                     
-                var chart = c3.generate({
+                c3.generate({
                     bindto: '#chart',
                         data: {
                         x: 'x',
@@ -158,20 +158,20 @@ function hazyair(type, period) {
             var serie = [uppercase(type)];
             var mean = 0;
             var precision = 0;
-            data.forEach(function(record) {
-                x.push(record.timestamp);
-                serie.push(record[type].value);
-                mean += record[type].value;
-            });
             if (type == 'temperature') {
                 precision = 1;
             }
             if (data.length > 0) {
+                data.forEach(function(record) {
+                    x.push(record.timestamp);
+                    serie.push(record[type].value);
+                    mean += record[type].value;
+                });
                 mean = round(mean/data.length, precision);
                  
                 document.getElementById('chart').className = 'c3-title';
 
-                var chart = c3.generate({
+                c3.generate({
                     bindto: '#chart',
                     data: {
                         x: 'x',
