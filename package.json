@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -71,7 +71,11 @@
     "thingspeak",
     "dweet",
     "dweetio",
-    "dweet.io"
+    "dweet.io",
+    "xiaomi",
+    "air",
+    "purifier",
+    "purifier 2"
   ],
   "author": "Marcin Sielski",
   "contributors": {
