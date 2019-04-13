@@ -9,7 +9,7 @@ __*hazyair*__ is a handy tool that enables to retrieve measurments of the:
 from the sensors and optionally store them to the simple database. It can also visualize the measurement results on the
 charts that can be accessed from the web browsers.
 
-## Hardware - [Configuration](https://github.com/marcin-sielski/hazyair/wiki)
+## Hardware - [Configuration](https://github.com/hazyair/hazyair/wiki)
 
 __*hazyair*__ was orginally developed on Raspberry Pi Zero W but it should work on any version of Raspberry Pi.
 Following sensors are supported:
@@ -93,7 +93,7 @@ npm run deploy
 
 Run web browser and open charts under following link ```http://<ip_address>:8081```.
 
-### Use as a module - [API](https://github.com/marcin-sielski/hazyair/wiki/API)
+### Use as a module - [API](https://github.com/hazyair/hazyair/wiki/API)
 
 
 ```javascript
@@ -101,7 +101,7 @@ const Hazyair =
             require('hazyair');
 
 // Initialize hazyair.
-hazyair = new Hazyair([{    
+hazyair = new Hazyair([{
     parameter: 'dust',
     model: 'PMS7003',
     persistent: true,
@@ -120,7 +120,7 @@ hazyair.on('dust', (data) => {
 // Optionally send out incoming
 // data to the ThingSpeak™
 // service once available.
-hazyair.thingspeak({ 
+hazyair.thingspeak({
     api_key:
         'XXXXXXXXXXXXXXXX',
     parameters: {
@@ -142,10 +142,10 @@ hazyair.dweet({
         'XXXXXXXXXXXXXXXX',
     parameters: {
         dust: {
-    
+
     concentration_pm10_normal:
             'PM10'
-        
+
         }
 
     }

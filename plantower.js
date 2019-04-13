@@ -1,6 +1,6 @@
 'use strict';
 
-const PMS = require('plantower');
+const PMS = require('hazyair-plantower');
 
 let sensor = {};
 

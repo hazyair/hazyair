@@ -11,7 +11,7 @@ class Fetch {
             return new Promise((resolve) => {
                 setTimeout(resolve, timeout);
             }).then(() => {
-                return Fetch.fetch(url, n - 1, timeout);  
+                return Fetch.fetch(url, n - 1, timeout);
             });
         });
 

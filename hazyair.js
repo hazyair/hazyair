@@ -8,7 +8,7 @@ const moment = require('moment');
 const express = require('express');
 const sse = require('sse-broadcast')();
 const chalk = require('chalk');
-const DweetClient = require("node-dweetio");
+const DweetClient = require("hazyair-dweetio");
 
 require('http-shutdown').extend();
 require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
@@ -62,15 +62,15 @@ class Hazyair extends EventEmitter {
                         options = item.options;
                     }
                     if (item.hasOwnProperty('model')) {
-                        this.temperature = new Temperature(item.model, item.persistent, options); 
+                        this.temperature = new Temperature(item.model, item.persistent, options);
                     }
                 } else if (item.parameter === 'pressure') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.pressure = new Pressure(item.model, item.persistent, item.options); 
+                        this.pressure = new Pressure(item.model, item.persistent, item.options);
                     }
                 } else if (item.parameter === 'humidity') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.humidity = new Humidity(item.model, item.persistent, item.options); 
+                        this.humidity = new Humidity(item.model, item.persistent, item.options);
                     }
                 }
             }
@@ -233,7 +233,7 @@ class Hazyair extends EventEmitter {
 
             // send keep-alive every minute
             setInterval(() => {
-                sse.publish('update', ':'); 
+                sse.publish('update', ':');
             }, 60 * 1000);
 
             app.get(service + '/info', (request, response) => {

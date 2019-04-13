@@ -73,7 +73,7 @@ hazyair.thingspeak(thingspeak);
 hazyair.dweet(dweet);
 
 hazyair.start();
-    
+
 process.on('SIGINT', () => close());
 process.on('SIGTERM', () => close());
 

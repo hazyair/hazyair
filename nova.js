@@ -1,13 +1,13 @@
 'use strict';
 
-const SDS011Wrapper = require("sds011-wrapper");
+const SDS = require("hazyair-nova");
 
 class Nova {
 
     constructor(model, options) {
 
         this.model = model;
-        this.sensor = new SDS011Wrapper(options.device);
+        this.sensor = new SDS(options.device);
 
     }
 

@@ -1,11 +1,11 @@
 {
   "name": "hazyair",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
     "postinstall": "cd public && npm install && sudo npm install pm2 -g",
-    "installdocs": "sudo npm install jsdoc-to-markdown -g && cd .. && git clone https://github.com/marcin-sielski/hazyair.wiki.git && cd hazyair",
+    "installdocs": "sudo npm install jsdoc-to-markdown -g && cd .. && git clone https://github.com/hazyair/hazyair.wiki.git && cd hazyair",
     "generatedocs": "jsdoc2md hazyair.js > ../hazyair.wiki/API.md",
     "plantower": "sudo ./scripts/plantower.sh",
     "nova": "sudo ./scripts/plantower.sh",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/marcin-sielski/hazyair.git"
+    "url": "https://github.com/hazyair/hazyair.git"
   },
   "keywords": [
     "pm1.0",
@@ -99,11 +99,11 @@
     "http-shutdown": "^1.2.0",
     "miio": "^0.15.6",
     "moment": "^2.24.0",
-    "node-dweetio": "0.0.11",
+    "hazyair-dweetio": "0.0.15",
     "node-fetch": "^2.3.0",
-    "plantower": "^1.1.6",
+    "hazyair-plantower": "^1.1.8",
     "pouchdb-node": "^7.0.0",
-    "sds011-wrapper": "^1.2.0",
+    "hazyair-nova": "^1.2.1",
     "sse-broadcast": "^0.5.2",
     "yargs": "^13.2.2"
   },
