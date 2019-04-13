@@ -126,7 +126,7 @@ hazyair.thingspeak({
         'XXXXXXXXXXXXXXXX',
     parameters: {
         dust: {
-    
+
     concentration_pm10_normal:
             'field1'
         
@@ -171,4 +171,4 @@ hazyair.listen({
 
 MIT License
 
-Copyright (c) 2018 Marcin Sielski
+Copyright (c) 2019 Marcin Sielski

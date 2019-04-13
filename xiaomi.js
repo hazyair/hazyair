@@ -61,7 +61,7 @@ class Xiaomi {
         });
 
     }
-    
+
 }
 
 module.exports = Xiaomi;
