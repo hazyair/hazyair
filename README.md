@@ -42,7 +42,7 @@ sudo apt-get autoremove
 
 ```bash
 git clone https://github.com/\
-marcin-sielski/hazyair.git
+hazyair/hazyair.git
 cd hazyair
 npm install
 ```
