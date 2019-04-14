@@ -7,9 +7,9 @@ const Xiaomi = require('./xiaomi');
 
 class Humidity extends Parameter {
 
-    constructor(model, persistent, options = null) {
+    constructor(model, persistent, location, options = null) {
 
-        super('humidity', persistent);
+        super('humidity', persistent, location);
         switch(model) {
             case 'BME280':
             case 'BMP280':

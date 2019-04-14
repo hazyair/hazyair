@@ -30,7 +30,7 @@ class Parameter {
 
     }
 
-    constructor(parameter, persistent = true, precision = 0, parameters = []) {
+    constructor(parameter, persistent = true, location, precision = 0, parameters = []) {
 
         this.parameter = parameter;
         this.persistent = persistent;
@@ -42,7 +42,7 @@ class Parameter {
             this.parameters = parameters;
         }
         if (this.persistent) {
-            this.database = new Database(parameter, Parameter.LIMIT);
+            this.database = new Database(location, parameter, Parameter.LIMIT);
             this.cache = new Cache(['last', 'mean']);
         }
     }

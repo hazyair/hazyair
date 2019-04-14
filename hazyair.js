@@ -54,7 +54,7 @@ class Hazyair extends EventEmitter {
                 if (item.parameter === 'dust') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options') &&
                     item.options.hasOwnProperty('device')) {
-                        this.dust = new Dust(item.model, item.persistent, item.options);
+                        this.dust = new Dust(item.model, item.persistent, item.location, item.options);
                     }
                 } else if (item.parameter === 'temperature') {
                     let options = null;
@@ -62,15 +62,15 @@ class Hazyair extends EventEmitter {
                         options = item.options;
                     }
                     if (item.hasOwnProperty('model')) {
-                        this.temperature = new Temperature(item.model, item.persistent, options);
+                        this.temperature = new Temperature(item.model, item.persistent, item.location, options);
                     }
                 } else if (item.parameter === 'pressure') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.pressure = new Pressure(item.model, item.persistent, item.options);
+                        this.pressure = new Pressure(item.model, item.persistent, item.location, item.options);
                     }
                 } else if (item.parameter === 'humidity') {
                     if (item.hasOwnProperty('model') && item.hasOwnProperty('options')) {
-                        this.humidity = new Humidity(item.model, item.persistent, item.options);
+                        this.humidity = new Humidity(item.model, item.persistent, item.location, item.options);
                     }
                 }
             }

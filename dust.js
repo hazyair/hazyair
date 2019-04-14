@@ -7,7 +7,7 @@ const Xiaomi = require('./xiaomi');
 
 class Dust extends Parameter {
 
-    constructor(model, persistent = true, options = null) {
+    constructor(model, persistent, location, options = null) {
         
         switch(model) {
             case 'PMS1003':
@@ -21,7 +21,7 @@ class Dust extends Parameter {
             case 'PMSA003':
             case 'PMS5003ST':
             case 'PMS5003S':
-                super('dust', persistent, 0, [
+                super('dust', persistent, location, 0, [
                     'concentration_pm1.0_normal',
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal',
@@ -38,7 +38,7 @@ class Dust extends Parameter {
                 this.sensor = new Plantower(model, options);
                 break;
             case 'PMS3003':
-                super('dust', persistent, 0, [
+                super('dust', persistent, location, 0, [
                     'concentration_pm1.0_normal',
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal',
@@ -49,7 +49,7 @@ class Dust extends Parameter {
                 this.sensor = new Plantower(model, options);
                 break;
             case 'PMS5003T':
-                super('dust', persistent, 0, [
+                super('dust', persistent, location, 0, [
                     'concentration_pm1.0_normal',
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal',
@@ -66,14 +66,14 @@ class Dust extends Parameter {
             case 'SDS011':
             case 'SDS018':
             case 'SDS021':
-                super('dust', persistent, 0, [
+                super('dust', persistent, location, 0, [
                     'concentration_pm2.5_normal',
                     'concentration_pm10_normal'
                 ]);
                 this.sensor = new Nova(model, options);
                 break;
             case 'AirPurifier2':
-                super('dust', persistent, 0, [
+                super('dust', persistent, location, 0, [
                     'concentration_pm2.5_normal'
                 ]);
                 this.sensor = new Xiaomi(model, options);

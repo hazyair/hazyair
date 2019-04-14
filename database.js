@@ -8,9 +8,10 @@ require('console-stamp')(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' });
 
 class Database {
 
-    constructor(name, limit) {
+    constructor(location=path.dirname(__filename) + '/db', name, limit) {
 
-        this.db = new PouchDB(path.dirname(__filename) + '/db/' + name + '.db');
+        if (!location.endsWith("/")) location += '/';
+        this.db = new PouchDB(location + name + '.db');
         this.limit  = limit;
         console.log('Database connection opened.');
 

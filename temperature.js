@@ -8,9 +8,9 @@ const Xiaomi = require('./xiaomi');
 
 class Temperature extends Parameter {
 
-    constructor(model, persistent = true, options = null) {
+    constructor(model, persistent, location, options = null) {
 
-        super('temperature', persistent, 1);
+        super('temperature', persistent, location, 1);
         switch(model) {
             case 'DS18B20':
                 this.sensor = new Maxim(model);

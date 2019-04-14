@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -83,9 +83,9 @@
     "email": "marcin.sielski@gmail.com",
     "url": "https://www.linkedin.com/in/msielski"
   },
-  "homepage": "https://marcin-sielski.github.io/hazyair",
+  "homepage": "https://hazyair.github.io/hazyair",
   "bugs": {
-    "url": "https://github.com/marcin-sielski/hazyair/issues",
+    "url": "https://github.com/hazyair/hazyair/issues",
     "email": "marcin.sielski@gmail.com"
   },
   "license": "MIT",
@@ -103,9 +103,9 @@
     "http-shutdown": "^1.2.0",
     "miio": "^0.15.6",
     "moment": "^2.24.0",
-    "hazyair-dweetio": "0.0.15",
+    "hazyair-dweetio": "1.0.1",
     "node-fetch": "^2.3.0",
-    "hazyair-plantower": "^1.1.8",
+    "hazyair-plantower": "^1.2.2",
     "pouchdb-node": "^7.0.0",
     "hazyair-nova": "^1.2.1",
     "sse-broadcast": "^0.5.2",

@@ -171,4 +171,4 @@ hazyair.listen({
 
 MIT License
 
-Copyright (c) 2019 Marcin Sielski
+Copyright (c) 2018-2019 Marcin Sielski
