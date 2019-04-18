@@ -34,8 +34,8 @@ class Database {
         return new Promise((resolve, reject) => {
             this.records().then((limit) => {
                 if (limit >= this.limit) {
-                    this.db.allDocs({limit: 1}).then((result) => {
-                        this.db.remove(result.rows[0].id).then((result) => {
+                    this.db.allDocs({limit: 1, include_docs: true}).then((result) => {
+                        this.db.remove(result.rows[0].doc).then((result) => {
                             if (result.ok) {
                                 return resolve();
                             } else {
@@ -60,6 +60,7 @@ class Database {
     store(data) {
 
         return new Promise((resolve, reject) => {
+            if (data.timestamp === undefined) data.timestamp = Date.now();
             this.remove().then(() => {
                 this.db.put({
                     _id: data.timestamp.toString().padStart(16, '0'),
@@ -85,7 +86,7 @@ class Database {
                 result.rows.forEach((item) => {
                     callback(item.doc.data);
                 });
-                resolve();
+                return resolve();
             }).catch((error) => {
                 return reject(error);
             });
@@ -99,9 +100,23 @@ class Database {
             this.db.close().then(() => {
                 console.log('Database connection closed.');
                 return resolve();
+            }).catch((error) => {
+                return reject(error);
             });
         });
 
+    }
+    
+    destroy() {
+        
+        return new Promise((resolve, reject) => {
+            this.db.destroy().then(() => {
+                return resolve();
+            }).catch((error) => {
+                return reject(error);
+            });
+        });
+        
     }
 
 }

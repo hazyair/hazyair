@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -20,7 +20,8 @@
     "reload": "pm2 reload server",
     "delete": "pm2 delete server",
     "show": "pm2 show server",
-    "logs": "pm2 logs server"
+    "logs": "pm2 logs server",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -100,16 +101,18 @@
     "cron": "^1.7.0",
     "ds18b20": "^0.1.0",
     "express": "^4.16.4",
+    "hazyair-dweetio": "1.0.1",
+    "hazyair-nova": "^1.2.1",
+    "hazyair-plantower": "^1.2.2",
     "http-shutdown": "^1.2.0",
     "miio": "^0.15.6",
     "moment": "^2.24.0",
-    "hazyair-dweetio": "1.0.1",
     "node-fetch": "^2.3.0",
-    "hazyair-plantower": "^1.2.2",
     "pouchdb-node": "^7.0.0",
-    "hazyair-nova": "^1.2.1",
     "sse-broadcast": "^0.5.2",
     "yargs": "^13.2.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "6.1.3"
+  }
 }
