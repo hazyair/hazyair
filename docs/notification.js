@@ -12,12 +12,12 @@ self.addEventListener('notificationclick', function(event) {
             }).then(function(clientList) {
                 for (var i = 0; i < clientList.length; i++) {
                     var client = clientList[i];
-                    if (client.url == 'https://marcin-sielski.github.io/hazyair/' && 'focus' in client) {
+                    if (client.url == 'https://hazyair.github.io/hazyair/' && 'focus' in client) {
                         return client.focus();
                     }
                 }
                 if (clients.openWindow) {
-                    return clients.openWindow('https://marcin-sielski.github.io/hazyair/');
+                    return clients.openWindow('https://hazyair.github.io/hazyair/');
                 }
             }));
             break;
@@ -35,7 +35,7 @@ self.addEventListener('notificationclick', function(event) {
                         var pm10 = response.with[0].content['PM10Concentration'];
                         var title = 'Air quality is fine.';
                         var pattern = [];
-                        if (pm2_5 > 25 || pm10 > 50) {
+                        if (pm2_5 > 25 || pm10 > 40) {
                             title = 'Air quality standards exceeded!';
                             pattern = [200];
                         }

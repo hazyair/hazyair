@@ -51,7 +51,7 @@ function hazyair(type, period) {
     
     if (type === 'dust') {
     
-        var pm100limit = 50;
+        var pm100limit = 40;
         var pm25limit = 25;
         if (period === 'year') {
             pm100limit = 20;
