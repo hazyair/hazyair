@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -113,6 +113,6 @@
     "yargs": "^13.2.2"
   },
   "devDependencies": {
-    "mocha": "6.1.3"
+    "mocha": "^6.1.4"
   }
 }

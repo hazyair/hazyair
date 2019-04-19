@@ -18,7 +18,7 @@ function notification(dweet) {
                         var pm10 = dweet.content['PM10Concentration'];
                         var pattern = [];
                         var title = 'Air quality is fine.';
-                        if (pm2_5 > 25 || pm10 > 50) {
+                        if (pm2_5 > 25 || pm10 > 40) {
                             title = 'Air quality standards exceeded!';
                             pattern = [200];
                         }
@@ -55,7 +55,7 @@ function handleAlert(dweet, parameter) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
         }
     } else if (parameter === 'PM10Concentration') {
-        if (value > 50) {
+        if (value > 40) {
             document.getElementById(parameter+'Text').className = 'hazyair-alert';
         }
     }
