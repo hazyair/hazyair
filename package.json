@@ -1,6 +1,6 @@
 {
   "name": "hazyair",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Air quality monitoring tool.",
   "main": "hazyair.js",
   "scripts": {
@@ -97,22 +97,22 @@
   "dependencies": {
     "bme280-sensor": "^0.1.6",
     "chalk": "^2.4.2",
-    "console-stamp": "^0.2.7",
-    "cron": "^1.7.0",
+    "console-stamp": "^0.2.9",
+    "cron": "^1.7.2",
     "ds18b20": "^0.1.0",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "hazyair-dweetio": "1.0.1",
     "hazyair-nova": "^1.2.1",
     "hazyair-plantower": "^1.2.2",
-    "http-shutdown": "^1.2.0",
+    "http-shutdown": "^1.2.1",
     "miio": "^0.15.6",
     "moment": "^2.24.0",
-    "node-fetch": "^2.3.0",
-    "pouchdb-node": "^7.0.0",
+    "node-fetch": "^2.6.0",
+    "pouchdb-node": "^7.1.1",
     "sse-broadcast": "^0.5.2",
-    "yargs": "^13.2.2"
+    "yargs": "^13.3.0"
   },
   "devDependencies": {
-    "mocha": "^6.1.4"
+    "mocha": "^6.2.2"
   }
 }

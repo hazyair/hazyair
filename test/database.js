@@ -78,7 +78,7 @@ describe('Database', function() {
     });
 
     describe('.remove()', function() {
-        it('should remove all the elements', function(done) {
+        it('should remove oldest element', function(done) {
             database.remove().then(() => {
                 assert.ok(true);
                 done();
@@ -87,7 +87,7 @@ describe('Database', function() {
     });
 
     describe('.records()', function() {
-       it('should still have one lement', function(done) {
+       it('should still have one element', function(done) {
            database.records().then((length) => {
                assert.equal(1, length);
                done();
