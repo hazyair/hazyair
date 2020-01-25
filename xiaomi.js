@@ -50,7 +50,7 @@ class Xiaomi {
         return new Promise((resolve, reject) => {
 
             miio.device({ address: this.address }).then((device) => {
-                var value = device.property('temperature');
+                var value = device.property('humidity');
                 if (value === undefined || value === null) value = 0;
                 return resolve({ 'humidity': { 'value': value, 'unit': '%' }, 'model': this.model,
                 'timestamp': Date.now() });

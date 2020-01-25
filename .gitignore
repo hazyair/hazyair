@@ -68,3 +68,6 @@ thingspeak.json
 
 # dweet
 dweet.json
+
+#csv
+*.csv
