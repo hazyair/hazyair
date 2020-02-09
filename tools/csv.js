@@ -5,6 +5,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
     path: 'data.csv',
     header: [
+        {id: 'timestamp', title: 'TIMESTAMP'},
         {id: 'temperature', title: 'TEMPERATURE'},
         {id: 'dust', title: 'DUST'},
         {id: 'humidity', title: 'HUMIDITY'},
@@ -19,31 +20,68 @@ const pressure = new Database('../db', 'pressure', 24 * 366);
 
 const timestamp = Date.now() - 366*24*60*60*1000;
 
-let temperatureResult = [];
-let dustResult = [];
-let humidityResult = [];
-let pressureResult = [];
 let records = [];
+let result = {};
 
 temperature.find(timestamp, (data) => {
-    temperatureResult.unshift(data['temperature'].value);
+    if (result[data.timestamp] == null) {
+        result[data.timestamp] = {};
+    }
+    result[data.timestamp]['temperature'] = data['temperature'].value;
 }).then(() => {
     temperature.close();
     dust.find(timestamp, (data) => {
-        dustResult.unshift(data['concentration_pm2.5_normal'].value);
+        let found = false;
+        for (let t in result) {
+            if (Math.abs(data.timestamp - t) < 60*1000) {
+                result[t]['concentration_pm2.5_normal'] = data['concentration_pm2.5_normal'].value;
+                found = true;
+            }
+        }
+        if (!found) {
+            if (result[data.timestamp] == null) {
+                result[data.timestamp] = {};
+            }
+            result[data.timestamp]['concentration_pm2.5_normal'] = data['concentration_pm2.5_normal'].value;
+        }
     }).then(() => {
         dust.close();
         humidity.find(timestamp, (data) => {
-            humidityResult.unshift(data['humidity'].value);
+            let found = false;
+            for (let t in result) {
+                if (Math.abs(data.timestamp - t) < 60*1000) {
+                    result[t]['humidity'] = data['humidity'].value;
+                    found = true;
+                }
+            }
+            if (!found) {
+                if (result[data.timestamp] == null) {
+                    result[data.timestamp] = {};
+                }
+                result[data.timestamp]['humidity'] = data['humidity'].value;
+            }
         }).then(() => {
             humidity.close();
             pressure.find(timestamp, (data) => {
-                pressureResult.unshift(data['pressure'].value);
+                let found = false;
+                for (let t in result) {
+                    if (Math.abs(data.timestamp - t) < 60*1000) {
+                        result[t]['pressure'] = data['pressure'].value;
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    if (result[data.timestamp] == null) {
+                        result[data.timestamp] = {};
+                    }
+                    result[data.timestamp]['pressure'] = data['pressure'].value;
+                }
             }).then(() => {
                 pressure.close();
-                for (let i = 0; i < temperatureResult.length; i++) {
-                    records.unshift({temperature: temperatureResult[i], dust: dustResult[i],
-                    humidity: humidityResult[i], pressure: pressureResult[i]});
+                for (let timestamp in result) {
+                    records.push({timestamp: timestamp, temperature: result[timestamp]['temperature'],
+                    dust: result[timestamp]['concentration_pm2.5_normal'], 
+                    humidity: result[timestamp]['humidity'], pressure: result[timestamp]['pressure']});
                 }
                 console.log('Writing to CSV file...');
                 csvWriter.writeRecords(records).then(() => {
